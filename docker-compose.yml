@@ -1,0 +1,21 @@
+services:
+  web:
+    build:
+      context: .
+      args:
+        VITE_ARK_API_KEY: ${VITE_ARK_API_KEY}
+        VITE_ARK_MODEL: ${VITE_ARK_MODEL:-doubao-seed-2-0-pro-260215}
+        VITE_ARK_BASE_URL: ${VITE_ARK_BASE_URL:-https://ark.cn-beijing.volces.com/api/v3}
+        VITE_VOLC_TTS_ENDPOINT: ${VITE_VOLC_TTS_ENDPOINT:-/api/volc-tts}
+        VITE_VOLC_ASR_ENDPOINT: ${VITE_VOLC_ASR_ENDPOINT:-/api/volc-asr}
+        VITE_VOLC_ASR_SUBMIT_ENDPOINT: ${VITE_VOLC_ASR_SUBMIT_ENDPOINT:-/api/volc-asr-submit}
+        VITE_VOLC_ASR_QUERY_ENDPOINT: ${VITE_VOLC_ASR_QUERY_ENDPOINT:-/api/volc-asr-query}
+        VITE_VOLC_DIALOG_ENDPOINT: ${VITE_VOLC_DIALOG_ENDPOINT:-/api/volc-dialog}
+        VITE_VOLC_DIALOG_VOICE: ${VITE_VOLC_DIALOG_VOICE:-}
+        VITE_VOLC_DIALOG_MODEL: ${VITE_VOLC_DIALOG_MODEL:-}
+    env_file:
+      - .env.deploy
+    ports:
+      - "80:80"
+    restart: unless-stopped
+

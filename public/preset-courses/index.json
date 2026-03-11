@@ -1,0 +1,301 @@
+{
+  "courses": [
+    {
+      "id": "lesson-001",
+      "title": "第一课_古老智慧与未来科技的握手_从神农本草经到细胞精准管理",
+      "description": "",
+      "slideCount": 15,
+      "coverImage": "/preset-courses/lesson-001/cover.jpg",
+      "updatedAt": "2026-02-19",
+      "dataFile": "/preset-courses/lesson-001/course.json"
+    },
+    {
+      "id": "lesson-002",
+      "title": "第二课_人体微观建筑学与能量全景",
+      "description": "",
+      "slideCount": 14,
+      "coverImage": "/preset-courses/lesson-002/cover.jpg",
+      "updatedAt": "2026-02-19",
+      "dataFile": "/preset-courses/lesson-002/course.json"
+    },
+    {
+      "id": "lesson-003",
+      "title": "第三课_生命的第一要素_蛋白质",
+      "description": "",
+      "slideCount": 15,
+      "coverImage": "/preset-courses/lesson-003/cover.jpg",
+      "updatedAt": "2026-02-19",
+      "dataFile": "/preset-courses/lesson-003/course.json"
+    },
+    {
+      "id": "lesson-004",
+      "title": "第四课_微观世界的觉醒_细胞生物学绪论",
+      "description": "",
+      "slideCount": 16,
+      "coverImage": "/preset-courses/lesson-004/cover.jpg",
+      "updatedAt": "2026-02-19",
+      "dataFile": "/preset-courses/lesson-004/course.json"
+    },
+    {
+      "id": "lesson-005",
+      "title": "第五课_细胞的生命活动与功能特性",
+      "description": "",
+      "slideCount": 18,
+      "coverImage": "/preset-courses/lesson-005/cover.jpg",
+      "updatedAt": "2026-02-19",
+      "dataFile": "/preset-courses/lesson-005/course.json"
+    },
+    {
+      "id": "lesson-006",
+      "title": "第六课_微观紫禁城_细胞结构深度解析",
+      "description": "",
+      "slideCount": 15,
+      "coverImage": "/preset-courses/lesson-006/cover.jpg",
+      "updatedAt": "2026-02-19",
+      "dataFile": "/preset-courses/lesson-006/course.json"
+    },
+    {
+      "id": "lesson-007",
+      "title": "第七课_只有系统才能救系统_走进中医基础体系",
+      "description": "",
+      "slideCount": 15,
+      "coverImage": "/preset-courses/lesson-007/cover.jpg",
+      "updatedAt": "2026-02-19",
+      "dataFile": "/preset-courses/lesson-007/course.json"
+    },
+    {
+      "id": "lesson-008",
+      "title": "第八课_中医特色文化概论",
+      "description": "",
+      "slideCount": 13,
+      "coverImage": "/preset-courses/lesson-008/cover.jpg",
+      "updatedAt": "2026-02-19",
+      "dataFile": "/preset-courses/lesson-008/course.json"
+    },
+    {
+      "id": "lesson-009",
+      "title": "第九课_中医大家学派概论与合道之路",
+      "description": "",
+      "slideCount": 17,
+      "coverImage": "/preset-courses/lesson-009/cover.jpg",
+      "updatedAt": "2026-02-19",
+      "dataFile": "/preset-courses/lesson-009/course.json"
+    },
+    {
+      "id": "lesson-010",
+      "title": "第十课_顺时而养_做身体的顺行者",
+      "description": "",
+      "slideCount": 15,
+      "coverImage": "/preset-courses/lesson-010/cover.jpg",
+      "updatedAt": "2026-02-19",
+      "dataFile": "/preset-courses/lesson-010/course.json"
+    },
+    {
+      "id": "lesson-011",
+      "title": "第十一课_厨房里的药房_中医药食同源与四气五味详解",
+      "description": "",
+      "slideCount": 16,
+      "coverImage": "/preset-courses/lesson-011/cover.jpg",
+      "updatedAt": "2026-02-19",
+      "dataFile": "/preset-courses/lesson-011/course.json"
+    },
+    {
+      "id": "lesson-012",
+      "title": "第十二课_沉默的杀手_高血压",
+      "description": "",
+      "slideCount": 16,
+      "coverImage": "/preset-courses/lesson-012/cover.jpg",
+      "updatedAt": "2026-02-23",
+      "dataFile": "/preset-courses/lesson-012/course.json"
+    },
+    {
+      "id": "lesson-013",
+      "title": "第十三课_甜蜜的陷阱_糖尿病_胰岛素抵抗与细胞能量危机",
+      "description": "",
+      "slideCount": 16,
+      "coverImage": "/preset-courses/lesson-013/cover.jpg",
+      "updatedAt": "2026-02-23",
+      "dataFile": "/preset-courses/lesson-013/course.json"
+    },
+    {
+      "id": "lesson-014",
+      "title": "第十四课_常见疾病的精准食疗方案",
+      "description": "",
+      "slideCount": 16,
+      "coverImage": "/preset-courses/lesson-014/cover.jpg",
+      "updatedAt": "2026-02-23",
+      "dataFile": "/preset-courses/lesson-014/course.json"
+    },
+    {
+      "id": "lesson-015",
+      "title": "第十五课_核心话术方向拆解",
+      "description": "",
+      "slideCount": 20,
+      "coverImage": "/preset-courses/lesson-015/cover.jpg",
+      "updatedAt": "2026-02-23",
+      "dataFile": "/preset-courses/lesson-015/course.json"
+    },
+    {
+      "id": "lesson-016",
+      "title": "第十六课_食物的奇幻漂流_消化系统解剖生理与营养吸收机制",
+      "description": "",
+      "slideCount": 15,
+      "coverImage": "/preset-courses/lesson-016/cover.jpg",
+      "updatedAt": "2026-02-23",
+      "dataFile": "/preset-courses/lesson-016/course.json"
+    },
+    {
+      "id": "lesson-017",
+      "title": "第十七课_菜篮子里的营养学_各类食品的营养价值深度解析",
+      "description": "",
+      "slideCount": 18,
+      "coverImage": "/preset-courses/lesson-017/cover.jpg",
+      "updatedAt": "2026-02-23",
+      "dataFile": "/preset-courses/lesson-017/course.json"
+    },
+    {
+      "id": "lesson-018",
+      "title": "第十八课_生命的燃料与火焰_三大产能营养素与能量代谢机制",
+      "description": "",
+      "slideCount": 16,
+      "coverImage": "/preset-courses/lesson-018/cover.jpg",
+      "updatedAt": "2026-02-23",
+      "dataFile": "/preset-courses/lesson-018/course.json"
+    },
+    {
+      "id": "lesson-019",
+      "title": "第十九课_水溶性维生素_B族与C族的代谢奥秘",
+      "description": "",
+      "slideCount": 18,
+      "coverImage": "/preset-courses/lesson-019/cover.jpg",
+      "updatedAt": "2026-02-23",
+      "dataFile": "/preset-courses/lesson-019/course.json"
+    },
+    {
+      "id": "lesson-020",
+      "title": "第二十课_身体的战略储备库_脂溶性维生素科学深度解析",
+      "description": "",
+      "slideCount": 18,
+      "coverImage": "/preset-courses/lesson-020/cover.jpg",
+      "updatedAt": "2026-02-23",
+      "dataFile": "/preset-courses/lesson-020/course.json"
+    },
+    {
+      "id": "lesson-021",
+      "title": "第二十一课_非产热营养素之矿物质,身体里的星尘",
+      "description": "",
+      "slideCount": 20,
+      "coverImage": "/preset-courses/lesson-021/cover.jpg",
+      "updatedAt": "2026-02-23",
+      "dataFile": "/preset-courses/lesson-021/course.json"
+    },
+    {
+      "id": "lesson-022",
+      "title": "第二十二课_肠道的扫把与海绵_膳食纤维",
+      "description": "",
+      "slideCount": 16,
+      "coverImage": "/preset-courses/lesson-022/cover.jpg",
+      "updatedAt": "2026-02-23",
+      "dataFile": "/preset-courses/lesson-022/course.json"
+    },
+    {
+      "id": "lesson-023",
+      "title": "第二十三课_被忽视的百药之王_水的营养与功能",
+      "description": "",
+      "slideCount": 15,
+      "coverImage": "/preset-courses/lesson-023/cover.jpg",
+      "updatedAt": "2026-02-23",
+      "dataFile": "/preset-courses/lesson-023/course.json"
+    },
+    {
+      "id": "lesson-024",
+      "title": "第二十四课_六大人群的营养需求,全家人的营养管家",
+      "description": "",
+      "slideCount": 20,
+      "coverImage": "/preset-courses/lesson-024/cover.jpg",
+      "updatedAt": "2026-02-23",
+      "dataFile": "/preset-courses/lesson-024/course.json"
+    },
+    {
+      "id": "lesson-025",
+      "title": "第二十五课_大数据里的长寿密码_营养流行病学",
+      "description": "",
+      "slideCount": 16,
+      "coverImage": "/preset-courses/lesson-025/cover.jpg",
+      "updatedAt": "2026-02-23",
+      "dataFile": "/preset-courses/lesson-025/course.json"
+    },
+    {
+      "id": "lesson-026",
+      "title": "第二十六课_生命的良导体_细胞质基质_结构水与生物波传播",
+      "description": "",
+      "slideCount": 16,
+      "coverImage": "/preset-courses/lesson-026/cover.jpg",
+      "updatedAt": "2026-03-07",
+      "dataFile": "/preset-courses/lesson-026/course.json"
+    },
+    {
+      "id": "lesson-027",
+      "title": "第二十七课_分子水平的精准修复_内膜系统_基因表达与病毒灭活",
+      "description": "",
+      "slideCount": 16,
+      "coverImage": "/preset-courses/lesson-027/cover.jpg",
+      "updatedAt": "2026-03-07",
+      "dataFile": "/preset-courses/lesson-027/course.json"
+    },
+    {
+      "id": "lesson-028",
+      "title": "第二十八课_人体的量子物流网_膜泡系统",
+      "description": "",
+      "slideCount": 16,
+      "coverImage": "/preset-courses/lesson-028/cover.jpg",
+      "updatedAt": "2026-03-07",
+      "dataFile": "/preset-courses/lesson-028/course.json"
+    },
+    {
+      "id": "lesson-029",
+      "title": "第二十九课_生命的雷达与身份证_细胞表面的结构与功能",
+      "description": "",
+      "slideCount": 16,
+      "coverImage": "/preset-courses/lesson-029/cover.jpg",
+      "updatedAt": "2026-03-07",
+      "dataFile": "/preset-courses/lesson-029/course.json"
+    },
+    {
+      "id": "lesson-030",
+      "title": "第三十课_万物互联_细胞通讯网络",
+      "description": "",
+      "slideCount": 16,
+      "coverImage": "/preset-courses/lesson-030/cover.jpg",
+      "updatedAt": "2026-03-07",
+      "dataFile": "/preset-courses/lesson-030/course.json"
+    },
+    {
+      "id": "lesson-031",
+      "title": "第三十一课_人体内在的光纤网络",
+      "description": "",
+      "slideCount": 16,
+      "coverImage": "/preset-courses/lesson-031/cover.jpg",
+      "updatedAt": "2026-03-07",
+      "dataFile": "/preset-courses/lesson-031/course.json"
+    },
+    {
+      "id": "lesson-032",
+      "title": "第三十二课_线粒体-生命的核反应堆",
+      "description": "",
+      "slideCount": 16,
+      "coverImage": "/preset-courses/lesson-032/cover.jpg",
+      "updatedAt": "2026-03-07",
+      "dataFile": "/preset-courses/lesson-032/course.json"
+    },
+    {
+      "id": "lesson-033",
+      "title": "第三十三课_生命的3D打印机_核糖体功能-病毒劫持与频率干预",
+      "description": "",
+      "slideCount": 16,
+      "coverImage": "/preset-courses/lesson-033/cover.jpg",
+      "updatedAt": "2026-03-07",
+      "dataFile": "/preset-courses/lesson-033/course.json"
+    }
+  ]
+}

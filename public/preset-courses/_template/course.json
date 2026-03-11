@@ -1,0 +1,16 @@
+{
+  "id": "course-id",
+  "title": "Course Title",
+  "description": "Short intro",
+  "sourcePdf": "source.pdf",
+  "updatedAt": "2026-02-19",
+  "slides": [
+    {
+      "id": 1,
+      "image": "slides/001.jpg",
+      "script": "Slide script text",
+      "audioFile": "audio/001.txt",
+      "audioData": ""
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "name": "Gemini Slide Presenter",
+  "description": "An intelligent presentation assistant that parses PDF slides, generates speech scripts using Gemini Vision, performs TTS presentation, and answers questions contextually.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}

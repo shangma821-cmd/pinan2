@@ -1,0 +1,362 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>璋卞厓绉戞妧 - 鏁版櫤涓尰</title>
+    <script type="module" crossorigin src="./assets/index-BqLXAaHJ.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DuxCbJQB.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      (function () {
+        var TAB_ATTR = 'data-ai-academy-tab';
+        var TAB_LABEL = '频安AI商学院';
+        var TARGET_PATH = '/academy';
+        var NAV_TEXTS = ['首页', '关于我们', '产品服务', '加盟合作', '新闻动态'];
+        var ACTION_SELECTOR = 'a,button,[role="button"]';
+        var CONTACT_TRIGGER_TEXT = '联系我们';
+        var CONTACT_MODAL_ID = 'entry-contact-modal';
+        var CONTACT_STYLE_ID = 'entry-contact-style';
+        var contactHandlerBound = false;
+
+        function normalizeText(text) {
+          return String(text || '').replace(/\s+/g, '').trim();
+        }
+
+        function isVisible(el) {
+          if (!el) return false;
+          var rect = el.getBoundingClientRect();
+          if (rect.width <= 0 || rect.height <= 0) return false;
+          var style = window.getComputedStyle(el);
+          return style.display !== 'none' && style.visibility !== 'hidden' && style.opacity !== '0';
+        }
+
+        function isActionElement(el) {
+          if (!el || !el.tagName) return false;
+          return el.matches(ACTION_SELECTOR);
+        }
+
+        function getActionFromNode(node) {
+          if (!node) return null;
+          if (isActionElement(node)) return node;
+          return node.querySelector(ACTION_SELECTOR);
+        }
+
+        function getDirectChild(container, node) {
+          var current = node;
+          while (current && current.parentElement && current.parentElement !== container) {
+            current = current.parentElement;
+          }
+          return current && current.parentElement === container ? current : null;
+        }
+
+        function stripActiveClassName(element) {
+          if (!element || !element.classList) return;
+          var toRemove = [];
+          element.classList.forEach(function (className) {
+            var lower = className.toLowerCase();
+            if (lower.indexOf('active') >= 0 || lower.indexOf('current') >= 0 || lower.indexOf('selected') >= 0) {
+              toRemove.push(className);
+            }
+          });
+          toRemove.forEach(function (className) {
+            element.classList.remove(className);
+          });
+        }
+
+        function openAcademy(event) {
+          if (event && typeof event.preventDefault === 'function') {
+            event.preventDefault();
+          }
+
+          try {
+            if (window.parent && window.parent !== window) {
+              window.parent.postMessage({ type: 'OPEN_AI_ACADEMY' }, window.location.origin);
+              if (typeof window.parent.__openAiAcademy === 'function') {
+                window.parent.__openAiAcademy();
+                return;
+              }
+            }
+          } catch (err) {
+            // Ignore and fallback to direct navigation.
+          }
+
+          window.location.href = TARGET_PATH;
+        }
+
+        function isHeaderContactTrigger(action) {
+          if (!action || !isVisible(action)) return false;
+          if (normalizeText(action.textContent) !== CONTACT_TRIGGER_TEXT) return false;
+          var rect = action.getBoundingClientRect();
+          return rect.top >= -8 && rect.top <= 180 && rect.width >= 72 && rect.height >= 28;
+        }
+
+        function ensureContactStyle() {
+          if (document.getElementById(CONTACT_STYLE_ID)) return;
+          var style = document.createElement('style');
+          style.id = CONTACT_STYLE_ID;
+          style.textContent = [
+            '.entry-contact-modal{position:fixed;inset:0;z-index:9999;display:none;}',
+            '.entry-contact-modal.entry-contact-modal-open{display:block;}',
+            '.entry-contact-backdrop{position:absolute;inset:0;background:rgba(8,15,28,.45);backdrop-filter:blur(10px) saturate(125%);}',
+            '.entry-contact-panel{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(94vw,560px);',
+            'background:linear-gradient(145deg,rgba(255,255,255,.78),rgba(255,255,255,.62));',
+            'backdrop-filter:blur(18px) saturate(145%);border:1px solid rgba(255,255,255,.58);',
+            'border-radius:24px;box-shadow:0 22px 58px rgba(15,23,42,.28),inset 0 1px 0 rgba(255,255,255,.8);',
+            'padding:28px 28px 24px;color:#0f172a;overflow:hidden;}',
+            '.entry-contact-panel::before{content:\"\";position:absolute;inset:-120% auto auto -30%;width:240px;height:240px;',
+            'background:radial-gradient(circle,rgba(74,222,128,.22),rgba(74,222,128,0));pointer-events:none;}',
+            '.entry-contact-head{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:18px;}',
+            '.entry-contact-title{margin:0;font-size:30px;font-weight:900;line-height:1.1;color:#0f172a;letter-spacing:.01em;}',
+            '.entry-contact-close{width:42px;height:42px;border-radius:999px;border:1px solid rgba(148,163,184,.42);',
+            'background:rgba(255,255,255,.62);color:#334155;font-size:24px;line-height:1;cursor:pointer;transition:all .2s ease;}',
+            '.entry-contact-close:hover{background:rgba(255,255,255,.9);border-color:rgba(148,163,184,.72);transform:translateY(-1px);}',
+            '.entry-contact-content{position:relative;z-index:1;font-size:18px;line-height:2;color:#1e293b;}',
+            '.entry-contact-label{font-weight:800;color:#0f172a;}',
+            '.entry-contact-link{color:#15803d;font-weight:800;text-decoration:none;}',
+            '.entry-contact-link:hover{text-decoration:underline;}',
+            '@media (max-width:640px){.entry-contact-panel{width:min(92vw,520px);padding:22px 18px 18px;border-radius:20px;}',
+            '.entry-contact-title{font-size:24px;}.entry-contact-content{font-size:16px;line-height:1.9;}}'
+          ].join('');
+          document.head.appendChild(style);
+        }
+
+        function ensureContactModal() {
+          var modal = document.getElementById(CONTACT_MODAL_ID);
+          if (modal) return modal;
+
+          modal = document.createElement('div');
+          modal.id = CONTACT_MODAL_ID;
+          modal.className = 'entry-contact-modal';
+          modal.innerHTML = [
+            '<div class="entry-contact-backdrop" data-contact-close="1"></div>',
+            '<div class="entry-contact-panel" role="dialog" aria-modal="true" aria-label="联系方式弹窗">',
+            '  <div class="entry-contact-head">',
+            '    <h3 class="entry-contact-title">联系我们</h3>',
+            '    <button type="button" class="entry-contact-close" data-contact-close="1" aria-label="关闭">×</button>',
+            '  </div>',
+            '  <div class="entry-contact-content">',
+            '    <div><span class="entry-contact-label">产品加盟咨询：</span>叶总监</div>',
+            '    <div><span class="entry-contact-label">联系电话：</span><a class="entry-contact-link" href="tel:18948301116">18948301116</a></div>',
+            '    <div><span class="entry-contact-label">邮箱：</span><a class="entry-contact-link" href="mailto:Pinancs@163.com">Pinancs@163.com</a></div>',
+            '  </div>',
+            '</div>'
+          ].join('');
+
+          modal.addEventListener('click', function (event) {
+            var target = event.target;
+            if (!(target instanceof Element)) return;
+            if (target.closest('[data-contact-close="1"]')) {
+              closeContactModal();
+            }
+          });
+
+          document.body.appendChild(modal);
+          return modal;
+        }
+
+        function openContactModal() {
+          ensureContactStyle();
+          var modal = ensureContactModal();
+          modal.classList.add('entry-contact-modal-open');
+          document.body.style.overflow = 'hidden';
+        }
+
+        function closeContactModal() {
+          var modal = document.getElementById(CONTACT_MODAL_ID);
+          if (!modal) return;
+          modal.classList.remove('entry-contact-modal-open');
+          document.body.style.overflow = '';
+        }
+
+        function bindContactModalTrigger() {
+          if (contactHandlerBound) return;
+          contactHandlerBound = true;
+
+          document.addEventListener('click', function (event) {
+            var target = event.target;
+            if (!(target instanceof Element)) return;
+            var action = target.closest(ACTION_SELECTOR);
+            if (!action) return;
+            if (!isHeaderContactTrigger(action)) return;
+            event.preventDefault();
+            openContactModal();
+          }, true);
+
+          document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+              closeContactModal();
+            }
+          });
+        }
+
+        function findMenuByNewsAction(newsAction) {
+          var candidates = [];
+          if (newsAction.parentElement) candidates.push(newsAction.parentElement);
+          if (newsAction.parentElement && newsAction.parentElement.parentElement) {
+            candidates.push(newsAction.parentElement.parentElement);
+          }
+
+          for (var i = 0; i < candidates.length; i += 1) {
+            var container = candidates[i];
+            if (!container) continue;
+
+            var childNodes = Array.prototype.slice.call(container.children || []);
+            var items = childNodes.map(function (child) {
+              return {
+                node: child,
+                action: getActionFromNode(child),
+              };
+            }).filter(function (item) {
+              return item.action && isVisible(item.action);
+            });
+
+            if (items.length < 4 || items.length > 10) continue;
+
+            var labels = {};
+            var hasNews = false;
+            items.forEach(function (item) {
+              var text = normalizeText(item.action.textContent);
+              if (NAV_TEXTS.indexOf(text) >= 0) {
+                labels[text] = true;
+              }
+              if (text === '新闻动态') {
+                hasNews = true;
+              }
+            });
+
+            if (hasNews && Object.keys(labels).length >= 4) {
+              return {
+                container: container,
+                items: items,
+              };
+            }
+          }
+
+          return null;
+        }
+
+        function collectVisibleMenuTargets() {
+          var newsActions = Array.prototype.slice.call(document.querySelectorAll(ACTION_SELECTOR)).filter(function (el) {
+            return isVisible(el) && normalizeText(el.textContent) === '新闻动态';
+          });
+
+          var targets = [];
+          var seen = new Set();
+
+          newsActions.forEach(function (newsAction) {
+            var menu = findMenuByNewsAction(newsAction);
+            if (!menu) return;
+            if (seen.has(menu.container)) return;
+            seen.add(menu.container);
+            targets.push(menu);
+          });
+
+          return targets;
+        }
+
+        function createTabNodeFrom(anchorAction) {
+          var templateWrapper = anchorAction.closest ? anchorAction.closest('li') : null;
+          var baseNode = templateWrapper && templateWrapper.parentElement ? templateWrapper : anchorAction;
+          var clonedNode = baseNode.cloneNode(true);
+          var tabAction = getActionFromNode(clonedNode);
+
+          if (!tabAction) return null;
+
+          stripActiveClassName(tabAction);
+          tabAction.setAttribute(TAB_ATTR, '1');
+          tabAction.removeAttribute('aria-current');
+          tabAction.textContent = TAB_LABEL;
+          tabAction.style.whiteSpace = 'nowrap';
+
+          if (tabAction.tagName === 'A') {
+            tabAction.setAttribute('href', TARGET_PATH);
+            tabAction.setAttribute('target', '_top');
+          } else {
+            tabAction.setAttribute('type', 'button');
+          }
+
+          tabAction.addEventListener('click', openAcademy);
+          return clonedNode;
+        }
+
+        function ensureTabInMenu(menu) {
+          var container = menu.container;
+          var newsItem = menu.items.find(function (item) {
+            return normalizeText(item.action.textContent) === '新闻动态';
+          });
+          if (!newsItem) return false;
+
+          var anchorNode = newsItem.node;
+          var existingAction = container.querySelector('[' + TAB_ATTR + ']');
+
+          if (existingAction) {
+            var existingNode = getDirectChild(container, existingAction) || existingAction;
+            if (existingNode !== anchorNode.nextElementSibling) {
+              anchorNode.insertAdjacentElement('afterend', existingNode);
+            }
+            return true;
+          }
+
+          var newNode = createTabNodeFrom(newsItem.action);
+          if (!newNode) return false;
+          anchorNode.insertAdjacentElement('afterend', newNode);
+          return true;
+        }
+
+        function cleanupStaleTabs(validMenus) {
+          var validContainers = validMenus.map(function (menu) {
+            return menu.container;
+          });
+
+          var tabs = document.querySelectorAll('[' + TAB_ATTR + ']');
+          tabs.forEach(function (action) {
+            var keep = validContainers.some(function (container) {
+              return container.contains(action);
+            });
+            if (keep) return;
+
+            var removable = action.closest ? (action.closest('li') || action) : action;
+            if (removable && removable.parentElement) {
+              removable.parentElement.removeChild(removable);
+            }
+          });
+        }
+
+        function ensureAcademyTabs() {
+          var menus = collectVisibleMenuTargets();
+          if (!menus.length) return false;
+
+          menus.forEach(function (menu) {
+            ensureTabInMenu(menu);
+          });
+
+          cleanupStaleTabs(menus);
+          return true;
+        }
+
+        function init() {
+          ensureAcademyTabs();
+          bindContactModalTrigger();
+
+          var observer = new MutationObserver(function () {
+            ensureAcademyTabs();
+          });
+          observer.observe(document.documentElement, { childList: true, subtree: true });
+
+          window.setInterval(function () {
+            ensureAcademyTabs();
+          }, 1000);
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', init, { once: true });
+        } else {
+          init();
+        }
+      })();
+    </script>
+  </body>
+</html>
