@@ -1,13 +1,338 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>谱元科技 - 数智中医</title>
+    <meta
+      name="description"
+      content="频安生活围绕门店空间体验、居家搭配与日常陪伴，呈现更清晰、更舒适的生活方式服务表达。"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Raleway:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <title>频安生活 | 日常状态管理与空间体验</title>
     <script type="module" crossorigin src="./assets/index-BqLXAaHJ.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-DuxCbJQB.css">
+    <link rel="stylesheet" crossorigin href="./assets/index-DuxCbJQB.css" />
   </head>
   <body>
-    <div id="root"></div>
+    <div class="site-shell">
+      <header class="site-header">
+        <div class="container header-inner">
+          <a class="brand" href="#home" aria-label="频安生活首页">
+            <span class="brand-mark">PH</span>
+            <span class="brand-copy">
+              <strong>频安生活</strong>
+              <span>空间体验与日常陪伴</span>
+            </span>
+          </a>
+
+          <button
+            class="menu-button"
+            type="button"
+            aria-expanded="false"
+            aria-controls="site-menu"
+            data-menu-button
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+            <span class="sr-only">展开导航</span>
+          </button>
+
+          <nav class="site-nav" id="site-menu" data-menu>
+            <a href="#intro">服务内容</a>
+            <a href="#journey">服务流程</a>
+            <a href="#scenes">适配场景</a>
+            <a href="#partners">合作支持</a>
+            <a href="#contact">联系我们</a>
+          </nav>
+        </div>
+      </header>
+
+      <main id="home">
+        <section class="hero-section">
+          <div class="container hero-grid">
+            <div class="hero-copy">
+              <span class="eyebrow">门店服务 · 居家搭配 · 生活方式灵感</span>
+              <h1>把日常状态，安顿在更舒服的节奏里。</h1>
+              <p class="hero-text">
+                频安生活围绕门店空间、日常用品搭配与持续陪伴服务，帮助用户用更轻松的方式整理生活节奏，也帮助合作门店把服务表达得更清晰、更有质感。
+              </p>
+              <div class="hero-actions">
+                <a class="button button-primary" href="tel:18948301116">到店咨询</a>
+                <a class="button button-secondary" href="#journey">查看服务流程</a>
+              </div>
+              <div class="hero-note">
+                <div class="note-card">
+                  <strong>我们更重视什么</strong>
+                  <p>清楚说明、舒适空间、顺手搭配、持续陪伴。</p>
+                </div>
+                <div class="note-card">
+                  <strong>页面说明</strong>
+                  <p>本页用于介绍品牌、门店服务和合作信息，不包含效果承诺。</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="hero-visual">
+              <figure class="hero-photo hero-photo-main">
+                <img src="./store-front-new.jpg" alt="频安生活门店空间展示" />
+              </figure>
+              <figure class="hero-photo hero-photo-side">
+                <img src="./service-scene.jpg" alt="频安生活服务场景展示" />
+              </figure>
+              <div class="floating-panel">
+                <span class="panel-tag">门店体验</span>
+                <strong>从第一眼到最后一步，都更容易听懂、看懂、走通。</strong>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="story-section" id="intro">
+          <div class="container">
+            <div class="section-heading">
+              <span class="eyebrow">服务内容</span>
+              <h2>不是堆概念，而是把每一段服务都说得明白。</h2>
+              <p>
+                我们把服务拆成能被真实感知的几个环节，让门店体验、居家使用和后续沟通形成同一条节奏线。
+              </p>
+            </div>
+
+            <div class="feature-grid">
+              <article class="feature-card">
+                <span class="feature-index">01</span>
+                <h3>门店空间体验</h3>
+                <p>
+                  通过动线、陈列、讲解节奏和到店接待，让用户在进入空间的几分钟内就知道“这里适合我做什么”。
+                </p>
+              </article>
+              <article class="feature-card">
+                <span class="feature-index">02</span>
+                <h3>居家搭配建议</h3>
+                <p>
+                  把适合日常使用的用品组合成更顺手的场景搭配，降低理解门槛，也减少用户带回家后的使用压力。
+                </p>
+              </article>
+              <article class="feature-card">
+                <span class="feature-index">03</span>
+                <h3>持续陪伴沟通</h3>
+                <p>
+                  围绕作息、饮水、活动和空间整理提供内容陪伴，让服务不是“到店一次”，而是能逐步养成节奏。
+                </p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="journey-section" id="journey">
+          <div class="container">
+            <div class="section-heading">
+              <span class="eyebrow">服务流程</span>
+              <h2>四步走通，用户和门店都更省心。</h2>
+            </div>
+
+            <div class="journey-grid">
+              <article class="journey-card">
+                <span>01</span>
+                <h3>到店沟通</h3>
+                <p>先了解日常习惯、空间偏好和使用期待，把交流放在轻松而清楚的节奏里。</p>
+              </article>
+              <article class="journey-card">
+                <span>02</span>
+                <h3>场景梳理</h3>
+                <p>把用户常见的生活场景整理成更容易理解的分区，帮助做出适合自己的选择。</p>
+              </article>
+              <article class="journey-card">
+                <span>03</span>
+                <h3>组合建议</h3>
+                <p>结合门店体验和居家使用习惯，形成更顺手的用品与空间搭配方案。</p>
+              </article>
+              <article class="journey-card">
+                <span>04</span>
+                <h3>持续陪伴</h3>
+                <p>通过回访、内容说明和门店活动，让用户更容易把好的节奏留在日常里。</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="scene-section" id="scenes">
+          <div class="container">
+            <div class="section-heading">
+              <span class="eyebrow">适配场景</span>
+              <h2>更贴近日常，而不是只停留在口号里。</h2>
+            </div>
+
+            <div class="scene-grid">
+              <article class="scene-card">
+                <img src="./solution-wellness.jpg" alt="日常舒缓场景展示" loading="lazy" />
+                <div class="scene-card-copy">
+                  <h3>久坐之后的放松时段</h3>
+                  <p>适合希望把晚间节奏放慢一点、让空间更有松弛感的人群。</p>
+                </div>
+              </article>
+              <article class="scene-card">
+                <img src="./lifestyle-smart.jpg" alt="晚间居家生活场景展示" loading="lazy" />
+                <div class="scene-card-copy">
+                  <h3>晚间整理与安静陪伴</h3>
+                  <p>围绕照明、动线和用品搭配，帮助晚间活动更顺手，也更不急促。</p>
+                </div>
+              </article>
+              <article class="scene-card">
+                <img src="./case-energy.jpg" alt="活力管理场景展示" loading="lazy" />
+                <div class="scene-card-copy">
+                  <h3>白天活力管理</h3>
+                  <p>适合希望把饮水、活动和日间节奏安排得更稳定的人群。</p>
+                </div>
+              </article>
+              <article class="scene-card">
+                <img src="./case-elderly.jpg" alt="家人陪伴场景展示" loading="lazy" />
+                <div class="scene-card-copy">
+                  <h3>家人陪伴与空间关照</h3>
+                  <p>让家中不同成员都更容易理解用品用途，减少沟通成本。</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="tool-section">
+          <div class="container tool-layout">
+            <div class="section-heading section-heading-left">
+              <span class="eyebrow">组合表达</span>
+              <h2>把空间、用品和服务放进同一个表达系统。</h2>
+              <p>
+                频安生活不追求复杂话术，而是通过简单、完整、可复用的组合表达，让门店讲解和用户理解都更自然。
+              </p>
+            </div>
+
+            <div class="tool-grid">
+              <article class="tool-card">
+                <img src="./product-band.jpg" alt="穿戴设备展示" loading="lazy" />
+                <div>
+                  <h3>穿戴陪伴设备</h3>
+                  <p>适合轻便场景，让用户在外出、通勤或活动间隙也能保留熟悉的陪伴感。</p>
+                </div>
+              </article>
+              <article class="tool-card">
+                <img src="./product-water.jpg" alt="饮水设备展示" loading="lazy" />
+                <div>
+                  <h3>饮水与日常搭配</h3>
+                  <p>围绕饮水习惯和空间摆放做更顺手的安排，让坚持这件事变得更轻一点。</p>
+                </div>
+              </article>
+              <article class="tool-card">
+                <img src="./equipment-detail.jpg" alt="空间设备展示" loading="lazy" />
+                <div>
+                  <h3>空间体验设备</h3>
+                  <p>适合门店体验区与休憩角，帮助用户快速感受空间节奏和服务氛围。</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="partner-section" id="partners">
+          <div class="container partner-grid">
+            <div class="partner-copy">
+              <span class="eyebrow">合作支持</span>
+              <h2>如果你要做一家更有秩序感的门店，我们把支持准备得更完整。</h2>
+              <p>
+                从空间陈列到接待节奏，从开业物料到日常复盘，我们用一套更容易落地的支持体系，帮助合作伙伴把门店节奏稳住。
+              </p>
+
+              <div class="support-list">
+                <article class="support-card">
+                  <h3>空间陈列模板</h3>
+                  <p>帮助门店快速搭建统一视觉，减少“东西很多但不会摆”的启动焦虑。</p>
+                </article>
+                <article class="support-card">
+                  <h3>调理师接待流程</h3>
+                  <p>梳理接待话术、动线安排和说明顺序，让服务表达更稳定、更有边界感。</p>
+                </article>
+                <article class="support-card">
+                  <h3>内容物料支持</h3>
+                  <p>提供开业活动、日常更新和空间说明的基础内容，让传播更统一。</p>
+                </article>
+                <article class="support-card">
+                  <h3>经营节奏复盘</h3>
+                  <p>围绕到店转化、复访沟通和用户反馈做月度整理，把门店动作做得更稳。</p>
+                </article>
+              </div>
+            </div>
+
+            <aside class="contact-panel" id="contact">
+              <span class="panel-tag">合作与咨询</span>
+              <h3>先来电沟通，再安排到店交流。</h3>
+              <ul class="contact-list">
+                <li>
+                  <span>咨询热线</span>
+                  <a href="tel:18948301116">18948301116</a>
+                </li>
+                <li>
+                  <span>沟通建议</span>
+                  <strong>建议提前预约，便于安排接待时段</strong>
+                </li>
+                <li>
+                  <span>总部地址</span>
+                  <strong>江苏省苏州市常熟市东南街道久隆路88号</strong>
+                </li>
+              </ul>
+              <div class="contact-actions">
+                <a class="button button-primary" href="tel:18948301116">立即电话咨询</a>
+                <a class="button button-secondary" href="#insights">查看空间笔记</a>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="insight-section" id="insights">
+          <div class="container">
+            <div class="section-heading">
+              <span class="eyebrow">空间笔记</span>
+              <h2>更适合品牌官网的内容表达，也更贴近日常使用场景。</h2>
+            </div>
+
+            <div class="insight-grid">
+              <article class="insight-card">
+                <img src="./about-img.jpg" alt="门店空间陈列示意" loading="lazy" />
+                <div>
+                  <h3>门店空间怎么做，用户会更愿意停留</h3>
+                  <p>从入口氛围、停留节点到讲解区域，让空间更有层次，也更方便沟通。</p>
+                </div>
+              </article>
+              <article class="insight-card">
+                <img src="./how-it-works.jpg" alt="服务流程示意" loading="lazy" />
+                <div>
+                  <h3>服务流程怎么讲，内容才不会显得又满又乱</h3>
+                  <p>把复杂说明拆成更容易理解的步骤，是提高服务完成度的关键动作。</p>
+                </div>
+              </article>
+              <article class="insight-card">
+                <img src="./team-photo.jpg" alt="服务团队示意" loading="lazy" />
+                <div>
+                  <h3>合作门店开业前，最值得先准备的三件事</h3>
+                  <p>统一视觉、清楚讲解、稳定接待，是门店前期最能感受到差异的部分。</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <div class="container footer-inner">
+          <div>
+            <strong>频安生活</strong>
+            <p>围绕门店空间、居家搭配与日常陪伴，提供更清晰、更舒服的服务表达。</p>
+          </div>
+          <p>© <span data-year></span> 频安生活. 页面内容以品牌介绍与门店现场说明为准。</p>
+        </div>
+      </footer>
+    </div>
   </body>
 </html>
