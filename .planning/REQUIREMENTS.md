@@ -69,16 +69,36 @@
 
 ## Traceability
 
-Roadmap creation pending.
+Roadmap created for milestone v1.0.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
+| SHELL-01 | Phase 1 | Pending |
+| SHELL-02 | Phase 2 | Pending |
+| SHELL-03 | Phase 1 | Pending |
+| HOME-01 | Phase 3 | Pending |
+| HOME-02 | Phase 3 | Pending |
+| HOME-03 | Phase 4 | Pending |
+| ABOUT-01 | Phase 3 | Pending |
+| ABOUT-02 | Phase 3 | Pending |
+| PROD-01 | Phase 3 | Pending |
+| PROD-02 | Phase 3 | Pending |
+| PROD-03 | Phase 3 | Pending |
+| FRAN-01 | Phase 3 | Pending |
+| FRAN-02 | Phase 3 | Pending |
+| FRAN-03 | Phase 3 | Pending |
+| NEWS-01 | Phase 4 | Pending |
+| NEWS-02 | Phase 4 | Pending |
+| NEWS-03 | Phase 4 | Pending |
+| XPG-01 | Phase 4 | Pending |
+| XPG-02 | Phase 4 | Pending |
+| XPG-03 | Phase 5 | Pending |
 
 **Coverage:**
-- v1 requirements: 19 total
-- Mapped to phases: 0
-- Unmapped: 19 ⚠️
+- v1 requirements: 20 total
+- Mapped to phases: 20
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-04-09*
-*Last updated: 2026-04-09 after initial milestone requirement definition*
+*Last updated: 2026-04-09 after roadmap creation*
