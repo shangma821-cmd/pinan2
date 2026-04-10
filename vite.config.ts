@@ -1,12 +1,9 @@
-import fs from 'fs';
 import path from 'path';
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
-    const entryStationRoute = '/entry-station';
-    const entryStationSourceDir = path.resolve(__dirname, 'Kimi_Agent_Deployment_v14');
     const volcAppId = env.VITE_VOLC_TTS_APP_ID || env.VITE_VOLC_APP_ID || '';
     const volcAccessToken = env.VITE_VOLC_TTS_ACCESS_TOKEN || env.VITE_VOLC_ACCESS_TOKEN || '';
     const volcResourceId = env.VITE_VOLC_TTS_RESOURCE_ID || 'volc.service_type.10029';
@@ -66,47 +63,6 @@ export default defineConfig(({ mode }) => {
     });
 
     const createConnectId = (): string => `${Date.now()}-${Math.random().toString(16).slice(2)}`;
-    const remapEntryStationPath = (pathname: string): string | null => {
-      if (pathname === entryStationRoute || pathname === `${entryStationRoute}/`) {
-        return '/Kimi_Agent_Deployment_v14/index.html';
-      }
-      if (pathname.startsWith(`${entryStationRoute}/`)) {
-        return pathname.replace(entryStationRoute, '/Kimi_Agent_Deployment_v14');
-      }
-      return null;
-    };
-    const copyEntryStationToDist = (outDir: string) => {
-      const targetDir = path.resolve(outDir, 'entry-station');
-      fs.rmSync(targetDir, { recursive: true, force: true });
-      fs.mkdirSync(path.dirname(targetDir), { recursive: true });
-      fs.cpSync(entryStationSourceDir, targetDir, { recursive: true });
-    };
-    const entryStationSourcePlugin = () => ({
-      name: 'entry-station-source',
-      configureServer(server: any) {
-        server.middlewares.use((req: any, _res: any, next: () => void) => {
-          if (!req.url) {
-            next();
-            return;
-          }
-
-          const url = new URL(req.url, 'http://localhost');
-          const rewrittenPath = remapEntryStationPath(url.pathname);
-          if (rewrittenPath) {
-            req.url = `${rewrittenPath}${url.search}`;
-          }
-
-          next();
-        });
-      },
-      writeBundle(outputOptions: any) {
-        const outDir = typeof outputOptions.dir === 'string'
-          ? outputOptions.dir
-          : path.resolve(__dirname, 'dist');
-        copyEntryStationToDist(outDir);
-      },
-    });
-
     return {
       server: {
         port: 3000,
@@ -156,7 +112,7 @@ export default defineConfig(({ mode }) => {
           },
         },
       },
-      plugins: [react(), entryStationSourcePlugin()],
+      plugins: [react()],
       define: {
         'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
         'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
