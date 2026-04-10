@@ -38,7 +38,8 @@
 
 ## Context
 
-- 当前项目主入口由 `EntryShell.tsx` 管理，首页通过 iframe 加载 `/entry-station/index.html`
+- 当前项目主入口由 `EntryShell.tsx` 管理；稳定对外 landing 路由是 `/entry-station`
+- 首页当前通过 iframe 指向 `/entry-station/index.html`（可能附带版本 query）；该文件目标是实现细节，不是对外路由合同
 - `.planning/baselines/kimi-landing-7be7097-parent/Kimi_Agent_Deployment_v14/**` 是唯一不可变 baseline 审核真相
 - `public/entry-station/**` 当前再次作为 active transitional runtime，直到 React cutover 完成
 - 工作树下的 `Kimi_Agent_Deployment_v14/**` 仅作可变参考资料，不再视为当前运行时 canonical truth
@@ -47,7 +48,7 @@
 ## Constraints
 
 - **Tech stack**: 保持 React 19 + Vite 6 + TypeScript 现有项目栈 — 避免为 landing 单独引入第二套前端框架
-- **Compatibility**: 保持 `/entry-station` 入口地址和首页 iframe 跳转链路稳定 — 避免影响现有入口接入
+- **Compatibility**: 保持 `/entry-station` 作为稳定公开入口；`/entry-station/index.html` 仅作为当前 iframe 文件目标实现细节 — 避免合同语义混淆
 - **Runtime truth (transitional)**: React cutover 前，`public/entry-station/**` 视为对外生效运行时；相关文档必须一致
 - **Source baseline**: landing 恢复与评审必须以 immutable baseline pack（`7be7097^` parent）为准 — 避免基线混乱
 - **Reference-only mutable tree**: `Kimi_Agent_Deployment_v14/**` 仅作参考，不得当作 active runtime truth

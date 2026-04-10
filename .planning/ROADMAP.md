@@ -25,9 +25,9 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Depends on**: Nothing (first phase)
 **Requirements**: SHELL-01, SHELL-03
 **Success Criteria** (what must be TRUE):
-  1. User can visit `/` and still reach the landing through the existing shell without a public URL change.
+  1. User can visit `/` and still reach the landing through the existing shell without a public URL change, while the stable public landing route remains `/entry-station`.
   2. User can trigger the academy entry from the landing and reach `/academy`, then return to `/`, preserving the public contract even if trigger internals live in a transitional wrapper.
-  3. The milestone has one approved pre-`7be7097^` baseline pack, an updated source-of-truth inventory, and a shell checklist that remains `PENDING` until smoke verification runs.
+  3. The milestone has one approved pre-`7be7097^` baseline pack, an updated source-of-truth inventory, and a shell checklist that may remain `PENDING` before the shell smoke task runs; Phase 1 is complete only after that smoke verification runs and is recorded in the checklist.
 **Plans**: TBD
 **UI hint**: yes
 

@@ -5,7 +5,8 @@
 - Host shell owner: `EntryShell.tsx`
 - Runtime delivery owner: `vite.config.ts`
 - Public entry contract: visiting `/` must continue to render the landing through the existing shell iframe.
-- Stable landing target: the iframe target remains `/entry-station/index.html` as the public landing path, even though the current implementation appends a version query.
+- Stable public landing route: `/entry-station` remains the locked external landing path.
+- Current iframe file target: `/entry-station/index.html` (often with a version query) is an implementation detail and may change internally without changing the public route contract.
 
 ## Academy Handoff
 

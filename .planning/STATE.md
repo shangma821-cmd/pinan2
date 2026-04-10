@@ -60,7 +60,8 @@ Recent decisions affecting current work:
 
 - v1.0: `7be7097^` is the required landing restore baseline
 - v1.0: `.planning/baselines/kimi-landing-7be7097-parent/Kimi_Agent_Deployment_v14/**` remains the immutable baseline/review truth
-- v1.0: `/entry-station` remains the stable public entry path
+- v1.0: `/entry-station` remains the stable public landing route
+- v1.0: `/entry-station/index.html` is the current iframe file target implementation detail, not the public route contract
 - v1.0: `public/entry-station/**` is the active transitional runtime until React cutover
 - v1.0: mutable `Kimi_Agent_Deployment_v14/**` is reference-only, not active runtime truth
 - v1.0: Public academy outcome remains landing -> `/academy` -> `/`, currently triggered via transitional wrapper internals
