@@ -1,10 +1,11 @@
 ---
 phase: 1
 slug: baseline-lock-shell-contract
-status: draft
+status: approved
 shadcn_initialized: false
 preset: none
 created: 2026-04-10
+reviewed_at: 2026-04-10T09:48:53+0800
 ---
 
 # Phase 1 - UI Design Contract
@@ -66,10 +67,11 @@ Source notes: Font families come directly from baseline CSS. Size roles normaliz
 |------|-------|-------|
 | Dominant (60%) | Light `#F5F7FA`; Dark `#050A05` | Main page backgrounds and full-page surfaces |
 | Secondary (30%) | Light `#FFFFFF`; Dark `#0A150A` | Cards, footer blocks, nav capsules, split-layout content surfaces |
-| Accent (10%) | Light `#34C759` / `#30B350`; Dark `#7A9E7A` / `#4A7C4E` | Active nav pills, primary CTAs, highlighted words, stat numbers, selected states, category badges |
+| Accent Primary (within the 10% accent family) | Light `#34C759`; Dark `#7A9E7A` | Primary CTA fills, active/current nav pills, selected tab state, confirmation icons |
+| Accent Support (within the 10% accent family) | Light `#30B350`; Dark `#4A7C4E` | Highlighted heading words, numeric proof callouts, process progress bars, category pills |
 | Destructive | `#EF4444` | Pain-point emphasis and destructive-only actions |
 
-Accent reserved for: primary CTA fills, active/current nav state, selected tab state, highlighted heading words, numeric proof callouts, process progress bars, category pills, and confirmation icons. It is not for every link, border, or background.
+The 10% accent budget is a locked two-token family. `Accent Primary` and `Accent Support` are not interchangeable during restoration work. Accent is not for every link, border, or background.
 
 Source notes: Theme pairs come from `:root` and `[data-theme=light]` variables in the approved CSS: `--brand-green`, `--brand-accent`, `--bg-primary`, `--bg-secondary`, `--text-*`, and related surface tokens.
 
@@ -167,6 +169,7 @@ Source notes: `EntryShell.tsx`, `01-RESEARCH.md`, baseline `src/App.tsx`, `src/s
 - Light mode is the default baseline feel. It uses airy off-white backgrounds, glassy white cards, saturated green accents, soft black shadows, and Apple-like pill/button treatments.
 - Dark mode is also part of the approved baseline. It uses deep forest-black surfaces, muted sage accents, translucent glass panels, and luminous radial glow layers.
 - Full-bleed photography is essential to the system. Do not replace major image panels with icon blocks, abstract blobs, or text-only compliance cards.
+- The primary focal anchor is the Home hero pairing of the `AI细胞修复` / `告别亚健康` headline with its adjacent hero imagery; restoration work must keep that headline-image lockup as the first visual emphasis.
 - Rounded geometry is prominent: 16px, 24px, and 32px radii dominate pills, cards, modals, and image frames.
 - Blur and translucency are part of the brand feel. Frosted nav shells, glass cards, and soft radial background glows are baseline behavior, not embellishments.
 - Large display typography is required on hero and page headers. Do not reduce the experience to small headings and dense body copy.
@@ -256,6 +259,7 @@ Locked interaction details:
 - News filtering and searching are client-side behaviors inside the landing runtime.
 - Detail view must remain on the News route family and be deep-linkable via `?id=`.
 - Detail state must provide a visible return action back to the list.
+- News share actions may remain icon-first, but each action must include readable text or an `aria-label` fallback.
 
 Source notes: All page contracts come from the code-path markers embedded in the approved baseline JS bundle.
 
@@ -264,7 +268,7 @@ Source notes: All page contracts come from the code-path markers embedded in the
 ## Interaction And Accessibility Contract
 
 - Preserve visible focus outlines. Baseline uses a 2px green focus ring/outline for buttons, links, and fields.
-- Preserve smooth scrolling and the footer scroll-to-top control.
+- Preserve smooth scrolling and the footer scroll-to-top control; the circular control must expose readable text or an `aria-label` fallback.
 - Preserve text selection tinting in green.
 - Preserve reduced-motion fallback behavior from the baseline CSS for users who prefer reduced motion.
 - Preserve card hover lift behavior on desktop. Do not flatten all cards to static panels.
