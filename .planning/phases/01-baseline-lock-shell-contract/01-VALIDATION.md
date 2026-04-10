@@ -1,9 +1,9 @@
 ---
 phase: 1
 slug: baseline-lock-shell-contract
-status: draft
-nyquist_compliant: false
-wave_0_complete: false
+status: approved
+nyquist_compliant: true
+wave_0_complete: true
 created: 2026-04-10
 ---
 
@@ -18,7 +18,7 @@ created: 2026-04-10
 | Property | Value |
 |----------|-------|
 | **Framework** | other — no dedicated test harness yet; build gate plus browser smoke |
-| **Config file** | none — Wave 0 adds smoke harness only if planner chooses automation |
+| **Config file** | none — existing `npm run build` and `npm run preview` scripts cover the phase |
 | **Quick run command** | `npm run build` |
 | **Full suite command** | `npm run build` |
 | **Estimated runtime** | ~20 seconds |
@@ -38,9 +38,13 @@ created: 2026-04-10
 
 | Task ID | Plan | Wave | Requirement | Test Type | Automated Command | File Exists | Status |
 |---------|------|------|-------------|-----------|-------------------|-------------|--------|
-| 01-W0-01 | TBD | 0 | SHELL-01 | build + artifact check | `npm run build` | ❌ W0 | ⬜ pending |
-| 01-W0-02 | TBD | 0 | SHELL-03 | manual smoke checklist | `npm run build` | ❌ W0 | ⬜ pending |
-| 01-W0-03 | TBD | 0 | SHELL-01, SHELL-03 | provenance/doc audit | `npm run build` | ❌ W0 | ⬜ pending |
+| 01-01-01 | 01 | 1 | SHELL-01, SHELL-03 | baseline archive parity | `git archive ... && diff -qr ... && cmp -s ...` | ✅ planned | ⬜ pending |
+| 01-01-02 | 01 | 1 | SHELL-01, SHELL-03 | provenance/doc audit | `rg -n "Source ref: 7be7097^" .planning/baselines/.../README.md && ...` | ✅ planned | ⬜ pending |
+| 01-02-01 | 02 | 2 | SHELL-01, SHELL-03 | checklist doc audit | `rg -n "EntryShell.tsx" SHELL-CONTRACT-CHECKLIST.md && ...` | ✅ planned | ⬜ pending |
+| 01-02-02 | 02 | 2 | SHELL-01, SHELL-03 | source-truth inventory audit | `rg -n "EntryShell.tsx" SOURCE-OF-TRUTH-INVENTORY.md && ...` | ✅ planned | ⬜ pending |
+| 01-03-01 | 03 | 3 | SHELL-01 | build + guarded preview gate | `npm run build && test -f dist/entry-station/index.html && kill -0 "$PREVIEW_PID" && lsof -ti tcp:4273 | grep -qx "$PREVIEW_PID" && curl -sfI http://127.0.0.1:4273/entry-station/index.html` | ✅ planned | ⬜ pending |
+| 01-03-CHK | 03 | 3 | SHELL-01, SHELL-03 | human smoke checkpoint linked to guarded preview | `test -f dist/entry-station/index.html && kill -0 "$PREVIEW_PID" && lsof -ti tcp:4273 | grep -qx "$PREVIEW_PID"` | ✅ planned | ⬜ pending |
+| 01-03-02 | 03 | 3 | SHELL-03 | manual approval record audit | `rg -n "Manual pass: /: PASS (approved)" SHELL-CONTRACT-CHECKLIST.md && ...` | ✅ planned | ⬜ pending |
 
 *Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
 
@@ -48,12 +52,13 @@ created: 2026-04-10
 
 ## Wave 0 Requirements
 
-- [ ] `.planning/phases/01-baseline-lock-shell-contract/SHELL-CONTRACT-CHECKLIST.md` — explicit manual smoke checklist for `/`, landing -> academy, and academy -> home
-- [ ] `.planning/phases/01-baseline-lock-shell-contract/SOURCE-OF-TRUTH-INVENTORY.md` — canonical source matrix proving which files are truth vs glue
-- [ ] Optional: `playwright.config.ts` — only if planner chooses to add a minimal browser smoke harness
-- [ ] Optional: `tests/shell-contract.spec.ts` — only if planner chooses to automate the shell smoke path
+- [x] Existing `npm run build` and `npm run preview` scripts cover the automation needs for this phase
+- [x] Every planned task now carries an explicit `<automated>` command or consumes a build-gated dependency
+- [x] `.planning/phases/01-baseline-lock-shell-contract/SHELL-CONTRACT-CHECKLIST.md` and `SOURCE-OF-TRUTH-INVENTORY.md` are planned execution artifacts in Plan 02, not separate Wave 0 infrastructure
+- [ ] Optional: `playwright.config.ts` — deferred, not required for Phase 1
+- [ ] Optional: `tests/shell-contract.spec.ts` — deferred, not required for Phase 1
 
-*If no optional harness is added, the checklist artifact above is mandatory.*
+*No standalone Wave 0 plan is required for Phase 1.*
 
 ---
 
@@ -61,19 +66,19 @@ created: 2026-04-10
 
 | Behavior | Requirement | Why Manual | Test Instructions |
 |----------|-------------|------------|-------------------|
-| `/` still loads the landing through the existing shell iframe | SHELL-01 | No browser test harness exists yet | Run `npm run build`, start the approved preview/dev flow, open `/`, confirm the iframe loads `/entry-station/index.html` content without public URL drift |
-| Landing action can still reach academy inside the existing shell | SHELL-03 | Bridge internals are intentionally not locked and current flow is UI-driven | From the landing, trigger the academy entry path, confirm the shell lands on `/academy` and the academy app renders |
-| Academy can return to the entry shell home state | SHELL-03 | Return behavior is a shell UX path, not currently covered by automation | From `/academy`, use the shell return action and confirm the app returns to the landing shell at `/` |
+| `/` still loads the landing through the existing shell iframe | SHELL-01 | No browser test harness exists yet | After Plan 03 starts preview at `http://127.0.0.1:4273` and confirms the recorded PID owns port `4273`, open `/`, confirm the iframe loads `/entry-station/index.html` content without public URL drift, then approve the checkpoint |
+| Landing action can still reach academy inside the existing shell | SHELL-03 | Bridge internals are intentionally not locked and current flow is UI-driven | From the landing in the guarded preview flow, trigger the academy entry path, confirm the shell lands on `/academy`, then approve the checkpoint |
+| Academy can return to the entry shell home state | SHELL-03 | Return behavior is a shell UX path, not currently covered by automation | From `/academy`, use the shell return action and confirm the app returns to the landing shell at `/`, then approve the checkpoint |
 
 ---
 
 ## Validation Sign-Off
 
-- [ ] All tasks have `<automated>` verify or Wave 0 dependencies
-- [ ] Sampling continuity: no 3 consecutive tasks without automated verify
-- [ ] Wave 0 covers all MISSING references
-- [ ] No watch-mode flags
-- [ ] Feedback latency < 30s
-- [ ] `nyquist_compliant: true` set in frontmatter
+- [x] All tasks have `<automated>` verify or Wave 0 dependencies
+- [x] Sampling continuity: no 3 consecutive tasks without automated verify
+- [x] Wave 0 covers all MISSING references
+- [x] No watch-mode flags
+- [x] Feedback latency < 30s
+- [x] `nyquist_compliant: true` set in frontmatter
 
-**Approval:** pending
+**Approval:** approved 2026-04-10
