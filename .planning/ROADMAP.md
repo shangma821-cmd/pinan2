@@ -2,7 +2,7 @@
 
 ## Overview
 
-This milestone restores the pre-`7be7097^` Kimi landing as the only approved content baseline, rebuilds it as maintainable React/Vite source inside the existing app, preserves `/entry-station` as the stable public landing URL, and ends only when the React-owned landing matches baseline behavior under both direct loads and the existing `/` shell iframe path.
+This milestone first performs a runtime reset so `public/entry-station/**` is explicitly treated as the active transitional runtime again, revalidates the shell contract (`/` -> landing -> `/academy` -> `/`), and then rebuilds baseline-equivalent landing behavior as maintainable React/Vite source for later cutover.
 
 ## Phases
 
@@ -12,33 +12,33 @@ This milestone restores the pre-`7be7097^` Kimi landing as the only approved con
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Baseline Lock & Shell Contract** - Freeze the `7be7097^` baseline and lock the host-to-landing contract before reconstruction.
-- [ ] **Phase 2: Multi-Entry Landing Foundation** - Stand up the React-owned `/entry-station` shell and scoped five-destination runtime.
-- [ ] **Phase 3: Core Page Reconstruction** - Restore Home, About, Products, and Franchise to the baseline information architecture.
-- [ ] **Phase 4: News & Interaction Equivalence** - Restore the news experience and original cross-page interactions.
-- [ ] **Phase 5: Cutover & Parity QA** - Retire the static landing dependency and prove parity in the shipped build.
+- [ ] **Phase 1: Runtime Reset & Shell Revalidation** - Lock baseline truth, reset transitional runtime ownership, and revalidate the public shell contract before React reconstruction.
+- [ ] **Phase 2: React Landing Foundation (Post-Reset)** - Establish React landing route scaffolding and shared shell targets while transitional runtime remains active.
+- [ ] **Phase 3: Core Page Reconstruction** - Rebuild Home, About, Products, and Franchise in React against the approved baseline pack.
+- [ ] **Phase 4: News & Interaction Equivalence** - Rebuild news and cross-page interactions in React with baseline-equivalent behavior.
+- [ ] **Phase 5: React Runtime Cutover & Parity QA** - Switch public landing runtime ownership from transitional assets to React output and prove parity under shell and direct loads.
 
 ## Phase Details
 
-### Phase 1: Baseline Lock & Shell Contract
-**Goal**: Users keep the current public landing entry and academy handoff behavior while all later work is anchored to one approved pre-`7be7097^` baseline.
+### Phase 1: Runtime Reset & Shell Revalidation
+**Goal**: Users keep the current public landing entry and academy handoff behavior while planning truth is reset so `public/entry-station/**` is the active transitional runtime and the baseline pack remains immutable review truth.
 **Depends on**: Nothing (first phase)
 **Requirements**: SHELL-01, SHELL-03
 **Success Criteria** (what must be TRUE):
   1. User can visit `/` and still reach the landing through the existing shell without a public URL change.
-  2. User can trigger the academy entry from the landing and reach the academy with the same shell-compatible behavior as the current experience.
-  3. The milestone has one approved pre-`7be7097^` baseline pack and shell contract checklist that any reviewer can use to judge parity before reconstruction continues.
+  2. User can trigger the academy entry from the landing and reach `/academy`, then return to `/`, preserving the public contract even if trigger internals live in a transitional wrapper.
+  3. The milestone has one approved pre-`7be7097^` baseline pack, an updated source-of-truth inventory, and a shell checklist that remains `PENDING` until smoke verification runs.
 **Plans**: TBD
 **UI hint**: yes
 
-### Phase 2: Multi-Entry Landing Foundation
-**Goal**: Users can navigate the five landing destinations inside a React-owned `/entry-station` shell that stays scoped to the landing runtime.
+### Phase 2: React Landing Foundation (Post-Reset)
+**Goal**: Users can navigate five landing destinations in React route structure prepared for reconstruction while the active transitional runtime continues to serve public traffic.
 **Depends on**: Phase 1
 **Requirements**: SHELL-02
 **Success Criteria** (what must be TRUE):
-  1. User can navigate to five distinct landing destinations under `/entry-station`: Home, About, Products, Franchise, and News.
-  2. User can refresh or direct-load each landing destination and remain inside the scoped landing experience instead of escaping to host-level root routes.
-  3. User sees a shared landing shell and navigation frame across all five destination states, ready for restored page content.
+  1. User can navigate to five distinct landing destinations under React-owned `/entry-station` routes: Home, About, Products, Franchise, and News.
+  2. User can refresh or direct-load each React destination and remain in the scoped landing route experience.
+  3. User sees a shared React landing shell and navigation frame across all five destinations, ready for baseline content restoration.
 **Plans**: TBD
 **UI hint**: yes
 
@@ -67,26 +67,26 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: TBD
 **UI hint**: yes
 
-### Phase 5: Cutover & Parity QA
-**Goal**: Users reach the reconstructed landing through the production build with no remaining static-bundle dependency, and parity is proven under both shell and direct loads.
+### Phase 5: React Runtime Cutover & Parity QA
+**Goal**: Users reach the reconstructed landing through React-owned production output after cutover from transitional runtime assets, with parity proven under shell and direct loads.
 **Depends on**: Phase 4
 **Requirements**: XPG-03
 **Success Criteria** (what must be TRUE):
-  1. User opening built `/entry-station` sees the landing generated from the React/Vite source tree rather than the copied static bundle.
+  1. User opening built `/entry-station` sees the landing generated from the React/Vite source tree rather than `public/entry-station/**` transitional assets.
   2. User sees the same restored landing experience whether it loads directly at `/entry-station` or through the `/` shell iframe.
-  3. Release verification confirms no duplicate static-copy delivery path remains active for the landing runtime on desktop or mobile.
+  3. Release verification confirms transitional wrapper/runtime delivery is retired for public landing traffic on desktop and mobile.
 **Plans**: TBD
 **UI hint**: yes
 
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
+Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Baseline Lock & Shell Contract | 0/TBD | Not started | - |
-| 2. Multi-Entry Landing Foundation | 0/TBD | Not started | - |
+| 1. Runtime Reset & Shell Revalidation | 0/TBD | Not started | - |
+| 2. React Landing Foundation (Post-Reset) | 0/TBD | Not started | - |
 | 3. Core Page Reconstruction | 0/TBD | Not started | - |
 | 4. News & Interaction Equivalence | 0/TBD | Not started | - |
-| 5. Cutover & Parity QA | 0/TBD | Not started | - |
+| 5. React Runtime Cutover & Parity QA | 0/TBD | Not started | - |

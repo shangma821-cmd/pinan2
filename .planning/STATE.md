@@ -3,9 +3,9 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Phase 1 UI-SPEC approved
-last_updated: "2026-04-10T01:51:20.090Z"
-last_activity: 2026-04-09 — Roadmap created for milestone v1.0
+stopped_at: Task 3 runtime-reset planning truth docs updated; shell smoke still pending
+last_updated: "2026-04-11T09:10:00.000Z"
+last_activity: 2026-04-11 — Runtime reset planning truth synchronized across Phase 1 docs
 progress:
   total_phases: 5
   completed_phases: 0
@@ -18,17 +18,17 @@ progress:
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-04-09)
+See: .planning/PROJECT.md (updated 2026-04-11)
 
 **Core value:** 让品牌入口页和 AI 商学院主应用都能以可维护、可扩展、可持续交付的工程形态稳定演进
-**Current focus:** Phase 1 - Baseline Lock & Shell Contract
+**Current focus:** Phase 1 - Runtime Reset & Shell Revalidation
 
 ## Current Position
 
-Phase: 1 of 5 (Baseline Lock & Shell Contract)
+Phase: 1 of 5 (Runtime Reset & Shell Revalidation)
 Plan: 0 of TBD in current phase
 Status: Ready to plan
-Last activity: 2026-04-09 — Roadmap created for milestone v1.0
+Last activity: 2026-04-11 — Runtime reset planning truth synchronized across Phase 1 docs
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -60,7 +60,9 @@ Recent decisions affecting current work:
 
 - v1.0: `7be7097^` is the required landing restore baseline
 - v1.0: `/entry-station` remains the stable public entry path
-- v1.0: Final delivery must replace the static landing bundle dependency with React/Vite source ownership
+- v1.0: `public/entry-station/**` is the active transitional runtime until React cutover
+- v1.0: mutable `Kimi_Agent_Deployment_v14/**` is reference-only, not active runtime truth
+- v1.0: Public academy outcome remains landing -> `/academy` -> `/`, currently triggered via transitional wrapper internals
 
 ### Pending Todos
 
@@ -68,10 +70,10 @@ None yet.
 
 ### Blockers/Concerns
 
-- Phase 1 must freeze the approved baseline pack and shell contract before page reconstruction starts
+- Phase 1 must complete runtime reset truth alignment and keep shell checklist verification lines `PENDING` until smoke task executes
 
 ## Session Continuity
 
-Last session: 2026-04-10T01:51:20.088Z
-Stopped at: Phase 1 UI-SPEC approved
-Resume file: .planning/phases/01-baseline-lock-shell-contract/01-UI-SPEC.md
+Last session: 2026-04-11T09:10:00.000Z
+Stopped at: Task 3 runtime-reset planning truth docs updated; pending shell smoke verification task
+Resume file: .planning/phases/01-baseline-lock-shell-contract/SHELL-CONTRACT-CHECKLIST.md

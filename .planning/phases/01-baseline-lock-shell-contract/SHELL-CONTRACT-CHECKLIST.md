@@ -10,6 +10,7 @@
 ## Academy Handoff
 
 - Landing-triggered academy entry must reach `/academy`.
+- The current academy trigger is supplied by the transitional wrapper path (`public/entry-station/index.html` wiring), while the public contract remains landing -> `/academy`.
 - `EntryShell.tsx` currently supports both `window.__openAiAcademy` and same-origin `OPEN_AI_ACADEMY` postMessage handling, but those names are implementation details rather than public contract.
 
 ## Return To Entry
@@ -23,7 +24,7 @@
 - `window.__openAiAcademy`
 - DOM injection timing and wrapper-specific selectors
 - `data-ai-academy-tab`
-- `public/entry-station/index.html` modal/tab wiring
+- `public/entry-station/index.html` modal/tab wiring and academy wrapper trigger plumbing
 
 ## Smoke Steps
 
