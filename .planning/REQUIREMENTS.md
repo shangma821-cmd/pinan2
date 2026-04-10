@@ -1,0 +1,104 @@
+# Requirements: 频安AI智能商学院
+
+**Defined:** 2026-04-09
+**Core Value:** 让品牌入口页和 AI 商学院主应用都能以可维护、可扩展、可持续交付的工程形态稳定演进
+
+## v1 Requirements
+
+### Shell And Routing
+
+- [ ] **SHELL-01**: 用户在访问 `/` 时可以通过现有首页壳稳定进入 `/entry-station` 的落地页体验
+- [ ] **SHELL-02**: 用户可以在 landing 内访问与原版基线等价的五个目的地状态：首页、关于我们、产品服务、加盟合作、新闻动态
+- [ ] **SHELL-03**: 用户在 landing 内触发商学院入口时，现有 academy 打开链路仍然可用且与当前壳层行为兼容
+
+### Home
+
+- [ ] **HOME-01**: 用户可以看到与 `7be7097^` 原版首页等价的信息结构，包括 hero、资质滚动区、市场痛点、核心优势、服务流程、案例成果、新闻预览和收尾 CTA
+- [ ] **HOME-02**: 用户可以从首页 CTA 进入产品服务和加盟合作相关目的地
+- [ ] **HOME-03**: 用户可以在首页看到与原版等价的关键互动，包括核心优势展开、流程步骤切换或自动推进、成果数字展示
+
+### About
+
+- [ ] **ABOUT-01**: 用户可以访问独立的关于我们页面，而不是将其折叠进首页长页面
+- [ ] **ABOUT-02**: 用户可以在关于我们页面看到与原版等价的品牌介绍、资质/认证、发展历程、团队/设备与服务体验内容分组
+
+### Products
+
+- [ ] **PROD-01**: 用户可以访问独立的产品服务页面并查看与原版等价的产品介绍结构
+- [ ] **PROD-02**: 用户可以在产品服务页切换原版中的核心产品与会员套餐两类内容视图
+- [ ] **PROD-03**: 用户可以查看与原版等价的产品/套餐说明、适用场景、规格或收益信息以及相关案例内容
+
+### Franchise
+
+- [ ] **FRAN-01**: 用户可以访问独立的加盟合作页面并查看与原版等价的招商/合作信息结构
+- [ ] **FRAN-02**: 用户可以查看原版中的合作模式、收益测算、支持体系和保障信息
+- [ ] **FRAN-03**: 用户可以看到与原版等价的加盟咨询表单界面与联系信息展示
+
+### News
+
+- [ ] **NEWS-01**: 用户可以访问独立的新闻动态页面并查看原版等价的新闻列表视图
+- [ ] **NEWS-02**: 用户可以在新闻页按原版方式进行客户端搜索、分类筛选和文章浏览
+- [ ] **NEWS-03**: 用户可以通过 `?id=` 方式打开与原版等价的新闻详情视图并返回列表
+
+### Cross-Page Behaviors
+
+- [ ] **XPG-01**: 用户的主题切换选择在 landing 内可以保持与原版等价的持久化体验
+- [ ] **XPG-02**: 用户可以使用与原版等价的移动端导航、滚动态导航和返回顶部等基础跨页交互
+- [ ] **XPG-03**: 用户在构建后的正式产物中访问 `/entry-station` 时，看到的就是 React 源码产出的 landing，而不再依赖静态拷贝产物
+
+## v2 Requirements
+
+### Integrations
+
+- **INTG-01**: 用户提交加盟表单后可以进入真实的后端线索流转
+- **INTG-02**: 用户可以使用真实的新闻分享能力而不只是静态按钮
+
+### Operations
+
+- **OPER-01**: 运营可以通过 CMS 或内容配置系统维护 landing 内容
+- **OPER-02**: 团队可以对 landing 文案进行单独的合规改写或多版本管理
+
+## Out of Scope
+
+| Feature | Reason |
+|---------|--------|
+| 延续当前弱医疗化单页内容表达 | 本里程碑明确以 `7be7097^` 之前版本为恢复基线 |
+| 重构 AI 商学院主应用功能 | 本里程碑只聚焦 landing 恢复、React 工程化与入口集成 |
+| 为加盟表单或新闻分享补后台服务 | 当前目标是先恢复原版界面与交互等价，不扩展后台链路 |
+| 新增 CMS、运营后台或内容发布系统 | 可维护源码优先，运营化能力留到后续版本 |
+
+## Traceability
+
+Roadmap created for milestone v1.0.
+
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| SHELL-01 | Phase 1 | Pending |
+| SHELL-02 | Phase 2 | Pending |
+| SHELL-03 | Phase 1 | Pending |
+| HOME-01 | Phase 3 | Pending |
+| HOME-02 | Phase 3 | Pending |
+| HOME-03 | Phase 4 | Pending |
+| ABOUT-01 | Phase 3 | Pending |
+| ABOUT-02 | Phase 3 | Pending |
+| PROD-01 | Phase 3 | Pending |
+| PROD-02 | Phase 3 | Pending |
+| PROD-03 | Phase 3 | Pending |
+| FRAN-01 | Phase 3 | Pending |
+| FRAN-02 | Phase 3 | Pending |
+| FRAN-03 | Phase 3 | Pending |
+| NEWS-01 | Phase 4 | Pending |
+| NEWS-02 | Phase 4 | Pending |
+| NEWS-03 | Phase 4 | Pending |
+| XPG-01 | Phase 4 | Pending |
+| XPG-02 | Phase 4 | Pending |
+| XPG-03 | Phase 5 | Pending |
+
+**Coverage:**
+- v1 requirements: 20 total
+- Mapped to phases: 20
+- Unmapped: 0
+
+---
+*Requirements defined: 2026-04-09*
+*Last updated: 2026-04-09 after roadmap creation*
