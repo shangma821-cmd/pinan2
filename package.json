@@ -8,6 +8,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "test:landing-routing": "playwright test tests/landing-routing.spec.ts",
     "build:preset": "node scripts/build-preset-courses.mjs",
     "build:web": "vite build",
     "pack:win": "npm run build:web && electron-builder --win nsis",
@@ -23,9 +24,11 @@
     "mammoth": "^1.11.0",
     "pako": "^2.1.0",
     "react": "^19.2.4",
-    "react-dom": "^19.2.4"
+    "react-dom": "^19.2.4",
+    "react-router-dom": "^7.14.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.59.1",
     "@types/node": "^22.14.0",
     "@vitejs/plugin-react": "^5.0.0",
     "electron": "^35.0.0",
