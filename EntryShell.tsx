@@ -1,8 +1,9 @@
-﻿import React, { useCallback, useEffect, useMemo, useState } from 'react';
+﻿import React, { useCallback, useEffect, useState } from 'react';
 import App from './App';
+import LandingApp from './landing/LandingApp';
 import './entry-shell.css';
 
-type EntryMode = 'home' | 'academy';
+type EntryMode = 'home' | 'landing' | 'academy';
 
 declare global {
   interface Window {
@@ -10,17 +11,36 @@ declare global {
   }
 }
 
+const HOME_PATH = '/';
+const LANDING_PATH = '/entry-station';
 const ACADEMY_PATH = '/academy';
 
 function normalizePath(pathname: string): string {
-  if (!pathname) return '/';
+  if (!pathname) return HOME_PATH;
   const normalized = pathname.replace(/\/+$/, '');
-  return normalized || '/';
+  return normalized || HOME_PATH;
+}
+
+function getPathForMode(mode: EntryMode): string {
+  if (mode === 'landing') return LANDING_PATH;
+  if (mode === 'academy') return ACADEMY_PATH;
+  return HOME_PATH;
 }
 
 function readEntryModeByPath(): EntryMode {
   if (typeof window === 'undefined') return 'home';
-  return normalizePath(window.location.pathname) === ACADEMY_PATH ? 'academy' : 'home';
+
+  const pathname = normalizePath(window.location.pathname);
+
+  if (pathname === ACADEMY_PATH) {
+    return 'academy';
+  }
+
+  if (pathname === LANDING_PATH || pathname.startsWith(`${LANDING_PATH}/`)) {
+    return 'landing';
+  }
+
+  return 'home';
 }
 
 function EntryHome() {
@@ -36,12 +56,11 @@ function EntryHome() {
 }
 
 export default function EntryShell() {
-  const initialMode = useMemo<EntryMode>(() => readEntryModeByPath(), []);
-  const [entryMode, setEntryMode] = useState<EntryMode>(initialMode);
+  const [entryMode, setEntryMode] = useState<EntryMode>(() => readEntryModeByPath());
 
   const setModeAndPath = useCallback((nextMode: EntryMode, historyMethod: 'push' | 'replace' = 'push') => {
     setEntryMode(nextMode);
-    const targetPath = nextMode === 'academy' ? ACADEMY_PATH : '/';
+    const targetPath = getPathForMode(nextMode);
     if (normalizePath(window.location.pathname) !== targetPath) {
       const fn = historyMethod === 'replace' ? window.history.replaceState : window.history.pushState;
       fn.call(window.history, {}, '', targetPath);
@@ -66,8 +85,14 @@ export default function EntryShell() {
     window.addEventListener('message', onMessage);
     window.addEventListener('popstate', onPopState);
 
-    if (normalizePath(window.location.pathname) !== (initialMode === 'academy' ? ACADEMY_PATH : '/')) {
-      setModeAndPath(initialMode, 'replace');
+    const currentMode = readEntryModeByPath();
+    setEntryMode(currentMode);
+
+    if (currentMode !== 'landing') {
+      const targetPath = getPathForMode(currentMode);
+      if (normalizePath(window.location.pathname) !== targetPath) {
+        setModeAndPath(currentMode, 'replace');
+      }
     }
 
     return () => {
@@ -79,7 +104,7 @@ export default function EntryShell() {
         delete window.__openAiAcademy;
       }
     };
-  }, [initialMode, setModeAndPath]);
+  }, [setModeAndPath]);
 
   if (entryMode === 'academy') {
     return (
@@ -96,6 +121,9 @@ export default function EntryShell() {
     );
   }
 
+  if (entryMode === 'landing') {
+    return <LandingApp />;
+  }
+
   return <EntryHome />;
 }
-
