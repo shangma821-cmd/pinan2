@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: planning
-stopped_at: Phase 2 context gathered
-last_updated: "2026-04-14T08:52:06.763Z"
-last_activity: 2026-04-11 — Runtime reset planning truth synchronized across Phase 1 docs
+status: executing
+stopped_at: Completed 02-01-PLAN.md
+last_updated: "2026-04-16T17:42:40.251Z"
+last_activity: 2026-04-16
 progress:
   total_phases: 5
   completed_phases: 1
-  total_plans: 3
-  completed_plans: 3
+  total_plans: 6
+  completed_plans: 4
   percent: 0
 ---
 
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-11)
 
 **Core value:** 让品牌入口页和 AI 商学院主应用都能以可维护、可扩展、可持续交付的工程形态稳定演进
-**Current focus:** Phase 1 - Runtime Reset & Shell Revalidation
+**Current focus:** Phase 02 — react-landing-foundation-post-reset
 
 ## Current Position
 
-Phase: 1 of 5 (Runtime Reset & Shell Revalidation)
-Plan: 0 of TBD in current phase
-Status: Ready to plan
-Last activity: 2026-04-11 — Runtime reset planning truth synchronized across Phase 1 docs
+Phase: 02 (react-landing-foundation-post-reset) — EXECUTING
+Plan: 2 of 3
+Status: Ready to execute
+Last activity: 2026-04-16
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -51,6 +51,8 @@ Progress: [░░░░░░░░░░] 0%
 - Last 5 plans: —
 - Trend: Stable
 
+| Phase 02 P01 | 3 min | 2 tasks | 5 files |
+
 ## Accumulated Context
 
 ### Decisions
@@ -65,6 +67,7 @@ Recent decisions affecting current work:
 - v1.0: `public/entry-station/**` is the active transitional runtime until React cutover
 - v1.0: mutable `Kimi_Agent_Deployment_v14/**` is reference-only, not active runtime truth
 - v1.0: Public academy outcome remains landing -> `/academy` -> `/`, currently triggered via transitional wrapper internals
+- [Phase 02]: Phase 2 route verification runs against vite preview at 127.0.0.1:4173. — This keeps later shell-ownership checks focused on built behavior and on coexistence with the preserved static /entry-station/index.html target.
 
 ### Pending Todos
 
@@ -76,6 +79,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-14T08:52:06.760Z
-Stopped at: Phase 2 context gathered
-Resume file: .planning/phases/02-react-landing-foundation-post-reset/02-CONTEXT.md
+Last session: 2026-04-16T17:42:24.206Z
+Stopped at: Completed 02-01-PLAN.md
+Resume file: None
