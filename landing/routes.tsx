@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 
+import LandingShell from './components/LandingShell';
 import { landingRouteMetadata, type LandingPageKey, type LandingRouteRecord } from './routeMetadata';
 
 const pageTestIds: Record<LandingPageKey, string> = {
@@ -33,13 +34,17 @@ export function LandingRoutes() {
   return (
     <div data-testid="landing-router-root">
       <Routes>
-        {landingRouteMetadata.map((route) => (
-          <Route
-            key={route.key}
-            path={toRoutePath(route.path)}
-            element={<LandingRoutePlaceholder pageKey={route.key} heading={route.name} />}
-          />
-        ))}
+        <Route element={<LandingShell />}>
+          {landingRouteMetadata.map((route) => {
+            const placeholder = <LandingRoutePlaceholder pageKey={route.key} heading={route.name} />;
+
+            if (route.path === '/') {
+              return <Route key={route.key} index element={placeholder} />;
+            }
+
+            return <Route key={route.key} path={toRoutePath(route.path)} element={placeholder} />;
+          })}
+        </Route>
       </Routes>
     </div>
   );
