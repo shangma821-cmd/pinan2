@@ -23,6 +23,7 @@
 
 - [x] 用户可以通过入口首页进入品牌落地页，再切换到 AI 商学院主应用
 - [x] 项目可以通过 Vite 构建 Web 产物，并支持 Electron 打包交付
+- [x] Phase 2 已验证：用户可以在 `/entry-station` 下访问五个 React-owned landing 目的地，并共享同一套 landing shell（SHELL-02）
 
 ### Active
 
@@ -42,6 +43,7 @@
 - 首页当前通过 iframe 指向 `/entry-station/index.html`（可能附带版本 query）；该文件目标是实现细节，不是对外路由合同
 - `.planning/baselines/kimi-landing-7be7097-parent/Kimi_Agent_Deployment_v14/**` 是唯一不可变 baseline 审核真相
 - `public/entry-station/**` 当前再次作为 active transitional runtime，直到 React cutover 完成
+- Phase 2 已完成：`/entry-station`、`/entry-station/about`、`/entry-station/products`、`/entry-station/franchise`、`/entry-station/news` 现已由 React 路由骨架接管，同时 `/` 仍通过 iframe 指向 `/entry-station/index.html`
 - 工作树下的 `Kimi_Agent_Deployment_v14/**` 仅作可变参考资料，不再视为当前运行时 canonical truth
 - academy 触发当前由过渡 wrapper 提供，但对外合同仍是 landing -> `/academy` -> `/`
 
@@ -81,4 +83,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-11 after runtime-reset planning correction*
+*Last updated: 2026-04-16 after Phase 2 verification*
