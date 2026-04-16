@@ -2,32 +2,22 @@ import { Route, Routes } from 'react-router-dom';
 
 import LandingShell from './components/LandingShell';
 import { landingRouteMetadata, type LandingPageKey, type LandingRouteRecord } from './routeMetadata';
-
-const pageTestIds: Record<LandingPageKey, string> = {
-  home: 'landing-page-home',
-  about: 'landing-page-about',
-  products: 'landing-page-products',
-  franchise: 'landing-page-franchise',
-  news: 'landing-page-news',
-};
+import LandingAboutPage from './pages/LandingAboutPage';
+import LandingFranchisePage from './pages/LandingFranchisePage';
+import LandingHomePage from './pages/LandingHomePage';
+import LandingNewsPage from './pages/LandingNewsPage';
+import LandingProductsPage from './pages/LandingProductsPage';
 
 function toRoutePath(path: LandingRouteRecord['path']): string {
   return path === '/' ? path : path.slice(1);
 }
 
-function LandingRoutePlaceholder({
-  pageKey,
-  heading,
-}: {
-  pageKey: LandingPageKey;
-  heading: LandingRouteRecord['name'];
-}) {
-  return (
-    <section data-testid={pageTestIds[pageKey]}>
-      <h1>{heading}</h1>
-      <p>Phase 2 route scaffold placeholder</p>
-    </section>
-  );
+function renderRouteElement(pageKey: LandingPageKey) {
+  if (pageKey === 'home') return <LandingHomePage />;
+  if (pageKey === 'about') return <LandingAboutPage />;
+  if (pageKey === 'products') return <LandingProductsPage />;
+  if (pageKey === 'franchise') return <LandingFranchisePage />;
+  return <LandingNewsPage />;
 }
 
 export function LandingRoutes() {
@@ -36,13 +26,13 @@ export function LandingRoutes() {
       <Routes>
         <Route element={<LandingShell />}>
           {landingRouteMetadata.map((route) => {
-            const placeholder = <LandingRoutePlaceholder pageKey={route.key} heading={route.name} />;
+            const pageElement = renderRouteElement(route.key);
 
             if (route.path === '/') {
-              return <Route key={route.key} index element={placeholder} />;
+              return <Route key={route.key} index element={pageElement} />;
             }
 
-            return <Route key={route.key} path={toRoutePath(route.path)} element={placeholder} />;
+            return <Route key={route.key} path={toRoutePath(route.path)} element={pageElement} />;
           })}
         </Route>
       </Routes>
