@@ -8,7 +8,7 @@
 ### Shell And Routing
 
 - [ ] **SHELL-01**: 用户在访问 `/` 时可以通过现有首页壳稳定进入 `/entry-station` 的落地页体验
-- [ ] **SHELL-02**: 用户可以在 landing 内访问与原版基线等价的五个目的地状态：首页、关于我们、产品服务、加盟合作、新闻动态
+- [x] **SHELL-02**: 用户可以在 landing 内访问与原版基线等价的五个目的地状态：首页、关于我们、产品服务、加盟合作、新闻动态
 - [ ] **SHELL-03**: 用户在 landing 内触发商学院入口时，现有 academy 打开链路仍然可用且与当前壳层行为兼容
 
 ### Home
@@ -74,7 +74,7 @@ Roadmap created for milestone v1.0.
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | SHELL-01 | Phase 1 | Pending |
-| SHELL-02 | Phase 2 | Pending |
+| SHELL-02 | Phase 2 | Complete |
 | SHELL-03 | Phase 1 | Pending |
 | HOME-01 | Phase 3 | Pending |
 | HOME-02 | Phase 3 | Pending |

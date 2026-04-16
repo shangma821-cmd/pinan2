@@ -13,7 +13,7 @@ This milestone first performs a runtime reset so `public/entry-station/**` is ex
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [ ] **Phase 1: Runtime Reset & Shell Revalidation** - Lock baseline truth, reset transitional runtime ownership, and revalidate the public shell contract before React reconstruction.
-- [ ] **Phase 2: React Landing Foundation (Post-Reset)** - Establish React landing route scaffolding and shared shell targets while transitional runtime remains active.
+- [x] **Phase 2: React Landing Foundation (Post-Reset)** - Establish React landing route scaffolding and shared shell targets while transitional runtime remains active.
 - [ ] **Phase 3: Core Page Reconstruction** - Rebuild Home, About, Products, and Franchise in React against the approved baseline pack.
 - [ ] **Phase 4: News & Interaction Equivalence** - Rebuild news and cross-page interactions in React with baseline-equivalent behavior.
 - [ ] **Phase 5: React Runtime Cutover & Parity QA** - Switch public landing runtime ownership from transitional assets to React output and prove parity under shell and direct loads.
@@ -28,7 +28,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   1. User can visit `/` and still reach the landing through the existing shell without a public URL change, while the stable public landing route remains `/entry-station`.
   2. User can trigger the academy entry from the landing and reach `/academy`, then return to `/`, preserving the public contract even if trigger internals live in a transitional wrapper.
   3. The milestone has one approved pre-`7be7097^` baseline pack, an updated source-of-truth inventory, and a shell checklist that may remain `PENDING` before the shell smoke task runs; Phase 1 is complete only after that smoke verification runs and is recorded in the checklist.
-**Plans**: TBD
+**Plans**: 3 (completed 2026-04-16)
 **UI hint**: yes
 
 ### Phase 2: React Landing Foundation (Post-Reset)
@@ -86,7 +86,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Runtime Reset & Shell Revalidation | 0/TBD | Not started | - |
-| 2. React Landing Foundation (Post-Reset) | 0/TBD | Not started | - |
+| 2. React Landing Foundation (Post-Reset) | 3/3 | Complete | 2026-04-16 |
 | 3. Core Page Reconstruction | 0/TBD | Not started | - |
 | 4. News & Interaction Equivalence | 0/TBD | Not started | - |
 | 5. React Runtime Cutover & Parity QA | 0/TBD | Not started | - |
