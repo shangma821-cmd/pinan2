@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [ ] **Phase 1: Runtime Reset & Shell Revalidation** - Lock baseline truth, reset transitional runtime ownership, and revalidate the public shell contract before React reconstruction.
 - [x] **Phase 2: React Landing Foundation (Post-Reset)** - Establish React landing route scaffolding and shared shell targets while transitional runtime remains active.
-- [ ] **Phase 3: Core Page Reconstruction** - Rebuild Home, About, Products, and Franchise in React against the approved baseline pack.
+- [x] **Phase 3: Core Page Reconstruction** - Rebuild Home, About, Products, and Franchise in React against the approved baseline pack.
 - [ ] **Phase 4: News & Interaction Equivalence** - Rebuild news and cross-page interactions in React with baseline-equivalent behavior.
 - [ ] **Phase 5: React Runtime Cutover & Parity QA** - Switch public landing runtime ownership from transitional assets to React output and prove parity under shell and direct loads.
 
@@ -39,7 +39,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   1. User can navigate to five distinct landing destinations under React-owned `/entry-station` routes: Home, About, Products, Franchise, and News.
   2. User can refresh or direct-load each React destination and remain in the scoped landing route experience.
   3. User sees a shared React landing shell and navigation frame across all five destinations, ready for baseline content restoration.
-**Plans**: TBD
+**Plans**: 3 (completed 2026-04-16)
 **UI hint**: yes
 
 ### Phase 3: Core Page Reconstruction
@@ -52,7 +52,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. User can open an independent About page with baseline-equivalent brand introduction, qualifications/certifications, development history, team/equipment, and service-experience groupings.
   4. User can open the Products page and switch between core products and membership packages while viewing equivalent descriptions, applicable scenarios, specifications or benefits, and related cases.
   5. User can open the Franchise page and view baseline-equivalent cooperation models, return estimates, support and guarantee sections, consultation form UI, and contact details.
-**Plans**: TBD
+**Plans**: 6 (completed 2026-04-17)
 **UI hint**: yes
 
 ### Phase 4: News & Interaction Equivalence
@@ -87,6 +87,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 |-------|----------------|--------|-----------|
 | 1. Runtime Reset & Shell Revalidation | 0/TBD | Not started | - |
 | 2. React Landing Foundation (Post-Reset) | 3/3 | Complete | 2026-04-16 |
-| 3. Core Page Reconstruction | 0/TBD | Not started | - |
+| 3. Core Page Reconstruction | 6/6 | Complete | 2026-04-17 |
 | 4. News & Interaction Equivalence | 0/TBD | Not started | - |
 | 5. React Runtime Cutover & Parity QA | 0/TBD | Not started | - |

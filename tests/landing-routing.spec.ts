@@ -12,6 +12,8 @@ async function expectLandingShell(page: Page) {
   await expect(page.getByTestId('landing-shell')).toBeVisible();
   await expect(page.getByTestId('landing-nav')).toBeVisible();
   await expect(page.getByTestId('landing-footer')).toBeVisible();
+  await expect(page.getByTestId('landing-nav').getByText('频安AI智能商学院')).toBeVisible();
+  await expect(page.getByTestId('landing-nav').getByRole('link', { name: '了解加盟政策' })).toBeVisible();
 }
 
 test('entry-station shell ownership', async ({ page }) => {

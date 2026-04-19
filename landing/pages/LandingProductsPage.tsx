@@ -1,16 +1,20 @@
+import { useState } from 'react';
+
+import ProductsCases from '../sections/products/ProductsCases';
+import ProductsCatalogView from '../sections/products/ProductsCatalogView';
+import ProductsHero from '../sections/products/ProductsHero';
+import ProductsPackagesView from '../sections/products/ProductsPackagesView';
+import ProductsViewToggle from '../sections/products/ProductsViewToggle';
+
 export default function LandingProductsPage() {
+  const [activeView, setActiveView] = useState<'products' | 'packages'>('products');
+
   return (
-    <section data-testid="landing-page-products">
-      <p>页面骨架</p>
-      <h1>产品服务</h1>
-      <section>
-        <h2>内容待恢复</h2>
-        <p>产品矩阵、套餐视图与案例内容将在后续阶段恢复。</p>
-      </section>
-      <section>
-        <h2>后续恢复范围</h2>
-        <p>当前仅保留页面身份与共享壳层，详细产品表达后续完善。</p>
-      </section>
-    </section>
+    <div data-testid="landing-page-products" className="landing-page-container">
+      <ProductsHero />
+      <ProductsViewToggle activeView={activeView} onChange={setActiveView} />
+      {activeView === 'products' ? <ProductsCatalogView /> : <ProductsPackagesView />}
+      <ProductsCases />
+    </div>
   );
 }

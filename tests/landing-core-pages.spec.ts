@@ -1,0 +1,59 @@
+import { expect, test } from '@playwright/test';
+
+test('home page reconstruction', async ({ page }) => {
+  await page.goto('/entry-station');
+
+  await expect(page.getByTestId('landing-page-home')).toBeVisible();
+  await expect(page.getByTestId('home-hero').getByText('AI细胞修复')).toBeVisible();
+  await expect(page.getByTestId('home-hero').getByText('告别亚健康')).toBeVisible();
+  await expect(page.getByText('传统模式3大痛点')).toBeVisible();
+  await expect(page.getByText('4大核心壁垒，同行难复制')).toBeVisible();
+  await expect(page.getByText('服务闭环，无断点体验')).toBeVisible();
+  await expect(page.getByText('成果与声誉')).toBeVisible();
+  await expect(page.getByTestId('home-news-preview').getByRole('heading', { name: '资讯动态' })).toBeVisible();
+});
+
+test('home CTA routes', async ({ page }) => {
+  await page.goto('/entry-station');
+  await page.getByTestId('home-hero').getByRole('link', { name: '了解产品服务' }).click();
+  await expect(page).toHaveURL(/\/entry-station\/products$/);
+
+  await page.goto('/entry-station');
+  await page.getByTestId('home-hero').getByRole('link', { name: '加盟合作' }).click();
+  await expect(page).toHaveURL(/\/entry-station\/franchise$/);
+});
+
+test('about page reconstruction', async ({ page }) => {
+  await page.goto('/entry-station/about');
+
+  await expect(page.getByTestId('landing-page-about')).toBeVisible();
+  await expect(page.getByText('权威资质认证')).toBeVisible();
+  await expect(page.getByText('发展历程')).toBeVisible();
+  await expect(page.getByText('专业团队与设备')).toBeVisible();
+  await expect(page.getByText('贴心服务体验')).toBeVisible();
+  await expect(page.getByText('2018')).toBeVisible();
+  await expect(page.getByText('2024')).toBeVisible();
+});
+
+test('products dual view', async ({ page }) => {
+  await page.goto('/entry-station/products');
+
+  await expect(page.getByTestId('landing-page-products')).toBeVisible();
+  await expect(page.getByRole('button', { name: '核心产品' })).toBeVisible();
+  await page.getByRole('button', { name: '会员套餐' }).click();
+  await expect(page.getByText('周卡')).toBeVisible();
+  await expect(page.getByText('年卡')).toBeVisible();
+  await expect(page.getByText('推荐')).toBeVisible();
+});
+
+test('franchise page reconstruction', async ({ page }) => {
+  await page.goto('/entry-station/franchise');
+
+  await expect(page.getByTestId('landing-page-franchise')).toBeVisible();
+  await expect(page.getByRole('heading', { name: '合作方案' })).toBeVisible();
+  await expect(page.getByText('店中店收益测算（示例）')).toBeVisible();
+  await expect(page.getByText('全程扶上马，帮你赚到钱')).toBeVisible();
+  await expect(page.getByText('3大承诺，零风险加盟')).toBeVisible();
+  await expect(page.getByText('立即申请加盟')).toBeVisible();
+  await expect(page.getByTestId('landing-page-franchise').getByText('18948301116')).toBeVisible();
+});
