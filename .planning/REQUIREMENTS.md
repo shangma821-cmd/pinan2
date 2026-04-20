@@ -1,50 +1,72 @@
 # Requirements: 频安AI智能商学院
 
-**Defined:** 2026-04-09
+**Defined:** 2026-04-20
 **Core Value:** 让品牌入口页和 AI 商学院主应用都能以可维护、可扩展、可持续交付的工程形态稳定演进
 
-## v1 Requirements
+## v1.0 Requirements (Completed)
 
-### Shell And Routing
+All v1.0 structural reconstruction requirements have been validated and completed.
 
-- [ ] **SHELL-01**: 用户在访问 `/` 时可以通过现有首页壳稳定进入 `/entry-station` 的落地页体验
-- [x] **SHELL-02**: 用户可以在 landing 内访问与原版基线等价的五个目的地状态：首页、关于我们、产品服务、加盟合作、新闻动态
-- [ ] **SHELL-03**: 用户在 landing 内触发商学院入口时，现有 academy 打开链路仍然可用且与当前壳层行为兼容
+- [x] **SHELL-01**: 用户在访问 `/` 时可以通过现有首页壳稳定进入 `/entry-station` 的落地页体验
+- [x] **SHELL-02**: 用户可以在 landing 内访问与原版基线等价的五个目的地状态
+- [x] **SHELL-03**: 用户在 landing 内触发商学院入口时，academy 打开链路可用
+- [x] **HOME-01**: 首页信息结构与原版等价
+- [x] **HOME-02**: 首页 CTA 链接到产品和加盟
+- [x] **HOME-03**: 首页关键互动（优势展开、流程切换、成果数字）
+- [x] **ABOUT-01**: 独立关于我们页面
+- [x] **ABOUT-02**: 关于我们内容分组与原版等价
+- [x] **PROD-01**: 独立产品服务页面
+- [x] **PROD-02**: 核心产品与会员套餐切换
+- [x] **PROD-03**: 产品说明与案例内容
+- [x] **FRAN-01**: 独立加盟合作页面
+- [x] **FRAN-02**: 合作模式、收益、支持信息
+- [x] **FRAN-03**: 咨询表单界面与联系信息
+- [x] **NEWS-01**: 新闻列表视图
+- [x] **NEWS-02**: 客户端搜索与分类筛选
+- [x] **NEWS-03**: `?id=` 详情视图
+- [x] **XPG-01**: 主题持久化
+- [x] **XPG-02**: 移动端导航、滚动态导航、返回顶部
+- [x] **XPG-03**: React 源码产出替代静态拷贝
 
-### Home
+## v1.1 Requirements
 
-- [ ] **HOME-01**: 用户可以看到与 `7be7097^` 原版首页等价的信息结构，包括 hero、资质滚动区、市场痛点、核心优势、服务流程、案例成果、新闻预览和收尾 CTA
-- [ ] **HOME-02**: 用户可以从首页 CTA 进入产品服务和加盟合作相关目的地
-- [ ] **HOME-03**: 用户可以在首页看到与原版等价的关键互动，包括核心优势展开、流程步骤切换或自动推进、成果数字展示
+Requirements for pixel-perfect visual compliance. Each maps to roadmap phases.
 
-### About
+### CSS Variable System
 
-- [ ] **ABOUT-01**: 用户可以访问独立的关于我们页面，而不是将其折叠进首页长页面
-- [ ] **ABOUT-02**: 用户可以在关于我们页面看到与原版等价的品牌介绍、资质/认证、发展历程、团队/设备与服务体验内容分组
+- [ ] **CSSVAR-01**: 用户看到的 landing 默认主题为暗色（dark-first），`:root` 包含完整暗色 token 值
+- [ ] **CSSVAR-02**: 用户切换到浅色主题时，`[data-theme=light]` 覆盖层提供完整的 15 个语义 token
+- [ ] **CSSVAR-03**: 品牌绿色在暗色主题为 `#7a9e7a`、浅色主题为 `#34C759`，与 baseline 一致
+- [ ] **CSSVAR-04**: landing CSS 变量与 academy `index.css` 无命名冲突，scope 隔离已验证
+- [ ] **CSSVAR-05**: 首次加载无白色闪烁（synchronous theme script in `index.html`）
 
-### Products
+### Typography
 
-- [ ] **PROD-01**: 用户可以访问独立的产品服务页面并查看与原版等价的产品介绍结构
-- [ ] **PROD-02**: 用户可以在产品服务页切换原版中的核心产品与会员套餐两类内容视图
-- [ ] **PROD-03**: 用户可以查看与原版等价的产品/套餐说明、适用场景、规格或收益信息以及相关案例内容
+- [ ] **TYPO-01**: 用户看到的正文字体为 Inter（通过 @fontsource 自托管），Noto Sans SC 已移除
+- [ ] **TYPO-02**: 用户看到的标题字体为 Montserrat（通过 @fontsource 自托管），与 baseline 一致
+- [ ] **TYPO-03**: 字体渲染启用 antialiased smoothing，与 baseline 视觉一致
 
-### Franchise
+### Animations & Effects
 
-- [ ] **FRAN-01**: 用户可以访问独立的加盟合作页面并查看与原版等价的招商/合作信息结构
-- [ ] **FRAN-02**: 用户可以查看原版中的合作模式、收益测算、支持体系和保障信息
-- [ ] **FRAN-03**: 用户可以看到与原版等价的加盟咨询表单界面与联系信息展示
+- [ ] **ANIM-01**: 用户看到暗色背景上的浮动光球动画（float 系列 5 个变体）
+- [ ] **ANIM-02**: 用户看到资质横幅的水平滚动 marquee 动画（30s linear infinite）
+- [ ] **ANIM-03**: 用户看到 CTA 和卡片上的 pulse-glow 呼吸发光效果
+- [ ] **ANIM-04**: 导航栏和卡片呈现 `.glass-effect` 毛玻璃质感（backdrop-filter），含 Safari 兼容
+- [ ] **ANIM-05**: Hero 标题呈现 `.text-gradient` 渐变文字效果
+- [ ] **ANIM-06**: CTA 按钮呈现 `.shadow-glow` 发光阴影效果
+- [ ] **ANIM-07**: 动画支持 `prefers-reduced-motion` 无障碍降级
 
-### News
+### Assets & Spacing
 
-- [ ] **NEWS-01**: 用户可以访问独立的新闻动态页面并查看原版等价的新闻列表视图
-- [ ] **NEWS-02**: 用户可以在新闻页按原版方式进行客户端搜索、分类筛选和文章浏览
-- [ ] **NEWS-03**: 用户可以通过 `?id=` 方式打开与原版等价的新闻详情视图并返回列表
+- [ ] **ASSET-01**: 全部 baseline 图片资源已注册到 `assets.ts` 并在对应页面区块正确引用
+- [ ] **ASSET-02**: 圆角 token `--radius` 按主题响应（dark `0.625rem` / light `1rem`），与 baseline 一致
+- [ ] **ASSET-03**: 间距 token 与 baseline Tailwind 精确值对齐（4px grid），消除 off-by-4px 偏差
 
-### Cross-Page Behaviors
+### Visual QA
 
-- [ ] **XPG-01**: 用户的主题切换选择在 landing 内可以保持与原版等价的持久化体验
-- [ ] **XPG-02**: 用户可以使用与原版等价的移动端导航、滚动态导航和返回顶部等基础跨页交互
-- [ ] **XPG-03**: 用户在构建后的正式产物中访问 `/entry-station` 时，看到的就是 React 源码产出的 landing，而不再依赖静态拷贝产物
+- [ ] **VQA-01**: 用户在桌面端逐页看到与 baseline 像素级一致的视觉表现（Home、About、Products、Franchise、News）
+- [ ] **VQA-02**: 用户在移动端逐页看到与 baseline 像素级一致的视觉表现
+- [ ] **VQA-03**: Playwright `toHaveScreenshot()` 视觉回归测试套件建立，golden 来自 baseline 构建产物
 
 ## v2 Requirements
 
@@ -62,43 +84,24 @@
 
 | Feature | Reason |
 |---------|--------|
-| 延续当前弱医疗化单页内容表达 | 本里程碑明确以 `7be7097^` 之前版本为恢复基线 |
-| 重构 AI 商学院主应用功能 | 本里程碑只聚焦 landing 恢复、React 工程化与入口集成 |
-| 为加盟表单或新闻分享补后台服务 | 当前目标是先恢复原版界面与交互等价，不扩展后台链路 |
-| 新增 CMS、运营后台或内容发布系统 | 可维护源码优先，运营化能力留到后续版本 |
+| 引入 Tailwind CSS 框架 | baseline 虽使用 Tailwind 构建，但 React 端通过手写 CSS 变量精确匹配即可 |
+| 改变页面结构或功能逻辑 | v1.1 仅调整视觉表现，不改变 v1.0 已验证的结构与交互 |
+| 重构 AI 商学院主应用功能 | 本里程碑只聚焦 landing 视觉合规 |
+| 新增 CMS、运营后台或内容发布系统 | 视觉合规优先 |
+| 为加盟表单或新闻分享补后台服务 | 当前目标是视觉复刻，不扩展后台链路 |
 
 ## Traceability
 
-Roadmap created for milestone v1.0.
+(To be filled by roadmap creation)
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SHELL-01 | Phase 1 | Pending |
-| SHELL-02 | Phase 2 | Complete |
-| SHELL-03 | Phase 1 | Pending |
-| HOME-01 | Phase 3 | Pending |
-| HOME-02 | Phase 3 | Pending |
-| HOME-03 | Phase 4 | Pending |
-| ABOUT-01 | Phase 3 | Pending |
-| ABOUT-02 | Phase 3 | Pending |
-| PROD-01 | Phase 3 | Pending |
-| PROD-02 | Phase 3 | Pending |
-| PROD-03 | Phase 3 | Pending |
-| FRAN-01 | Phase 3 | Pending |
-| FRAN-02 | Phase 3 | Pending |
-| FRAN-03 | Phase 3 | Pending |
-| NEWS-01 | Phase 4 | Pending |
-| NEWS-02 | Phase 4 | Pending |
-| NEWS-03 | Phase 4 | Pending |
-| XPG-01 | Phase 4 | Pending |
-| XPG-02 | Phase 4 | Pending |
-| XPG-03 | Phase 5 | Pending |
 
 **Coverage:**
-- v1 requirements: 20 total
-- Mapped to phases: 20
-- Unmapped: 0
+- v1.1 requirements: 20 total
+- Mapped to phases: 0
+- Unmapped: 20 ⚠️
 
 ---
-*Requirements defined: 2026-04-09*
-*Last updated: 2026-04-09 after roadmap creation*
+*Requirements defined: 2026-04-20*
+*Last updated: 2026-04-20 after v1.1 requirements definition*
