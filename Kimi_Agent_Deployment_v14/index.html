@@ -1,338 +1,362 @@
-<!doctype html>
-<html lang="zh-CN">
+﻿<!doctype html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="频安生活围绕门店空间体验、居家搭配与日常陪伴，呈现更清晰、更舒适的生活方式服务表达。"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Raleway:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <title>频安生活 | 日常状态管理与空间体验</title>
+    <title>璋卞厓绉戞妧 - 鏁版櫤涓尰</title>
     <script type="module" crossorigin src="./assets/index-BqLXAaHJ.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-DuxCbJQB.css" />
+    <link rel="stylesheet" crossorigin href="./assets/index-DuxCbJQB.css">
   </head>
   <body>
-    <div class="site-shell">
-      <header class="site-header">
-        <div class="container header-inner">
-          <a class="brand" href="#home" aria-label="频安生活首页">
-            <span class="brand-mark">PH</span>
-            <span class="brand-copy">
-              <strong>频安生活</strong>
-              <span>空间体验与日常陪伴</span>
-            </span>
-          </a>
+    <div id="root"></div>
+    <script>
+      (function () {
+        var TAB_ATTR = 'data-ai-academy-tab';
+        var TAB_LABEL = '频安AI商学院';
+        var TARGET_PATH = '/academy';
+        var NAV_TEXTS = ['首页', '关于我们', '产品服务', '加盟合作', '新闻动态'];
+        var ACTION_SELECTOR = 'a,button,[role="button"]';
+        var CONTACT_TRIGGER_TEXT = '联系我们';
+        var CONTACT_MODAL_ID = 'entry-contact-modal';
+        var CONTACT_STYLE_ID = 'entry-contact-style';
+        var contactHandlerBound = false;
 
-          <button
-            class="menu-button"
-            type="button"
-            aria-expanded="false"
-            aria-controls="site-menu"
-            data-menu-button
-          >
-            <span></span>
-            <span></span>
-            <span></span>
-            <span class="sr-only">展开导航</span>
-          </button>
+        function normalizeText(text) {
+          return String(text || '').replace(/\s+/g, '').trim();
+        }
 
-          <nav class="site-nav" id="site-menu" data-menu>
-            <a href="#intro">服务内容</a>
-            <a href="#journey">服务流程</a>
-            <a href="#scenes">适配场景</a>
-            <a href="#partners">合作支持</a>
-            <a href="#contact">联系我们</a>
-          </nav>
-        </div>
-      </header>
+        function isVisible(el) {
+          if (!el) return false;
+          var rect = el.getBoundingClientRect();
+          if (rect.width <= 0 || rect.height <= 0) return false;
+          var style = window.getComputedStyle(el);
+          return style.display !== 'none' && style.visibility !== 'hidden' && style.opacity !== '0';
+        }
 
-      <main id="home">
-        <section class="hero-section">
-          <div class="container hero-grid">
-            <div class="hero-copy">
-              <span class="eyebrow">门店服务 · 居家搭配 · 生活方式灵感</span>
-              <h1>把日常状态，安顿在更舒服的节奏里。</h1>
-              <p class="hero-text">
-                频安生活围绕门店空间、日常用品搭配与持续陪伴服务，帮助用户用更轻松的方式整理生活节奏，也帮助合作门店把服务表达得更清晰、更有质感。
-              </p>
-              <div class="hero-actions">
-                <a class="button button-primary" href="tel:18948301116">到店咨询</a>
-                <a class="button button-secondary" href="#journey">查看服务流程</a>
-              </div>
-              <div class="hero-note">
-                <div class="note-card">
-                  <strong>我们更重视什么</strong>
-                  <p>清楚说明、舒适空间、顺手搭配、持续陪伴。</p>
-                </div>
-                <div class="note-card">
-                  <strong>页面说明</strong>
-                  <p>本页用于介绍品牌、门店服务和合作信息，不包含效果承诺。</p>
-                </div>
-              </div>
-            </div>
+        function isActionElement(el) {
+          if (!el || !el.tagName) return false;
+          return el.matches(ACTION_SELECTOR);
+        }
 
-            <div class="hero-visual">
-              <figure class="hero-photo hero-photo-main">
-                <img src="./store-front-new.jpg" alt="频安生活门店空间展示" />
-              </figure>
-              <figure class="hero-photo hero-photo-side">
-                <img src="./service-scene.jpg" alt="频安生活服务场景展示" />
-              </figure>
-              <div class="floating-panel">
-                <span class="panel-tag">门店体验</span>
-                <strong>从第一眼到最后一步，都更容易听懂、看懂、走通。</strong>
-              </div>
-            </div>
-          </div>
-        </section>
+        function getActionFromNode(node) {
+          if (!node) return null;
+          if (isActionElement(node)) return node;
+          return node.querySelector(ACTION_SELECTOR);
+        }
 
-        <section class="story-section" id="intro">
-          <div class="container">
-            <div class="section-heading">
-              <span class="eyebrow">服务内容</span>
-              <h2>不是堆概念，而是把每一段服务都说得明白。</h2>
-              <p>
-                我们把服务拆成能被真实感知的几个环节，让门店体验、居家使用和后续沟通形成同一条节奏线。
-              </p>
-            </div>
+        function getDirectChild(container, node) {
+          var current = node;
+          while (current && current.parentElement && current.parentElement !== container) {
+            current = current.parentElement;
+          }
+          return current && current.parentElement === container ? current : null;
+        }
 
-            <div class="feature-grid">
-              <article class="feature-card">
-                <span class="feature-index">01</span>
-                <h3>门店空间体验</h3>
-                <p>
-                  通过动线、陈列、讲解节奏和到店接待，让用户在进入空间的几分钟内就知道“这里适合我做什么”。
-                </p>
-              </article>
-              <article class="feature-card">
-                <span class="feature-index">02</span>
-                <h3>居家搭配建议</h3>
-                <p>
-                  把适合日常使用的用品组合成更顺手的场景搭配，降低理解门槛，也减少用户带回家后的使用压力。
-                </p>
-              </article>
-              <article class="feature-card">
-                <span class="feature-index">03</span>
-                <h3>持续陪伴沟通</h3>
-                <p>
-                  围绕作息、饮水、活动和空间整理提供内容陪伴，让服务不是“到店一次”，而是能逐步养成节奏。
-                </p>
-              </article>
-            </div>
-          </div>
-        </section>
+        function stripActiveClassName(element) {
+          if (!element || !element.classList) return;
+          var toRemove = [];
+          element.classList.forEach(function (className) {
+            var lower = className.toLowerCase();
+            if (lower.indexOf('active') >= 0 || lower.indexOf('current') >= 0 || lower.indexOf('selected') >= 0) {
+              toRemove.push(className);
+            }
+          });
+          toRemove.forEach(function (className) {
+            element.classList.remove(className);
+          });
+        }
 
-        <section class="journey-section" id="journey">
-          <div class="container">
-            <div class="section-heading">
-              <span class="eyebrow">服务流程</span>
-              <h2>四步走通，用户和门店都更省心。</h2>
-            </div>
+        function openAcademy(event) {
+          if (event && typeof event.preventDefault === 'function') {
+            event.preventDefault();
+          }
 
-            <div class="journey-grid">
-              <article class="journey-card">
-                <span>01</span>
-                <h3>到店沟通</h3>
-                <p>先了解日常习惯、空间偏好和使用期待，把交流放在轻松而清楚的节奏里。</p>
-              </article>
-              <article class="journey-card">
-                <span>02</span>
-                <h3>场景梳理</h3>
-                <p>把用户常见的生活场景整理成更容易理解的分区，帮助做出适合自己的选择。</p>
-              </article>
-              <article class="journey-card">
-                <span>03</span>
-                <h3>组合建议</h3>
-                <p>结合门店体验和居家使用习惯，形成更顺手的用品与空间搭配方案。</p>
-              </article>
-              <article class="journey-card">
-                <span>04</span>
-                <h3>持续陪伴</h3>
-                <p>通过回访、内容说明和门店活动，让用户更容易把好的节奏留在日常里。</p>
-              </article>
-            </div>
-          </div>
-        </section>
+          try {
+            if (window.parent && window.parent !== window) {
+              window.parent.postMessage({ type: 'OPEN_AI_ACADEMY' }, window.location.origin);
+              if (typeof window.parent.__openAiAcademy === 'function') {
+                window.parent.__openAiAcademy();
+                return;
+              }
+            }
+          } catch (err) {
+            // Ignore and fallback to direct navigation.
+          }
 
-        <section class="scene-section" id="scenes">
-          <div class="container">
-            <div class="section-heading">
-              <span class="eyebrow">适配场景</span>
-              <h2>更贴近日常，而不是只停留在口号里。</h2>
-            </div>
+          window.location.href = TARGET_PATH;
+        }
 
-            <div class="scene-grid">
-              <article class="scene-card">
-                <img src="./solution-wellness.jpg" alt="日常舒缓场景展示" loading="lazy" />
-                <div class="scene-card-copy">
-                  <h3>久坐之后的放松时段</h3>
-                  <p>适合希望把晚间节奏放慢一点、让空间更有松弛感的人群。</p>
-                </div>
-              </article>
-              <article class="scene-card">
-                <img src="./lifestyle-smart.jpg" alt="晚间居家生活场景展示" loading="lazy" />
-                <div class="scene-card-copy">
-                  <h3>晚间整理与安静陪伴</h3>
-                  <p>围绕照明、动线和用品搭配，帮助晚间活动更顺手，也更不急促。</p>
-                </div>
-              </article>
-              <article class="scene-card">
-                <img src="./case-energy.jpg" alt="活力管理场景展示" loading="lazy" />
-                <div class="scene-card-copy">
-                  <h3>白天活力管理</h3>
-                  <p>适合希望把饮水、活动和日间节奏安排得更稳定的人群。</p>
-                </div>
-              </article>
-              <article class="scene-card">
-                <img src="./case-elderly.jpg" alt="家人陪伴场景展示" loading="lazy" />
-                <div class="scene-card-copy">
-                  <h3>家人陪伴与空间关照</h3>
-                  <p>让家中不同成员都更容易理解用品用途，减少沟通成本。</p>
-                </div>
-              </article>
-            </div>
-          </div>
-        </section>
+        function isHeaderContactTrigger(action) {
+          if (!action || !isVisible(action)) return false;
+          if (normalizeText(action.textContent) !== CONTACT_TRIGGER_TEXT) return false;
+          var rect = action.getBoundingClientRect();
+          return rect.top >= -8 && rect.top <= 180 && rect.width >= 72 && rect.height >= 28;
+        }
 
-        <section class="tool-section">
-          <div class="container tool-layout">
-            <div class="section-heading section-heading-left">
-              <span class="eyebrow">组合表达</span>
-              <h2>把空间、用品和服务放进同一个表达系统。</h2>
-              <p>
-                频安生活不追求复杂话术，而是通过简单、完整、可复用的组合表达，让门店讲解和用户理解都更自然。
-              </p>
-            </div>
+        function ensureContactStyle() {
+          if (document.getElementById(CONTACT_STYLE_ID)) return;
+          var style = document.createElement('style');
+          style.id = CONTACT_STYLE_ID;
+          style.textContent = [
+            '.entry-contact-modal{position:fixed;inset:0;z-index:9999;display:none;}',
+            '.entry-contact-modal.entry-contact-modal-open{display:block;}',
+            '.entry-contact-backdrop{position:absolute;inset:0;background:rgba(8,15,28,.45);backdrop-filter:blur(10px) saturate(125%);}',
+            '.entry-contact-panel{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(94vw,560px);',
+            'background:linear-gradient(145deg,rgba(255,255,255,.78),rgba(255,255,255,.62));',
+            'backdrop-filter:blur(18px) saturate(145%);border:1px solid rgba(255,255,255,.58);',
+            'border-radius:24px;box-shadow:0 22px 58px rgba(15,23,42,.28),inset 0 1px 0 rgba(255,255,255,.8);',
+            'padding:28px 28px 24px;color:#0f172a;overflow:hidden;}',
+            '.entry-contact-panel::before{content:\"\";position:absolute;inset:-120% auto auto -30%;width:240px;height:240px;',
+            'background:radial-gradient(circle,rgba(74,222,128,.22),rgba(74,222,128,0));pointer-events:none;}',
+            '.entry-contact-head{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:18px;}',
+            '.entry-contact-title{margin:0;font-size:30px;font-weight:900;line-height:1.1;color:#0f172a;letter-spacing:.01em;}',
+            '.entry-contact-close{width:42px;height:42px;border-radius:999px;border:1px solid rgba(148,163,184,.42);',
+            'background:rgba(255,255,255,.62);color:#334155;font-size:24px;line-height:1;cursor:pointer;transition:all .2s ease;}',
+            '.entry-contact-close:hover{background:rgba(255,255,255,.9);border-color:rgba(148,163,184,.72);transform:translateY(-1px);}',
+            '.entry-contact-content{position:relative;z-index:1;font-size:18px;line-height:2;color:#1e293b;}',
+            '.entry-contact-label{font-weight:800;color:#0f172a;}',
+            '.entry-contact-link{color:#15803d;font-weight:800;text-decoration:none;}',
+            '.entry-contact-link:hover{text-decoration:underline;}',
+            '@media (max-width:640px){.entry-contact-panel{width:min(92vw,520px);padding:22px 18px 18px;border-radius:20px;}',
+            '.entry-contact-title{font-size:24px;}.entry-contact-content{font-size:16px;line-height:1.9;}}'
+          ].join('');
+          document.head.appendChild(style);
+        }
 
-            <div class="tool-grid">
-              <article class="tool-card">
-                <img src="./product-band.jpg" alt="穿戴设备展示" loading="lazy" />
-                <div>
-                  <h3>穿戴陪伴设备</h3>
-                  <p>适合轻便场景，让用户在外出、通勤或活动间隙也能保留熟悉的陪伴感。</p>
-                </div>
-              </article>
-              <article class="tool-card">
-                <img src="./product-water.jpg" alt="饮水设备展示" loading="lazy" />
-                <div>
-                  <h3>饮水与日常搭配</h3>
-                  <p>围绕饮水习惯和空间摆放做更顺手的安排，让坚持这件事变得更轻一点。</p>
-                </div>
-              </article>
-              <article class="tool-card">
-                <img src="./equipment-detail.jpg" alt="空间设备展示" loading="lazy" />
-                <div>
-                  <h3>空间体验设备</h3>
-                  <p>适合门店体验区与休憩角，帮助用户快速感受空间节奏和服务氛围。</p>
-                </div>
-              </article>
-            </div>
-          </div>
-        </section>
+        function ensureContactModal() {
+          var modal = document.getElementById(CONTACT_MODAL_ID);
+          if (modal) return modal;
 
-        <section class="partner-section" id="partners">
-          <div class="container partner-grid">
-            <div class="partner-copy">
-              <span class="eyebrow">合作支持</span>
-              <h2>如果你要做一家更有秩序感的门店，我们把支持准备得更完整。</h2>
-              <p>
-                从空间陈列到接待节奏，从开业物料到日常复盘，我们用一套更容易落地的支持体系，帮助合作伙伴把门店节奏稳住。
-              </p>
+          modal = document.createElement('div');
+          modal.id = CONTACT_MODAL_ID;
+          modal.className = 'entry-contact-modal';
+          modal.innerHTML = [
+            '<div class="entry-contact-backdrop" data-contact-close="1"></div>',
+            '<div class="entry-contact-panel" role="dialog" aria-modal="true" aria-label="联系方式弹窗">',
+            '  <div class="entry-contact-head">',
+            '    <h3 class="entry-contact-title">联系我们</h3>',
+            '    <button type="button" class="entry-contact-close" data-contact-close="1" aria-label="关闭">×</button>',
+            '  </div>',
+            '  <div class="entry-contact-content">',
+            '    <div><span class="entry-contact-label">产品加盟咨询：</span>叶总监</div>',
+            '    <div><span class="entry-contact-label">联系电话：</span><a class="entry-contact-link" href="tel:18948301116">18948301116</a></div>',
+            '    <div><span class="entry-contact-label">邮箱：</span><a class="entry-contact-link" href="mailto:Pinancs@163.com">Pinancs@163.com</a></div>',
+            '  </div>',
+            '</div>'
+          ].join('');
 
-              <div class="support-list">
-                <article class="support-card">
-                  <h3>空间陈列模板</h3>
-                  <p>帮助门店快速搭建统一视觉，减少“东西很多但不会摆”的启动焦虑。</p>
-                </article>
-                <article class="support-card">
-                  <h3>调理师接待流程</h3>
-                  <p>梳理接待话术、动线安排和说明顺序，让服务表达更稳定、更有边界感。</p>
-                </article>
-                <article class="support-card">
-                  <h3>内容物料支持</h3>
-                  <p>提供开业活动、日常更新和空间说明的基础内容，让传播更统一。</p>
-                </article>
-                <article class="support-card">
-                  <h3>经营节奏复盘</h3>
-                  <p>围绕到店转化、复访沟通和用户反馈做月度整理，把门店动作做得更稳。</p>
-                </article>
-              </div>
-            </div>
+          modal.addEventListener('click', function (event) {
+            var target = event.target;
+            if (!(target instanceof Element)) return;
+            if (target.closest('[data-contact-close="1"]')) {
+              closeContactModal();
+            }
+          });
 
-            <aside class="contact-panel" id="contact">
-              <span class="panel-tag">合作与咨询</span>
-              <h3>先来电沟通，再安排到店交流。</h3>
-              <ul class="contact-list">
-                <li>
-                  <span>咨询热线</span>
-                  <a href="tel:18948301116">18948301116</a>
-                </li>
-                <li>
-                  <span>沟通建议</span>
-                  <strong>建议提前预约，便于安排接待时段</strong>
-                </li>
-                <li>
-                  <span>总部地址</span>
-                  <strong>江苏省苏州市常熟市东南街道久隆路88号</strong>
-                </li>
-              </ul>
-              <div class="contact-actions">
-                <a class="button button-primary" href="tel:18948301116">立即电话咨询</a>
-                <a class="button button-secondary" href="#insights">查看空间笔记</a>
-              </div>
-            </aside>
-          </div>
-        </section>
+          document.body.appendChild(modal);
+          return modal;
+        }
 
-        <section class="insight-section" id="insights">
-          <div class="container">
-            <div class="section-heading">
-              <span class="eyebrow">空间笔记</span>
-              <h2>更适合品牌官网的内容表达，也更贴近日常使用场景。</h2>
-            </div>
+        function openContactModal() {
+          ensureContactStyle();
+          var modal = ensureContactModal();
+          modal.classList.add('entry-contact-modal-open');
+          document.body.style.overflow = 'hidden';
+        }
 
-            <div class="insight-grid">
-              <article class="insight-card">
-                <img src="./about-img.jpg" alt="门店空间陈列示意" loading="lazy" />
-                <div>
-                  <h3>门店空间怎么做，用户会更愿意停留</h3>
-                  <p>从入口氛围、停留节点到讲解区域，让空间更有层次，也更方便沟通。</p>
-                </div>
-              </article>
-              <article class="insight-card">
-                <img src="./how-it-works.jpg" alt="服务流程示意" loading="lazy" />
-                <div>
-                  <h3>服务流程怎么讲，内容才不会显得又满又乱</h3>
-                  <p>把复杂说明拆成更容易理解的步骤，是提高服务完成度的关键动作。</p>
-                </div>
-              </article>
-              <article class="insight-card">
-                <img src="./team-photo.jpg" alt="服务团队示意" loading="lazy" />
-                <div>
-                  <h3>合作门店开业前，最值得先准备的三件事</h3>
-                  <p>统一视觉、清楚讲解、稳定接待，是门店前期最能感受到差异的部分。</p>
-                </div>
-              </article>
-            </div>
-          </div>
-        </section>
-      </main>
+        function closeContactModal() {
+          var modal = document.getElementById(CONTACT_MODAL_ID);
+          if (!modal) return;
+          modal.classList.remove('entry-contact-modal-open');
+          document.body.style.overflow = '';
+        }
 
-      <footer class="site-footer">
-        <div class="container footer-inner">
-          <div>
-            <strong>频安生活</strong>
-            <p>围绕门店空间、居家搭配与日常陪伴，提供更清晰、更舒服的服务表达。</p>
-          </div>
-          <p>© <span data-year></span> 频安生活. 页面内容以品牌介绍与门店现场说明为准。</p>
-        </div>
-      </footer>
-    </div>
+        function bindContactModalTrigger() {
+          if (contactHandlerBound) return;
+          contactHandlerBound = true;
+
+          document.addEventListener('click', function (event) {
+            var target = event.target;
+            if (!(target instanceof Element)) return;
+            var action = target.closest(ACTION_SELECTOR);
+            if (!action) return;
+            if (!isHeaderContactTrigger(action)) return;
+            event.preventDefault();
+            openContactModal();
+          }, true);
+
+          document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+              closeContactModal();
+            }
+          });
+        }
+
+        function findMenuByNewsAction(newsAction) {
+          var candidates = [];
+          if (newsAction.parentElement) candidates.push(newsAction.parentElement);
+          if (newsAction.parentElement && newsAction.parentElement.parentElement) {
+            candidates.push(newsAction.parentElement.parentElement);
+          }
+
+          for (var i = 0; i < candidates.length; i += 1) {
+            var container = candidates[i];
+            if (!container) continue;
+
+            var childNodes = Array.prototype.slice.call(container.children || []);
+            var items = childNodes.map(function (child) {
+              return {
+                node: child,
+                action: getActionFromNode(child),
+              };
+            }).filter(function (item) {
+              return item.action && isVisible(item.action);
+            });
+
+            if (items.length < 4 || items.length > 10) continue;
+
+            var labels = {};
+            var hasNews = false;
+            items.forEach(function (item) {
+              var text = normalizeText(item.action.textContent);
+              if (NAV_TEXTS.indexOf(text) >= 0) {
+                labels[text] = true;
+              }
+              if (text === '新闻动态') {
+                hasNews = true;
+              }
+            });
+
+            if (hasNews && Object.keys(labels).length >= 4) {
+              return {
+                container: container,
+                items: items,
+              };
+            }
+          }
+
+          return null;
+        }
+
+        function collectVisibleMenuTargets() {
+          var newsActions = Array.prototype.slice.call(document.querySelectorAll(ACTION_SELECTOR)).filter(function (el) {
+            return isVisible(el) && normalizeText(el.textContent) === '新闻动态';
+          });
+
+          var targets = [];
+          var seen = new Set();
+
+          newsActions.forEach(function (newsAction) {
+            var menu = findMenuByNewsAction(newsAction);
+            if (!menu) return;
+            if (seen.has(menu.container)) return;
+            seen.add(menu.container);
+            targets.push(menu);
+          });
+
+          return targets;
+        }
+
+        function createTabNodeFrom(anchorAction) {
+          var templateWrapper = anchorAction.closest ? anchorAction.closest('li') : null;
+          var baseNode = templateWrapper && templateWrapper.parentElement ? templateWrapper : anchorAction;
+          var clonedNode = baseNode.cloneNode(true);
+          var tabAction = getActionFromNode(clonedNode);
+
+          if (!tabAction) return null;
+
+          stripActiveClassName(tabAction);
+          tabAction.setAttribute(TAB_ATTR, '1');
+          tabAction.removeAttribute('aria-current');
+          tabAction.textContent = TAB_LABEL;
+          tabAction.style.whiteSpace = 'nowrap';
+
+          if (tabAction.tagName === 'A') {
+            tabAction.setAttribute('href', TARGET_PATH);
+            tabAction.setAttribute('target', '_top');
+          } else {
+            tabAction.setAttribute('type', 'button');
+          }
+
+          tabAction.addEventListener('click', openAcademy);
+          return clonedNode;
+        }
+
+        function ensureTabInMenu(menu) {
+          var container = menu.container;
+          var newsItem = menu.items.find(function (item) {
+            return normalizeText(item.action.textContent) === '新闻动态';
+          });
+          if (!newsItem) return false;
+
+          var anchorNode = newsItem.node;
+          var existingAction = container.querySelector('[' + TAB_ATTR + ']');
+
+          if (existingAction) {
+            var existingNode = getDirectChild(container, existingAction) || existingAction;
+            if (existingNode !== anchorNode.nextElementSibling) {
+              anchorNode.insertAdjacentElement('afterend', existingNode);
+            }
+            return true;
+          }
+
+          var newNode = createTabNodeFrom(newsItem.action);
+          if (!newNode) return false;
+          anchorNode.insertAdjacentElement('afterend', newNode);
+          return true;
+        }
+
+        function cleanupStaleTabs(validMenus) {
+          var validContainers = validMenus.map(function (menu) {
+            return menu.container;
+          });
+
+          var tabs = document.querySelectorAll('[' + TAB_ATTR + ']');
+          tabs.forEach(function (action) {
+            var keep = validContainers.some(function (container) {
+              return container.contains(action);
+            });
+            if (keep) return;
+
+            var removable = action.closest ? (action.closest('li') || action) : action;
+            if (removable && removable.parentElement) {
+              removable.parentElement.removeChild(removable);
+            }
+          });
+        }
+
+        function ensureAcademyTabs() {
+          var menus = collectVisibleMenuTargets();
+          if (!menus.length) return false;
+
+          menus.forEach(function (menu) {
+            ensureTabInMenu(menu);
+          });
+
+          cleanupStaleTabs(menus);
+          return true;
+        }
+
+        function init() {
+          ensureAcademyTabs();
+          bindContactModalTrigger();
+
+          var observer = new MutationObserver(function () {
+            ensureAcademyTabs();
+          });
+          observer.observe(document.documentElement, { childList: true, subtree: true });
+
+          window.setInterval(function () {
+            ensureAcademyTabs();
+          }, 1000);
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', init, { once: true });
+        } else {
+          init();
+        }
+      })();
+    </script>
   </body>
 </html>
