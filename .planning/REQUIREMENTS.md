@@ -92,16 +92,35 @@ Requirements for pixel-perfect visual compliance. Each maps to roadmap phases.
 
 ## Traceability
 
-(To be filled by roadmap creation)
-
 | Requirement | Phase | Status |
 |-------------|-------|--------|
+| CSSVAR-04 | Phase 6 | Pending |
+| TYPO-01 | Phase 7 | Pending |
+| TYPO-02 | Phase 7 | Pending |
+| TYPO-03 | Phase 7 | Pending |
+| CSSVAR-01 | Phase 8 | Pending |
+| CSSVAR-02 | Phase 8 | Pending |
+| CSSVAR-03 | Phase 8 | Pending |
+| CSSVAR-05 | Phase 8 | Pending |
+| ANIM-01 | Phase 9 | Pending |
+| ANIM-02 | Phase 9 | Pending |
+| ANIM-03 | Phase 9 | Pending |
+| ANIM-04 | Phase 9 | Pending |
+| ANIM-05 | Phase 9 | Pending |
+| ANIM-06 | Phase 9 | Pending |
+| ANIM-07 | Phase 9 | Pending |
+| ASSET-01 | Phase 10 | Pending |
+| ASSET-02 | Phase 10 | Pending |
+| ASSET-03 | Phase 10 | Pending |
+| VQA-01 | Phase 11 | Pending |
+| VQA-02 | Phase 11 | Pending |
+| VQA-03 | Phase 11 | Pending |
 
 **Coverage:**
 - v1.1 requirements: 20 total
-- Mapped to phases: 0
-- Unmapped: 20 ⚠️
+- Mapped to phases: 20
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-04-20*
-*Last updated: 2026-04-20 after v1.1 requirements definition*
+*Last updated: 2026-04-20 after v1.1 roadmap creation*
