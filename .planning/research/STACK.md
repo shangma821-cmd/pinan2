@@ -1,108 +1,283 @@
-# Technology Stack: Kimi Landing Restoration + React Reconstruction
+# Stack Research
 
-**Project:** 频安AI智能商学院  
-**Researched:** 2026-04-09  
-**Scope:** Restore the `7be7097^` landing baseline as maintainable React source inside the existing React/Vite app.  
-**Confidence:** HIGH for the recommended stack; MEDIUM for optional historical multi-page restoration details inferred from the shipped bundle.
+**Domain:** Pixel-perfect CSS visual compliance for React landing app
+**Researched:** 2026-04-20
+**Milestone:** v1.1 — additive to v1.0 validated stack (React 19 + Vite 6 + TypeScript)
+**Confidence:** HIGH — findings grounded in direct baseline CSS inspection and existing installed tooling
 
-## Recommendation
+## Context
 
-Do **not** add a new frontend framework or a second styling system. The repo already has the right core stack: `react@^19.2.4`, `react-dom@^19.2.4`, `vite@^6.2.0`, `@vitejs/plugin-react@^5.0.0`, and `typescript@~5.8.2`. The milestone needs a **source-structure and build-entry change**, not a package-stack reset.
+The v1.0 stack research established that no new framework or styling system is needed. This research answers the narrower v1.1 question: what tooling additions (if any) enable pixel-perfect CSS compliance against the `7be7097^` baseline.
 
-The old `7be7097^` artifact was a built React site mounted with `createRoot(...)`, and it included a separate marketing-site shell with route/page code paths (`Home`, `About`, `Products`, `Franchise`, `News`) plus a large utility-CSS output. For this repo, the maintainable path is to rebuild the required landing content in repo-native React components and CSS, then serve it at the existing `/entry-station` URL through Vite’s multi-page HTML entry support.
+**Baseline fingerprint (from direct CSS inspection of `index-DuxCbJQB.css`, 105KB):**
+- Fonts: Inter (9 weights) + Montserrat (9 weights) via Google Fonts CDN
+- Dark-first default: `:root` block defines dark values (`--bg-primary: #050a05`, `--text-primary: #ffffff`)
+- CSS variable naming: unprefixed (`--brand-green`, `--bg-primary`, `--glass-bg`, `--glow-color`)
+- Utility classes: `.glass-effect`, `.text-gradient`, `.shadow-glow`
+- Keyframes: `float`, `float-slow`, `float-medium`, `float-fast`, `float-slow-reverse`, `marquee`, `pulse-glow` (two definitions — see pitfalls), `pulse`, `bounce`, `spin`, `enter`, `exit`, `accordion-down`, `accordion-up`, `caret-blink`
+- No `.dark` class toggle, no `prefers-color-scheme` media query found — dark is the default `:root` state
 
-## Keep As-Is
+---
 
-| Technology | Version | Use Here | Why It Fits This Repo |
-|------------|---------|----------|-----------------------|
-| React | `^19.2.4` | Landing component tree | Already installed; baseline artifact was React-based; no need for another UI runtime. |
-| React DOM | `^19.2.4` | Mount `entry-station` root with `createRoot` | Matches current app entry pattern and React official guidance. |
-| Vite | `^6.2.0` | Dev/build for root app + `/entry-station` HTML entry | Officially supports multi-page apps with multiple `.html` entry points. |
-| `@vitejs/plugin-react` | `^5.0.0` | JSX/TSX transform + HMR | Already in repo; no extra React build tooling needed. |
-| TypeScript | `~5.8.2` | Maintainable landing source | Already in repo; keeps landing code aligned with the rest of the app. |
-| `lucide-react` | `^0.574.0` | Optional icon reuse only | Already installed; reuse if needed instead of adding a second icon pack. |
+## Recommended Stack Additions
 
-## Required Changes
+### npm Dependencies to Add
 
-### 1. Replace copied static output with a real Vite entry
+| Package | Version | Purpose | Why This Solves the Problem |
+|---------|---------|---------|----------------------------|
+| `@fontsource/inter` | `^5.2.5` | Self-hosted Inter font | Eliminates Google Fonts CDN variability: CDN serves different font binaries by user-agent, causing subtle metric differences that break pixel compliance. Self-hosting pins the exact binary. |
+| `@fontsource/montserrat` | `^5.2.5` | Self-hosted Montserrat font | Same rationale as Inter. Baseline uses weights 100–900 for both families. Self-hosting ensures rendering identity across environments. |
 
-Use a dedicated HTML entry such as `entry-station/index.html` plus `src/entry-station/main.tsx`. Keep `EntryShell.tsx` pointing at `/entry-station/index.html` so the existing iframe contract stays stable.
+### Dev Dependencies to Add
 
-In `vite.config.ts`, switch from the current `entryStationSourcePlugin()` copy/remap approach to Vite 6 multi-page build config via `build.rollupOptions.input`. This is the key stack change for maintainability.
+| Package | Version | Purpose | Why This Solves the Problem |
+|---------|---------|---------|----------------------------|
+| None | — | Playwright 1.59.1 already installed | `toHaveScreenshot()` is built into `@playwright/test` — no additional visual regression package needed. |
 
-### 2. Rebuild the landing in repo-native React components
+**Net result: 2 new npm dependencies (`@fontsource/inter`, `@fontsource/montserrat`). Everything else is CSS authoring work.**
 
-Recommended source shape:
+---
 
-```text
-entry-station/index.html
-src/entry-station/main.tsx
-src/entry-station/App.tsx
-src/entry-station/sections/*
-src/entry-station/components/*
-src/entry-station/styles/*.module.css
-src/entry-station/assets/*
+## Installation
+
+```bash
+# Self-hosted fonts (required for stable pixel compliance)
+npm install @fontsource/inter @fontsource/montserrat
 ```
 
-This keeps the landing isolated from the academy app without creating a second framework or another repo.
+---
 
-### 3. Use CSS Modules or scoped CSS files, not a new styling framework
+## Visual Regression Testing: Use Playwright Built-in
 
-Use `.module.css` for component-local styles and one small shared tokens file if needed. Vite 6 supports both plain CSS imports and CSS Modules out of the box. This is the lowest-friction way to translate the old visual baseline into maintainable source without importing the old generated utility-CSS stack.
+`@playwright/test` 1.59.1 (already installed) includes `toHaveScreenshot()` for screenshot comparison. No additional tool needed.
 
-### 4. Re-import images from source instead of treating the old bundle as source-of-truth
+**Recommended configuration approach:**
 
-Move landing images into `src/entry-station/assets/` and import them from TSX/CSS. Use `public/` only for files that must keep an exact name or root path. This avoids the old artifact’s brittle root-absolute asset references and lets Vite own hashing/HMR.
+```typescript
+// playwright.config.ts — add visual comparison config
+import { defineConfig } from '@playwright/test';
 
-### 5. Keep interaction state local
+export default defineConfig({
+  testDir: './tests',
+  use: {
+    baseURL: 'http://127.0.0.1:4173',
+  },
+  // Snapshot tolerance for anti-aliasing differences across OS/renderer
+  expect: {
+    toHaveScreenshot: {
+      maxDiffPixelRatio: 0.01,  // 1% pixel difference tolerance
+      threshold: 0.2,            // per-pixel color channel threshold
+    },
+  },
+  webServer: {
+    command: 'npm run preview -- --host 127.0.0.1 --port 4173',
+    url: 'http://127.0.0.1:4173',
+    reuseExistingServer: true,
+  },
+});
+```
 
-The current static landing behavior is simple menu/open/scroll state, and the milestone does not justify Redux, Zustand, or any global store. Use React state/hooks only.
+**Golden screenshot workflow:**
+1. Serve the immutable baseline (`Kimi_Agent_Deployment_v14`) as a static HTTP server on a separate port
+2. Capture baseline screenshots with `toHaveScreenshot()` — these become the goldens stored in `tests/__snapshots__/`
+3. Compare React output against those goldens in CI
+4. Use `--update-snapshots` flag only when intentionally approving visual changes
 
-## Additions Explicitly NOT Recommended
+**Why not exact pixel match:** Anti-aliasing and sub-pixel rendering differ between macOS/Linux and across Chrome versions. `maxDiffPixelRatio: 0.01` catches real regressions while ignoring renderer noise.
 
-| Do Not Add | Why Not |
-|------------|---------|
-| Tailwind CSS / PostCSS setup | The repo does not use Tailwind today, and the old bundle’s utility CSS is much broader than this milestone needs. It would introduce a second styling system for one landing. |
-| shadcn/ui or Radix UI stack | The old bundle appears to come from a broader scaffold; the landing restoration does not need that component/runtime weight. |
-| `react-router-dom` for the current milestone | The existing app has no router dependency, and the stable contract is `/entry-station/index.html` inside an iframe. Do not add routing unless scope expands to restoring the historical multi-page marketing site as real navigable routes. |
-| Framer Motion / GSAP / AOS | No evidence that the restored baseline needs animation libraries; use CSS transitions first. |
-| Zustand / Redux / any global state library | Landing interactions are local and low-complexity. |
-| CMS / MDX / content platform | Explicitly out of scope for this milestone. |
-| A second build system or separate landing repo | Conflicts with the goal of maintaining the landing inside the existing React/Vite app. |
+---
 
-## Integration Points
+## Font Loading Strategy
 
-| File / Area | Change |
-|-------------|--------|
-| `EntryShell.tsx` | Keep iframe target at `/entry-station/index.html`; only update cache-busting/versioning if needed. |
-| `vite.config.ts` | Replace static folder remap/copy behavior with multi-page `build.rollupOptions.input` and remove the `Kimi_Agent_Deployment_v14` copy step from the long-term path. |
-| `Kimi_Agent_Deployment_v14` | Treat as reference material only for restore work; do not keep it as the maintained source-of-truth. |
-| `src/entry-station/*` | New maintained React source for the landing. |
+### Replace Google Fonts CDN with self-hosted @fontsource
 
-## Historical Baseline Findings That Matter
+**Current landing.css (problematic):**
+```css
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;900&display=swap');
+```
 
-- `7be7097^` shipped a React bundle mounted through `createRoot(document.getElementById("root"))`.
-- That artifact included route/page code paths for `Home`, `About`, `Products`, `Franchise`, and `News`.
-- Its CSS output is consistent with a large utility-first build, which is exactly what should **not** be reintroduced into this repo unless the milestone expands substantially.
+**Target (pixel-stable):**
+```css
+/* landing.css */
+@import '@fontsource/inter/100.css';
+@import '@fontsource/inter/200.css';
+@import '@fontsource/inter/300.css';
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/inter/700.css';
+@import '@fontsource/inter/800.css';
+@import '@fontsource/inter/900.css';
+@import '@fontsource/montserrat/400.css';
+@import '@fontsource/montserrat/500.css';
+@import '@fontsource/montserrat/600.css';
+@import '@fontsource/montserrat/700.css';
+@import '@fontsource/montserrat/800.css';
+@import '@fontsource/montserrat/900.css';
+```
 
-## Bottom Line
+Vite handles `@fontsource` CSS imports and font file resolution natively — no config change needed.
 
-**New npm dependencies required now:** none.
+**Remove:** `Noto Sans SC` — not present in baseline, is a compliance deviation.
 
-**Real stack change required now:** convert `/entry-station` from a copied static artifact into a first-class Vite HTML entry backed by React 19 + TypeScript source, componentized sections, and CSS Modules/plain CSS.
+---
+
+## CSS Variable System
+
+### Alignment with Baseline
+
+The current `landing.css` uses `--landing-` prefixed variables. The baseline uses unprefixed names. The recommended approach is to **drop the `--landing-` prefix** to match baseline exactly, since this milestone targets pixel compliance against that baseline.
+
+**Baseline `:root` (dark-first defaults, direct inspection):**
+```css
+:root {
+  --background: hsl(120 30% 5%);
+  --foreground: hsl(0 0% 98%);
+  --brand-green: #7a9e7a;
+  --brand-dark: #0d2610;
+  --brand-light: #d1e0d1;
+  --brand-accent: #4a7c4e;
+  --bg-primary: #050a05;
+  --bg-secondary: #0a150a;
+  --bg-card: rgba(0, 0, 0, 0.3);
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a0;
+  --text-muted: #6b7280;
+  --border-color: rgba(122, 158, 122, 0.2);
+  --glow-color: rgba(122, 158, 122, 0.3);
+  --glass-bg: rgba(0, 0, 0, 0.3);
+  --radius: 0.625rem;
+}
+```
+
+**Note:** Baseline `:root` defines dark values as defaults. Light mode, if present, requires investigation of the baseline JS to determine how it is triggered (class toggle or not).
+
+---
+
+## Animation Strategy: Pure CSS, No Library
+
+All 15 baseline keyframes are pure CSS transforms/opacity. No animation library is needed.
+
+**Keyframes to transcribe into `landing.css`:**
+
+```css
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translate(0) scale(1); }
+  25% { transform: translate(30px, -20px) scale(1.05); }
+  50% { transform: translate(-10px, 30px) scale(0.95); }
+  75% { transform: translate(-20px, -10px) scale(1.02); }
+}
+
+@keyframes float-medium {
+  0%, 100% { transform: translate(0) scale(1); }
+  33% { transform: translate(-25px, 20px) scale(1.08); }
+  66% { transform: translate(15px, -25px) scale(0.92); }
+}
+
+@keyframes float-fast {
+  0%, 100% { transform: translate(0) scale(1); }
+  50% { transform: translate(20px, -30px) scale(1.1); }
+}
+
+@keyframes float-slow-reverse {
+  0%, 100% { transform: translate(0) scale(1); }
+  25% { transform: translate(-30px, 20px) scale(1.05); }
+  50% { transform: translate(10px, -30px) scale(0.95); }
+  75% { transform: translate(20px, 10px) scale(1.02); }
+}
+
+@keyframes marquee {
+  0% { transform: translate(0); }
+  100% { transform: translate(-50%); }
+}
+
+/* pulse-glow: use the box-shadow variant (second definition wins in baseline cascade) */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(122, 158, 122, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(122, 158, 122, 0.6); }
+}
+```
+
+---
+
+## Utility Classes to Add
+
+```css
+.glass-effect {
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background: var(--glass-bg);
+  border: 1px solid var(--border-color);
+}
+
+.text-gradient {
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(135deg, var(--brand-green) 0%, var(--brand-accent) 50%, var(--brand-green) 100%);
+  background-size: 200% 200%;
+}
+
+.shadow-glow {
+  box-shadow: 0 0 20px var(--glow-color);
+}
+```
+
+---
+
+## What NOT to Add
+
+| Avoid | Why | What to Use Instead |
+|-------|-----|---------------------|
+| Tailwind CSS | Explicit project constraint; would introduce a second styling system for one landing | Hand-written CSS variables matching baseline |
+| Framer Motion / GSAP / AOS | All 15 baseline animations are pure CSS keyframes — a JS animation library adds runtime weight with zero compliance benefit | CSS `@keyframes` + `animation` property |
+| BackstopJS / Percy / Chromatic | Commercial or complex setups for visual regression; Playwright 1.59.1 already provides `toHaveScreenshot()` | `expect(page).toHaveScreenshot()` |
+| CSS-in-JS (styled-components, emotion) | Incompatible direction with current hand-written CSS approach; adds runtime overhead | Plain CSS in `landing.css` |
+| CSS Modules migration | Out of scope for v1.1; current flat CSS works; migration would change component authoring without compliance benefit | Keep current `landing.css` import pattern |
+| Storybook | Overkill for static landing visual verification when Playwright E2E screenshots suffice | Playwright screenshot comparison |
+| Google Fonts CDN import | CDN serves different font binaries by user-agent — causes subtle metric variations that break pixel compliance across environments | `@fontsource/inter` + `@fontsource/montserrat` (self-hosted) |
+| Noto Sans SC | Not in baseline; currently imported in `landing.css` — a visual deviation, not an addition | Remove entirely |
+
+---
+
+## Alternatives Considered
+
+| Recommended | Alternative | Why Not |
+|-------------|-------------|---------|
+| `@fontsource` self-hosted | Google Fonts CDN | CDN is environment-variable (network, user-agent affects served binary); `@fontsource` pins the exact font file for reproducible rendering |
+| Playwright `toHaveScreenshot()` | BackstopJS | BackstopJS requires separate config, puppeteer setup, Docker for CI consistency; Playwright is already in the project and integrates with existing test suite |
+| Playwright `toHaveScreenshot()` | Percy / Chromatic | Commercial SaaS with per-screenshot pricing; overkill for a project with a static reference baseline that can run locally |
+| Pure CSS keyframes | Framer Motion | The compliance target IS the keyframe CSS — transcribing to a JS animation abstraction moves away from the source truth, not toward it |
+
+---
+
+## Version Compatibility
+
+| Package | Compatible With | Notes |
+|---------|-----------------|-------|
+| `@fontsource/inter@^5.2.5` | Vite 6, React 19 | CSS imports handled natively by Vite; no config required |
+| `@fontsource/montserrat@^5.2.5` | Vite 6, React 19 | Same as Inter |
+| `@playwright/test@1.59.1` (existing) | `toHaveScreenshot()` | Built in since Playwright 1.23; threshold config available in `expect.toHaveScreenshot` block |
+
+---
 
 ## Sources
 
-- Local repo context:
-  - `/Users/jizhongzhou/_workspace/PinanHome/proj/pinan2/.worktrees/compliance-copy-ui/package.json`
-  - `/Users/jizhongzhou/_workspace/PinanHome/proj/pinan2/.worktrees/compliance-copy-ui/vite.config.ts`
-  - `/Users/jizhongzhou/_workspace/PinanHome/proj/pinan2/.worktrees/compliance-copy-ui/EntryShell.tsx`
-  - `git show 7be7097^:Kimi_Agent_Deployment_v14/index.html`
-  - `git show 7be7097^:Kimi_Agent_Deployment_v14/assets/index-BqLXAaHJ.js`
-  - `git show 7be7097^:Kimi_Agent_Deployment_v14/assets/index-DuxCbJQB.css`
-- Official docs:
-  - Vite 6 build guide, multi-page app: https://v6.vite.dev/guide/build
-  - Vite 6 features guide, CSS and CSS Modules: https://v6.vite.dev/guide/features
-  - Vite 6 asset handling/public directory: https://v6.vite.dev/guide/assets
-  - React `createRoot`: https://react.dev/reference/react-dom/client/createRoot
-  - React “Add React to an Existing Project”: https://react.dev/learn/add-react-to-an-existing-project
+- Direct baseline CSS inspection: `.planning/baselines/kimi-landing-7be7097-parent/Kimi_Agent_Deployment_v14/assets/index-DuxCbJQB.css`
+  - Keyframes extracted: `float`, `float-slow`, `float-medium`, `float-fast`, `float-slow-reverse`, `marquee`, `pulse-glow` (×2), `pulse`, `bounce`, `spin`, `enter`, `exit`, `accordion-down`, `accordion-up`, `caret-blink`
+  - Font import confirmed: `Inter` + `Montserrat` (weights 100–900), Google Fonts CDN
+  - `:root` block confirmed dark-first variable values
+  - Utility classes confirmed: `.glass-effect`, `.text-gradient`, `.shadow-glow`
+- Playwright visual comparisons: https://playwright.dev/docs/screenshots — HIGH confidence (official docs)
+- `@fontsource` project: https://fontsource.org — MEDIUM confidence (official docs; packages maintained by community with strong adoption)
+- Existing project `package.json` and `playwright.config.ts` — HIGH confidence (direct inspection)
+
+---
+
+*Stack research for: v1.1 pixel-perfect CSS visual compliance*
+*Researched: 2026-04-20*

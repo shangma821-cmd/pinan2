@@ -1,156 +1,168 @@
-# Feature Landscape
+# Feature Research
 
-**Domain:** Kimi landing restoration from pre-`7be7097` baseline  
-**Researched:** 2026-04-09
+**Domain:** Pixel-perfect CSS visual compliance — React landing vs baseline (`7be7097^`)
+**Researched:** 2026-04-20
+**Confidence:** HIGH (sourced directly from baseline CSS/JS artifacts and React source)
 
-## Executive Take
+> This file supersedes the v1.0 structural-restoration FEATURES.md. v1.1 scope is purely visual compliance — structure and interactions are already complete.
 
-The original baseline was not the current single-page compliance-safe `entry-station` site. It was a packaged React marketing SPA with five user-facing routes: `/`, `/about`, `/products`, `/franchise`, and `/news`, plus shared navigation, theme toggle, and footer. React reconstruction should preserve that information architecture first; collapsing it into one long page would be a baseline regression.
+---
 
-For roadmap scoping, treat this milestone as **equivalence restoration + maintainable source reconstruction**, not copy redesign. The goal is to keep route structure, content groupings, CTA destinations, and meaningful interactions equivalent while moving the implementation into the existing app stack and `/entry-station` integration.
+## Feature Landscape
 
-## Table Stakes
+### Table Stakes (Must Ship — Missing = Compliance Fails)
 
-| Feature Area | Why Expected | Complexity | Notes |
+These are non-negotiable for v1.1. Each maps directly to a measurable, testable baseline discrepancy confirmed by direct inspection of `index-DuxCbJQB.css` and `index-BqLXAaHJ.js`.
+
+| Feature | Why Expected | Complexity | Notes |
 |---------|--------------|------------|-------|
-| Shared landing shell | The original site had a persistent brand shell across all routes | Med | Fixed top nav, active route state, mobile menu, theme toggle, footer |
-| Multi-route IA | The baseline exposed 5 distinct pages, not one scroll page | High | `/`, `/about`, `/products`, `/franchise`, `/news` must remain discoverable |
-| Home page section stack | This is the main landing narrative and conversion path | Med | Preserve section order and section purpose |
-| About page | Original baseline had a separate credibility/company page | Low/Med | Intro, certifications, timeline, team/equipment, service experience |
-| Products page | Original baseline separated products/packages from home | Med | Tabbed view for core products vs membership packages |
-| Franchise page | Original baseline had a full招商/加盟 conversion page | Med | Models,收益测算, support, guarantees, contact form |
-| News page | Original baseline had a real news list/detail experience | Med | Search, category filters, `?id=` detail mode |
-| Contact CTAs | Phone/contact actions are part of the user journey | Low | Keep page-level phone CTA targets and contact blocks equivalent |
+| **Color system: dark-first default theme** | Baseline `:root` sets dark background (`--bg-primary: #050a05`); the light palette lives in `[data-theme=light]`. React `:root` is light-first (`#f4f7f1`). Every page renders inverted polarity on cold load. | LOW | Note: baseline JS also initializes ThemeContext to `"light"` (`useState("light")`), then overrides from `localStorage`. The fix is: align React `:root` as the dark base + `[data-theme=light]` as the override, to match baseline CSS structure. |
+| **Color system: brand green token correction** | Baseline dark `--brand-green: #7a9e7a`; light `--brand-green: #34C759`. React uses a single `#4d8e5a` in both modes — wrong hue (too yellow-green) and wrong lightness in both. | LOW | Affects every button, active nav link, stat value, inline link, kicker, price. Token change cascades everywhere. |
+| **Color system: complete 15-token variable set** | Baseline defines these semantic tokens missing from React's current 8-token set: `--bg-primary`, `--bg-secondary`, `--bg-card`, `--text-primary`, `--text-secondary`, `--text-muted`, `--border-color`, `--glow-color`, `--glass-bg` in both themes. | MEDIUM | Dark defaults: `--bg-primary:#050a05`, `--text-primary:#ffffff`, `--glass-bg:rgba(0,0,0,.3)`, `--glow-color:rgba(122,158,122,.3)`. Light overrides: `--bg-primary:#F5F7FA`, `--text-primary:#1D1D1F`, `--glass-bg:rgba(255,255,255,.72)`, `--glow-color:rgba(52,199,89,.15)`. |
+| **Typography: remove Noto Sans SC, use Inter body** | Baseline `@import` is `Inter` + `Montserrat` only. `body { font-family: Inter, sans-serif }`. React currently imports and applies `Noto Sans SC` as the body font — all body text renders with wrong letterforms and weight rendering. | LOW | React already imports Montserrat correctly. Change: remove `Noto Sans SC` from import URL; replace it in `font-family` stacks on `.landing-app`, `.landing-brand-title`, `.landing-section-title`, `.landing-page-title`, `.landing-display`, etc. |
+| **Animation: float-slow / float-medium / float-fast / float-slow-reverse keyframes** | Baseline uses 4 multi-stop translate+scale floating variants for decorative orbs and background elements. React has zero keyframes — all animated elements are static. | LOW | Exact keyframes from baseline (e.g. `float-slow`: `0%,to{transform:translate(0) scale(1)} 25%{translate(30px,-20px) scale(1.05)} 50%{translate(-10px,30px) scale(.95)} 75%{translate(-20px,-10px) scale(1.02)}`). Classes: `.animate-float-slow` (15s), `.animate-float-medium` (12s), `.animate-float-fast` (8s), `.animate-float-slow-reverse` (18s). Must also apply class names to the correct JSX elements — not just add the keyframes to CSS. |
+| **Animation: pulse-glow keyframe** | Baseline uses `pulse-glow` for background glow orbs creating a "breathing light" effect. React has none. | LOW | Keyframe: `0%,to{opacity:.5; transform:translate(-50%,-50%) scale(1)} 50%{opacity:.8; transform:translate(-50%,-50%) scale(1.1)}`. Used at two durations: 3s (tight version) and 6s (slow version). Class: `.animate-pulse-glow`. |
+| **Animation: marquee keyframe** | Baseline uses `marquee` for horizontally scrolling credential/logo strips (30s linear infinite). React has no marquee. | LOW | Keyframe: `0%{transform:translate(0)} to{transform:translate(-50%)}`. Class: `.animate-marquee`. The 30s duration is specified in `.animate-marquee`. |
+| **Effect: `.glass-effect` utility class** | Baseline `glass-effect` is applied to nav, cards, overlays — the defining visual texture of the dark UI. React hardcodes `backdrop-filter` per-element with no shared token. Values differ per theme. | LOW | Dark: `backdrop-filter:blur(20px) saturate(180%); background:var(--glass-bg); border:1px solid rgba(122,158,122,.2)`. Light: `background:#ffffffb8; border:1px solid rgba(0,0,0,.08); box-shadow:0 4px 24px #0000000a,0 1px 2px #00000005,inset 0 0 0 1px #ffffff80`. |
+| **Effect: `.text-gradient` utility class** | Baseline applies `text-gradient` to hero display text and section headers — CSS gradient clip creates the multi-tone green gradient effect. React renders all headings as flat `var(--landing-brand-green)`. | LOW | Dark: `background-image:linear-gradient(135deg,var(--brand-green) 0%,var(--brand-accent) 50%,var(--brand-green) 100%); background-size:200%; -webkit-background-clip:text; color:transparent`. Light override: `background-image:linear-gradient(135deg,#34c759,#30b350,#248a3d)`. |
+| **Effect: `.shadow-glow` utility class** | Baseline uses `shadow-glow` with `--glow-color` token for CTAs and featured cards. React uses hardcoded shadow values that don't adapt to theme. | LOW | Dark: `box-shadow:0 0 20px var(--glow-color)` (resolves to `rgba(122,158,122,.3)`). Light: `box-shadow:0 8px 32px rgba(52,199,89,.12),0 2px 8px rgba(52,199,89,.08)`. |
 
-## Differentiators Worth Preserving
+### Differentiators (High-value Parity Items, Not Blocking)
 
 | Feature | Value Proposition | Complexity | Notes |
 |---------|-------------------|------------|-------|
-| Theme toggle with persistence | Distinct user-visible behavior across the whole site | Low | Uses `localStorage` theme persistence in baseline |
-| Scroll-reactive nav + mobile overlay menu | Makes the site feel like a polished app shell, not static HTML | Low/Med | Nav changes after scroll; mobile menu is a true overlay |
-| Home “Why Choose Us” expandable detail cards | Adds interactive exploration of the core value props | Low/Med | Preserve click-to-expand behavior; exact animation can vary |
-| Home “How It Works” auto-advancing process stepper | Key behavior in explaining the service loop | Med | Auto-rotates every ~5s and responds to hover |
-| Animated stats/count-up + case cards | Reinforces proof/social proof sections | Low/Med | Equivalent visibility-triggered animation is enough |
-| News list/detail in one route | Preserves deep-linkable article detail without extra route sprawl | Med | `?id=` behavior matters more than exact styling |
+| **Asset registry: 10 unregistered images** | `how-it-works.jpg`, `market-pain.jpg`, `news-1.jpg`, `news-2.jpg`, `solution-pain.jpg`, `solution-rehab.jpg`, `solution-wellness.jpg`, `store-front.jpg`, `user-journey.jpg`, `why-choose.jpg` exist in `public/entry-station/` but are absent from `assets.ts`. Sections using them show blank placeholder backgrounds instead of real photos. | LOW | Files are already in `public/`. Work is mechanical: add `import` entries to `assets.ts` and wire the export keys into the relevant JSX props. No new photography needed. |
+| **`--radius` token system (theme-responsive corners)** | Baseline: dark `--radius:.625rem` (10px), light `--radius:1rem` (16px). React uses fixed `24px`/`36px` tokens that produce identical corners in both modes. Subtle but noticeable on card grids. | MEDIUM | Requires audit of all `landing-radius-*` usages to determine whether they should derive from `--radius` or remain as separate tokens with different values per theme. |
+| **`scroll-behavior: smooth` on `html`** | Baseline sets `html { scroll-behavior: smooth }`. React does not. Back-to-top and anchor links feel abrupt. | LOW | Single line. |
+| **`-webkit-font-smoothing: antialiased`** | Baseline sets this on body via Tailwind's base layer. Improves rendering sharpness on macOS. | LOW | Include in the body ruleset update alongside the Inter font switch. |
 
-## Required Equivalence Categories
+### Anti-Features (Do Not Build)
 
-### 1. Shared Shell And Route Model
+| Feature | Why Requested | Why Problematic | Alternative |
+|---------|---------------|-----------------|-------------|
+| **Tailwind CSS integration** | Baseline was built with Tailwind, so importing Tailwind seems "correct" | Adds a second CSS framework (105KB output), creates cascade conflicts with `landing.css`, requires purge config — defeats maintainability goal | Hand-write the 5 utility classes (`glass-effect`, `text-gradient`, `shadow-glow`, `animate-*`) directly in `landing.css`. Total is ~50 lines. |
+| **Import `index-DuxCbJQB.css` directly** | "Just link the baseline CSS file" would be fastest | 3000+ Tailwind utility classes in the global cascade break React component styles; not maintainable source code | Implement only the semantic token layer and custom classes |
+| **Scroll-triggered animation choreography** | "Animate on scroll" for section entrances looks polished | Baseline v14 does NOT use IntersectionObserver-triggered animations — orbs float continuously, they don't trigger on scroll. Adding this diverges from baseline. | Keep CSS-only `animation` on continuously animated elements; do not add scroll-reactive JS |
+| **New component architecture for animations** | "Let's create an AnimatedOrb component" | Scope creep, changes structure that is already validated as passing tests | Add `animate-*` classNames to existing JSX element props only |
 
-- Preserve five landing pages as distinct user-visible destinations: home, about, products, franchise, news.
-- Preserve shared top navigation labels and route links.
-- Preserve active-route highlighting, mobile open/close menu behavior, and persistent theme toggle.
-- Preserve footer contact/info architecture and scroll-to-top action.
-- For integration, the internal router can be reimplemented differently, but the landing experience must still behave like a multi-page site inside the stable `/entry-station` entry.
-
-### 2. Home Route `/`
-
-Preserve this section order and purpose:
-
-1. Hero: trust badge, medical/health positioning headline, supporting value statements, primary CTAs to `/products` and `/franchise`, summary KPI cards.
-2. Credential marquee: horizontally scrolling certification/authority items.
-3. Market pain points: market-size stats, three traditional-industry pain points, policy opportunity callout.
-4. Why choose us: four core barriers/advantages with expandable details and supporting image/KPI tiles.
-5. How it works: four-step service loop with active step state and auto progression.
-6. Results and case studies: count-up stats plus multiple case cards.
-7. News preview: three articles plus “view all” CTA into `/news`.
-8. Final CTA: franchise-oriented close with route CTA plus phone CTA.
-
-### 3. About Route `/about`
-
-- Company/brand intro hero.
-- Certification/qualification grid.
-- Development timeline.
-- Team and equipment credibility section.
-- Service experience section with concrete user-facing points.
-- Preserve this page as a dedicated credibility page, not folded into the home route.
-
-### 4. Products Route `/products`
-
-- Hero explaining products/services value.
-- Tab switch between `核心产品` and `会员套餐`.
-- Core products view: multiple product blocks with image, description, features, and specs.
-- Membership packages view: multiple carded packages with pricing, benefits, target users, and收益.
-- User case section below the tabs.
-
-### 5. Franchise Route `/franchise`
-
-- Hero with招商/加盟 framing.
-- Three cooperation/franchise model cards.
-- Revenue calculation table and incentive summary.
-- Support grid and guarantee/risk-control blocks.
-- Contact/application form with visible fields.
-- Contact info panel alongside the form.
-
-Important scoping note: the bundle shows the form UI, but not evidence of a real backend submission flow. Reconstruct the form presence and fields; do not automatically scope backend lead processing unless requested elsewhere.
-
-### 6. News Route `/news`
-
-- List mode with category filters and keyword search.
-- Detail mode selected by `?id=`.
-- Detail view includes hero image, metadata, full article body, and a return-to-list action.
-- Share buttons are visible in baseline, but no evidence suggests real share integration; treat them as presentation-equivalence unless asked to wire them up.
-
-## Preserved User-Visible Behaviors
-
-- Theme selection persists across reloads.
-- Navigation becomes visually solid after scrolling.
-- Mobile navigation opens as an overlay and closes on selection/backdrop click.
-- Home process section auto-advances and can be manually focused by hover.
-- Home/about/news sections animate into view when scrolled into viewport.
-- Stats count up when visible.
-- Product tab switching is client-side.
-- News search/filtering is client-side.
-- News detail is deep-linkable through `?id=`.
-- Footer back-to-top button scrolls to page top.
-
-## Requirement Buckets For Planning
-
-1. `REQ-1 Shell and routing equivalence`
-2. `REQ-2 Home information architecture restoration`
-3. `REQ-3 About page restoration`
-4. `REQ-4 Products/packages page restoration`
-5. `REQ-5 Franchise conversion page restoration`
-6. `REQ-6 News list/detail restoration`
-7. `REQ-7 Cross-page behavior equivalence`
-
-## Anti-Features
-
-| Anti-Feature | Why Avoid | What to Do Instead |
-|--------------|-----------|-------------------|
-| Reusing the current compliance-safe single-page copy as the target | It is explicitly not the requested baseline | Restore from `7be7097^` structure and content domains |
-| Collapsing the multi-route site into one page | Regresses original IA and route-level behavior | Keep route boundaries, even if internal implementation changes |
-| Inventing new product flows, CMS, or运营 tooling | Not evidenced in the baseline and expands scope fast | Limit this milestone to restoration + React maintainability |
-| Treating visible forms/share buttons as necessarily backend-integrated | The bundle shows UI, not proven integrations | Rebuild the UI first; add backend only by separate requirement |
-| Normalizing or rewriting medical/health claims during migration | This changes content baseline | Preserve baseline first, then schedule content revision separately if needed |
+---
 
 ## Feature Dependencies
 
-```text
-Shared shell -> all routes
-Home news preview -> News page detail/list
-Home CTA -> Franchise page
-Shared theme toggle -> all route styling
-Stable /entry-station integration -> landing router availability inside EntryShell iframe
+```
+[Color token system (dark-first :root + all 15 tokens)]
+    └──required-by──> [.glass-effect]      (references --glass-bg)
+    └──required-by──> [.shadow-glow]       (references --glow-color)
+    └──required-by──> [.text-gradient]     (references --brand-green, --brand-accent)
+    └──required-by──> [brand green fix]    (--brand-green must be #7a9e7a / #34C759)
+    └──co-located──>  [--radius tokens]    (live in same :root / [data-theme=light] block)
+
+[Font system (Inter body, remove Noto Sans SC)]
+    └──independent──> no token or animation dependencies
+
+[Keyframe animations (float-*, pulse-glow, marquee)]
+    └──independent──> no CSS token dependencies
+    └──requires-pairing──> [JSX class application] (keyframes alone do nothing)
+
+[Asset registry (10 images)]
+    └──independent──> image files already in public/entry-station/
+    └──requires-pairing──> [Component prop wiring] (assets.ts key must be used in JSX)
 ```
 
-## MVP Recommendation
+### Dependency Notes
 
-Prioritize:
+- **Color tokens must precede all effect utilities:** `glass-effect`, `shadow-glow`, and `text-gradient` reference `--glass-bg`, `--glow-color`, `--brand-green`. Writing the utilities before the tokens produces broken `rgba(0,0,0,0)` backgrounds and invisible glow.
+- **Font change is safe as standalone:** Changing the Google Fonts import URL and updating `font-family` stacks has no risk of breaking color or animation work. Can be done in parallel.
+- **Keyframe additions are purely additive:** Adding `@keyframes` blocks to `landing.css` cannot break existing layout. The risk point is the second step — applying `animate-*` class names to JSX — which requires identifying the correct orb/decorative elements per section.
+- **Asset registry is mechanical and independent:** Adding to `assets.ts` is a pure addition. Zero regression risk.
 
-1. Rebuild the shared shell and route skeleton with preserved page boundaries.
-2. Rebuild all five routes with baseline section ordering and content groupings.
-3. Restore only the interactions that materially change user experience: theme persistence, mobile nav, tabs, `?id=` news detail, process stepper, count-up stats.
+---
 
-Defer:
+## MVP Definition
 
-- Exact motion tuning and micro-animation parity.
-- Backend submission/share integrations not evidenced in the packaged baseline.
-- Copy normalization, compliance softening, or content strategy improvements.
+### Launch With (v1.1 compliance — all required for visual acceptance)
+
+- [ ] **Color token system** — dark-first `:root` with all 15 baseline tokens; `[data-theme=light]` overrides. *Blocks all effects work.*
+- [ ] **Brand green correction** — `#7a9e7a` (dark) / `#34C759` (light) replacing `#4d8e5a`. *Visible on every interactive element.*
+- [ ] **Inter font / remove Noto Sans SC** — update import URL, update all `font-family` stacks. *Visible on all body text.*
+- [ ] **`.glass-effect` utility** — backdrop-filter + theme-responsive background from `--glass-bg`. *Nav, card overlays.*
+- [ ] **`.text-gradient` utility** — gradient-clip on headings. *Hero and section headers.*
+- [ ] **`.shadow-glow` utility** — `--glow-color` shadow on CTAs/featured cards.
+- [ ] **Float keyframes** — all 4 variants + `animate-float-*` classes applied to orb elements.
+- [ ] **Pulse-glow keyframe** — `animate-pulse-glow` applied to decorative glow orbs.
+- [ ] **Marquee keyframe** — `animate-marquee` applied to credential strip.
+
+### Add After Core (v1.1 completion verification)
+
+- [ ] **Asset registry** — wire 10 unregistered images into their sections after color/animation parity is confirmed.
+- [ ] **`--radius` token** — theme-responsive corner radius after token system is stable.
+- [ ] **`scroll-behavior: smooth`** — single-line `html` addition.
+- [ ] **`-webkit-font-smoothing: antialiased`** — body ruleset addition alongside Inter switch.
+
+### Future Consideration (v2+)
+
+- [ ] **Scroll-triggered section entrance animations** — not present in baseline v14; out of scope for compliance.
+- [ ] **Per-section orb pixel positioning** — matching exact `top`/`left` offset of decorative elements; QA-level detail.
+
+---
+
+## Feature Prioritization Matrix
+
+| Feature | User Value (Visible Impact) | Implementation Cost | Priority |
+|---------|------------------------------|---------------------|----------|
+| Color token system (dark-first + 15 tokens) | HIGH — every element on every page | LOW — CSS variable block rewrite | P1 |
+| Brand green `#7a9e7a` / `#34C759` | HIGH — all CTAs, links, active states | LOW — token change, cascades everywhere | P1 |
+| Inter font / remove Noto Sans SC | HIGH — all body text rendering | LOW — import URL + 6 font-family stacks | P1 |
+| `.glass-effect` | HIGH — nav and card backgrounds wrong texture | LOW — 8 CSS lines | P1 |
+| `.text-gradient` | HIGH — hero headings flat vs gradient | LOW — 5 CSS lines | P1 |
+| `.shadow-glow` | MEDIUM — CTAs/featured cards | LOW — 4 CSS lines | P1 |
+| Float keyframes (all 4) | MEDIUM — decorative background motion | LOW — keyframes: 12 lines; JSX: 4 elements | P1 |
+| Pulse-glow keyframe | MEDIUM — breathing glow orbs on dark bg | LOW — keyframes: 4 lines; JSX: target elements | P1 |
+| Marquee keyframe | MEDIUM — credential strip scrolling | LOW — 3 lines CSS + JSX wrapper element | P1 |
+| Asset registry (10 images) | MEDIUM — real photos vs blank sections | LOW — mechanical imports | P2 |
+| `--radius` token (theme-responsive corners) | LOW — subtle corner difference | MEDIUM — requires usage audit | P2 |
+| `scroll-behavior: smooth` | LOW — UX detail | LOW — 1 line | P3 |
+| `-webkit-font-smoothing: antialiased` | LOW — font rendering polish | LOW — 1 line | P3 |
+
+---
+
+## Testability Criteria Per Category
+
+### Color System
+- **Test:** Load page with no `localStorage` theme. Background must be near-black (`#050a05`). Brand-green elements must show `#7a9e7a`. Toggle to light — background becomes `#F5F7FA`, brand-green becomes `#34C759`.
+- **Method:** DevTools computed styles on `body` background, on a CTA button background, on a nav active-link color.
+
+### Typography
+- **Test:** `getComputedStyle(document.body).fontFamily` must include `Inter` as first family, no `Noto Sans SC`.
+- **Method:** DevTools console or automated Playwright `evaluate()` check.
+
+### Animations
+- **Test:** DevTools → Animations panel shows active float animations on orb elements with 15s/12s/8s/18s durations. Marquee strip scrolls continuously. Glow orbs pulse.
+- **Method:** Visual inspection + DevTools Animation inspector. No `animation: none` overrides.
+
+### Effects
+- **Test (glass-effect):** In dark mode, nav bar computed `background` must include `rgba(0,0,0,0.3)` and `backdrop-filter` must include `blur(20px) saturate(180%)`.
+- **Test (text-gradient):** In dark mode, hero h1 computed `color` must be `rgba(0,0,0,0)` (transparent) with non-empty `backgroundImage` gradient.
+- **Test (shadow-glow):** CTA button computed `boxShadow` must include `rgba(122,158,122,0.3)` in dark mode.
+
+### Assets
+- **Test:** DevTools Network tab on each of 5 pages — all `<img>` elements return HTTP 200. No blank image boxes in the layout.
+- **Method:** Playwright test can assert `page.locator('img').evaluateAll(imgs => imgs.every(img => img.naturalWidth > 0))`.
+
+### Spacing / Radius
+- **Test:** In dark mode, a `.landing-card` computed `borderRadius` must be ≤12px. In light mode, same element must be ≥14px.
+- **Method:** DevTools computed styles or Playwright `getComputedStyle`.
+
+---
 
 ## Sources
 
-- `/Users/jizhongzhou/_workspace/PinanHome/proj/pinan2/.worktrees/compliance-copy-ui/.planning/PROJECT.md`
-- `/Users/jizhongzhou/_workspace/PinanHome/proj/pinan2/.worktrees/compliance-copy-ui/EntryShell.tsx`
-- `git show 7be7097^:Kimi_Agent_Deployment_v14/index.html`
-- `git show 7be7097^:Kimi_Agent_Deployment_v14/assets/index-BqLXAaHJ.js`
+- Baseline CSS (direct inspection): `.planning/baselines/kimi-landing-7be7097-parent/Kimi_Agent_Deployment_v14/assets/index-DuxCbJQB.css`
+- Baseline JS (ThemeContext default, nav styles): `.planning/baselines/kimi-landing-7be7097-parent/Kimi_Agent_Deployment_v14/assets/index-BqLXAaHJ.js`
+- React CSS (current state, 1258 lines): `landing/landing.css`
+- React asset registry: `landing/assets.ts`
+- Public image inventory: `public/entry-station/` directory listing (35 .jpg files; 10 absent from `assets.ts`)
+
+---
+*Feature research for: v1.1 pixel-perfect CSS visual compliance*
+*Researched: 2026-04-20*
