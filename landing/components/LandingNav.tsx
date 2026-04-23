@@ -63,7 +63,7 @@ export default function LandingNav() {
           FA
         </div>
         <div className="landing-brand-copy">
-          <strong className="landing-brand-title">频安AI智能商学院</strong>
+          <strong className="landing-brand-title">频安健康</strong>
           <span className="landing-brand-subtitle">AI细胞修复体验站</span>
         </div>
       </div>

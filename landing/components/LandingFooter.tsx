@@ -5,7 +5,7 @@ export default function LandingFooter() {
     <div data-testid="landing-footer" className="landing-footer landing-surface">
       <div className="landing-footer-grid">
         <div>
-          <h2 className="landing-footer-title">频安AI智能商学院</h2>
+          <h2 className="landing-footer-title">频安健康事业部</h2>
           <p className="landing-footer-copy">
             以 AI 细胞修复体验站为入口，把检测、干预、追踪和公平返利整合为一体化健康服务路径。
           </p>
