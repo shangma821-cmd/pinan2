@@ -24,6 +24,7 @@ import storeFrontNew from '../public/entry-station/store-front-new.jpg';
 import successCase1 from '../public/entry-station/success-case-1.jpg';
 import teamPhoto from '../public/entry-station/team-photo.jpg';
 import techSpectrum from '../public/entry-station/tech-spectrum.jpg';
+import whyChoose from '../public/entry-station/why-choose.jpg';
 
 const bundledAssetPaths = {
   heroBg,
@@ -39,6 +40,7 @@ const bundledAssetPaths = {
   successCase1,
   lifestyleSmart,
   techSpectrum,
+  whyChoose,
   caseSleep,
   casePain,
   caseEnergy,
@@ -67,6 +69,7 @@ const publicAssetPaths = {
   successCase1: '/entry-station/success-case-1.jpg',
   lifestyleSmart: '/entry-station/lifestyle-smart.jpg',
   techSpectrum: '/entry-station/tech-spectrum.jpg',
+  whyChoose: '/entry-station/why-choose.jpg',
   caseSleep: '/entry-station/case-sleep.jpg',
   casePain: '/entry-station/case-pain.jpg',
   caseEnergy: '/entry-station/case-energy.jpg',

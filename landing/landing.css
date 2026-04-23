@@ -2000,3 +2000,240 @@ body:has(.landing-app) {
   font-weight: 600;
   color: var(--landing-brand-green);
 }
+
+/* ─── HomeAdvantages ──────────────────────────────────────────────────────── */
+/* Outer section — full-bleed, dark bg */
+.landing-advantages-section {
+  position: relative;
+  padding: 80px 0;
+  overflow: hidden;
+  margin: 0 -20px;
+}
+@media (min-width: 1024px) {
+  .landing-advantages-section { padding: 112px 0; }
+}
+
+/* BG layers */
+.landing-advantages-bg-base {
+  position: absolute;
+  inset: 0;
+  background: var(--landing-bg-primary);
+  z-index: 0;
+}
+.landing-advantages-bg-glow {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 400px;
+  height: 400px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(52, 199, 89, 0.2) 0%, transparent 70%);
+  filter: blur(64px);
+  opacity: 0.15;
+  z-index: 0;
+  transform: translateY(-50%);
+}
+
+/* Inner wrapper */
+.landing-advantages-inner {
+  position: relative;
+  z-index: 10;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+@media (min-width: 640px)  { .landing-advantages-inner { padding: 0 24px; } }
+@media (min-width: 1024px) { .landing-advantages-inner { padding: 0 32px; } }
+
+/* 2-column grid */
+.landing-advantages-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: 48px;
+}
+@media (min-width: 1024px) {
+  .landing-advantages-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 80px;
+  }
+}
+
+/* Left column — copy */
+.landing-advantages-eyebrow {
+  display: inline-flex;
+  padding: 8px 16px;
+  margin-bottom: 24px;
+  border-radius: 9999px;
+  background: rgba(52, 199, 89, 0.1);
+  border: 1px solid rgba(52, 199, 89, 0.2);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--landing-brand-green);
+}
+.landing-advantages-title {
+  margin: 0 0 24px;
+  font-family: 'Montserrat', 'Inter', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--landing-text-primary);
+  line-height: 1.2;
+}
+@media (min-width: 1024px) { .landing-advantages-title { font-size: 48px; } }
+.landing-advantages-lead {
+  margin: 0 0 40px;
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--landing-text-secondary);
+}
+.landing-advantages-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Tier button */
+.landing-advantages-tier {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 16px;
+  border-radius: 16px;
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color .3s ease, border-color .3s ease, box-shadow .3s ease;
+  font-family: inherit;
+}
+.landing-advantages-tier:hover { background: rgba(0, 0, 0, 0.05); }
+.landing-advantages-tier.is-active {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(12px);
+  border-color: rgba(52, 199, 89, 0.3);
+  box-shadow: var(--landing-shadow);
+}
+
+/* Tier row layout */
+.landing-advantages-tier-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+.landing-advantages-tier-icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--landing-text-muted);
+  transition: background-color .3s ease, color .3s ease;
+}
+.landing-advantages-tier.is-active .landing-advantages-tier-icon {
+  background: rgba(52, 199, 89, 0.15);
+  color: var(--landing-brand-green);
+}
+.landing-advantages-tier-icon svg { width: 20px; height: 20px; stroke-width: 2; }
+.landing-advantages-tier-body { flex: 1; min-width: 0; }
+.landing-advantages-tier-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.landing-advantages-tier-heading h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--landing-text-primary);
+}
+.landing-advantages-tier-check {
+  display: inline-flex;
+  color: var(--landing-brand-green);
+}
+.landing-advantages-tier-check svg { width: 16px; height: 16px; stroke-width: 2; }
+.landing-advantages-tier-detail {
+  margin: 0;
+  font-size: 14px;
+  color: var(--landing-text-secondary);
+  line-height: 1.6;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height .3s ease, opacity .3s ease;
+}
+.landing-advantages-tier.is-active .landing-advantages-tier-detail {
+  max-height: 96px;
+  opacity: 1;
+}
+
+/* Right column — visual */
+.landing-advantages-visual { position: relative; }
+.landing-advantages-visual-frame {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: 24px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: var(--landing-shadow);
+  padding: 8px;
+}
+.landing-advantages-visual-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+  display: block;
+}
+.landing-advantages-stat-row {
+  position: absolute;
+  bottom: -16px;
+  left: 16px;
+  right: 16px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  z-index: 2;
+}
+.landing-advantages-stat-card {
+  padding: 16px;
+  text-align: center;
+}
+.landing-advantages-stat-value {
+  font-family: 'Montserrat', 'Inter', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--landing-brand-green);
+}
+.landing-advantages-stat-label {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--landing-text-muted);
+}
+.landing-advantages-visual-ring {
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  width: 96px;
+  height: 96px;
+  border-radius: 9999px;
+  border: 2px solid rgba(52, 199, 89, 0.2);
+  pointer-events: none;
+}
+
+/* Dark mode overrides */
+[data-theme='dark'] .landing-advantages-tier:hover { background: rgba(255, 255, 255, 0.05); }
+[data-theme='dark'] .landing-advantages-tier.is-active {
+  background: rgba(28, 30, 33, 0.72);
+  border-color: rgba(50, 215, 75, 0.35);
+}
+[data-theme='dark'] .landing-advantages-visual-frame {
+  background: rgba(28, 30, 33, 0.72);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+[data-theme='dark'] .landing-advantages-visual-ring {
+  border-color: rgba(50, 215, 75, 0.2);
+}
