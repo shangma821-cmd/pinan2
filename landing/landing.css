@@ -549,7 +549,7 @@ body:has(.landing-app) {
 .landing-product-card,
 .landing-photo-card {
   overflow: hidden;
-  border-radius: var(--landing-radius-2xl);
+  border-radius: var(--landing-radius-xl);
 }
 
 .landing-hero-media {
@@ -914,7 +914,7 @@ body:has(.landing-app) {
   width: 100%;
   aspect-ratio: 16 / 8;
   object-fit: cover;
-  border-radius: var(--landing-radius-2xl);
+  border-radius: var(--landing-radius-xl);
 }
 
 .landing-news-detail-copy {
