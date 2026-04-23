@@ -25,7 +25,7 @@ export default function LandingNav() {
     setIsMenuOpen(false);
   }, [pathname]);
 
-  const themeLabel = theme === 'light' ? '日间模式' : '夜间模式';
+  const themeLabel = theme === 'light' ? '切换到夜间模式' : '切换到日间模式';
   const themeIcon = theme === 'light' ? '☀' : '☾';
 
   const openAcademy = () => {
