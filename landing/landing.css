@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap');
 
 /* ─── Landing CSS Variable Namespace ─────────────────────────────────────────
  * All landing custom properties use the --landing-* prefix.
@@ -7,31 +7,65 @@
  * ──────────────────────────────────────────────────────────────────────────── */
 
 :root {
-  --landing-bg-primary: #f4f7f1;
-  --landing-bg-secondary: #dfead7;
-  --landing-surface: rgba(255, 255, 255, 0.82);
-  --landing-text-primary: #183321;
-  --landing-text-secondary: #395646;
-  --landing-text-muted: #698172;
-  --landing-brand-green: #4d8e5a;
-  --landing-brand-accent: #d4a05f;
+  /* Brand — iOS green palette */
+  --landing-brand-green: #34C759;
+  --landing-brand-accent: #30B350;
+  --landing-brand-dark: #248A3D;
+  --landing-brand-light: #E8F5E9;
+
+  /* Text — Apple gray scale */
+  --landing-text-primary: #1D1D1F;
+  --landing-text-secondary: #86868B;
+  --landing-text-muted: #A1A1A6;
+
+  /* Surfaces */
+  --landing-bg-primary: #F5F7FA;
+  --landing-bg-secondary: #FFFFFF;
+  --landing-surface: rgba(255, 255, 255, 0.72);
+  --landing-surface-strong: rgba(255, 255, 255, 0.92);
+
+  /* Borders & lines */
+  --landing-line: rgba(0, 0, 0, 0.08);
+
+  /* Glow */
+  --landing-glow: rgba(52, 199, 89, 0.15);
+
+  /* Radii */
+  --landing-radius-md: 16px;
+  --landing-radius-lg: 20px;
   --landing-radius-xl: 24px;
-  --landing-radius-2xl: 36px;
-  --landing-line: rgba(77, 142, 90, 0.16);
-  --landing-shadow: 0 24px 60px rgba(35, 67, 42, 0.12);
+  --landing-radius-pill: 9999px;
+
+  /* Shadows */
+  --landing-shadow: 0 4px 24px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --landing-shadow-hover: 0 4px 24px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --landing-shadow-glow: 0 4px 16px rgba(52, 199, 89, 0.3), 0 1px 2px rgba(0, 0, 0, 0.1);
+  --landing-shadow-glow-strong: 0 4px 20px rgba(52, 199, 89, 0.35);
 }
 
 [data-theme='dark'] {
-  --landing-bg-primary: #08120d;
-  --landing-bg-secondary: #13231b;
-  --landing-surface: rgba(16, 30, 22, 0.84);
-  --landing-text-primary: #edf5ec;
-  --landing-text-secondary: #c4d8ca;
-  --landing-text-muted: #93ac9a;
-  --landing-brand-green: #7da97f;
-  --landing-brand-accent: #d2b073;
-  --landing-line: rgba(125, 169, 127, 0.22);
-  --landing-shadow: 0 28px 72px rgba(0, 0, 0, 0.38);
+  --landing-brand-green: #32D74B;
+  --landing-brand-accent: #2CC440;
+  --landing-brand-dark: #1F7A33;
+  --landing-brand-light: #133B1E;
+
+  --landing-text-primary: #F2F2F7;
+  --landing-text-secondary: #A1A1A6;
+  --landing-text-muted: #6E6E73;
+
+  --landing-bg-primary: #0B0F12;
+  --landing-bg-secondary: #14181C;
+  --landing-surface: rgba(28, 30, 33, 0.72);
+  --landing-surface-strong: rgba(28, 30, 33, 0.92);
+
+  --landing-line: rgba(255, 255, 255, 0.08);
+
+  --landing-glow: rgba(50, 215, 75, 0.18);
+
+  --landing-shadow: 0 4px 24px rgba(0, 0, 0, 0.45), 0 1px 2px rgba(0, 0, 0, 0.3);
+  --landing-shadow-hover: 0 4px 24px rgba(0, 0, 0, 0.55), 0 1px 2px rgba(0, 0, 0, 0.4);
+  --landing-shadow-glow: 0 4px 16px rgba(50, 215, 75, 0.38), 0 1px 2px rgba(0, 0, 0, 0.2);
+  --landing-shadow-glow-strong: 0 4px 20px rgba(50, 215, 75, 0.45);
 }
 
 *,
@@ -68,19 +102,13 @@ body:has(.landing-app) {
 .landing-app {
   min-height: 100vh;
   color: var(--landing-text-primary);
-  font-family: 'Noto Sans SC', sans-serif;
-  background:
-    radial-gradient(circle at top left, rgba(212, 160, 95, 0.18), transparent 28%),
-    radial-gradient(circle at top right, rgba(77, 142, 90, 0.24), transparent 34%),
-    linear-gradient(180deg, #f8faf6 0%, var(--landing-bg-primary) 44%, #eef4e8 100%);
+  font-family: 'Inter', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+  background: var(--landing-bg-primary);
 }
 
 [data-theme='dark'] body:has(.landing-app),
 [data-theme='dark'] .landing-app {
-  background:
-    radial-gradient(circle at top left, rgba(210, 176, 115, 0.12), transparent 28%),
-    radial-gradient(circle at top right, rgba(125, 169, 127, 0.22), transparent 34%),
-    linear-gradient(180deg, #0b1710 0%, var(--landing-bg-primary) 44%, #111f18 100%);
+  background: var(--landing-bg-primary);
 }
 
 .landing-shell {
@@ -89,17 +117,6 @@ body:has(.landing-app) {
   min-height: 100vh;
 }
 
-.landing-shell::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image:
-    linear-gradient(rgba(77, 142, 90, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(77, 142, 90, 0.05) 1px, transparent 1px);
-  background-size: 44px 44px;
-  opacity: 0.55;
-}
 
 .landing-shell-header,
 .landing-shell-footer,
