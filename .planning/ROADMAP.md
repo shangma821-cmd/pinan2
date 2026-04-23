@@ -92,7 +92,9 @@ Decimal phases appear between their surrounding integers in numeric order.
   1. User visiting the landing sees no visual artifacts caused by academy `index.css` variables leaking into the landing shell — verified by toggling academy imports off and confirming no change in landing appearance.
   2. A documented inventory of all CSS custom properties in `landing.css` and `index.css` confirms zero naming collisions, with any collisions resolved via `.landing-app` scoping or renaming.
   3. Developers can verify scope isolation by reviewing a single authoritative diff showing how landing variables are isolated from the academy scope.
-**Plans**: TBD
+**Plans**: 1 plan
+Plans:
+- [ ] 06-01-PLAN.md — CSS variable collision inventory and body leak isolation verification
 **UI hint**: yes
 
 ### Phase 7: Font System Replacement
@@ -167,7 +169,7 @@ Note: Phase 10 depends only on Phase 6 (independent of animation work) and can b
 | 3. Core Page Reconstruction | 6/6 | Complete | 2026-04-17 |
 | 4. News & Interaction Equivalence | 4/4 | Complete | 2026-04-20 |
 | 5. React Runtime Cutover & Parity QA | 2/2 | Complete | 2026-04-20 |
-| 6. CSS Variable Audit & Scope Isolation | 0/? | Not started | - |
+| 6. CSS Variable Audit & Scope Isolation | 0/1 | Not started | - |
 | 7. Font System Replacement | 0/? | Not started | - |
 | 8. Color Token System (Dark-First) | 0/? | Not started | - |
 | 9. Utility Classes & Keyframe Animations | 0/? | Not started | - |
