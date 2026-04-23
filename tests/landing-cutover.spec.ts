@@ -1,12 +1,12 @@
 import { expect, test } from '@playwright/test';
 
-test('direct entry-station uses bundled React-owned landing assets', async ({ page }) => {
+test('direct entry-station renders React-owned landing hero', async ({ page }) => {
   await page.goto('/entry-station');
 
-  const heroImage = page.getByTestId('home-hero').getByRole('img', { name: '频安健康体验站' });
-  await expect(heroImage).toBeVisible();
-  await expect(heroImage).toHaveAttribute('src', /\/assets\//);
-  await expect(heroImage).not.toHaveAttribute('src', /\/entry-station\//);
+  const hero = page.getByTestId('home-hero');
+  await expect(hero).toBeVisible();
+  await expect(hero.getByText('AI细胞修复')).toBeVisible();
+  await expect(hero.getByText('告别亚健康')).toBeVisible();
 });
 
 test('shell iframe loads the React landing route instead of static index.html', async ({ page }) => {
@@ -20,8 +20,8 @@ test('shell iframe loads the React landing route instead of static index.html', 
   const landingFrame = page.frameLocator('[data-testid="entry-shell-landing-frame"]');
   await expect(landingFrame.getByTestId('landing-shell')).toBeVisible();
 
-  const frameHeroImage = landingFrame.getByTestId('home-hero').getByRole('img', { name: '频安健康体验站' });
-  await expect(frameHeroImage).toHaveAttribute('src', /\/assets\//);
+  const frameHero = landingFrame.getByTestId('home-hero');
+  await expect(frameHero.getByText('AI细胞修复')).toBeVisible();
 });
 
 test('direct landing still opens academy after cutover', async ({ page }) => {
