@@ -80,3 +80,11 @@ test('brand identity matches legacy', async ({ page }) => {
   await expect(page.getByTestId('landing-nav')).toContainText('AI细胞修复体验站');
   await expect(page.getByTestId('landing-footer')).toContainText('频安健康事业部');
 });
+
+test('contact email matches legacy', async ({ page }) => {
+  await page.goto('/entry-station');
+  await expect(page.getByTestId('landing-footer')).toContainText('Pinancs@163.com');
+
+  await page.goto('/entry-station/franchise');
+  await expect(page.getByText('商务邮箱').locator('..')).toContainText('Pinancs@163.com');
+});

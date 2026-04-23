@@ -38,7 +38,7 @@ export default function LandingFooter() {
       </div>
       <div className="landing-footer-bottom">
         <span className="landing-footer-meta">18948301116</span>
-        <span className="landing-footer-meta">franchise@puyuan-health.com</span>
+        <span className="landing-footer-meta">Pinancs@163.com</span>
         <span className="landing-footer-meta">江苏省苏州市常熟市东南街道久隆路88号</span>
         <button
           type="button"

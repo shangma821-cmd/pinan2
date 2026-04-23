@@ -42,7 +42,7 @@ export default function FranchiseApplication() {
           </div>
           <div className="landing-contact-item">
             <strong>商务邮箱</strong>
-            <span>franchise@puyuan-health.com</span>
+            <span>Pinancs@163.com</span>
           </div>
           <div className="landing-contact-item">
             <strong>总部地址</strong>
