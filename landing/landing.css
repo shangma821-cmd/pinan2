@@ -660,6 +660,32 @@ body:has(.landing-app) {
   background: radial-gradient(circle, rgba(212, 160, 95, 0.26), transparent 66%);
 }
 
+/* ─── Apple-style card (shared utility — used by HomePainPoints, HomeAdvantages, etc.) ── */
+.landing-apple-card {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+  box-shadow: var(--landing-shadow);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+.landing-apple-card:hover {
+  box-shadow: var(--landing-shadow-hover);
+  transform: translateY(-2px);
+}
+[data-theme='dark'] .landing-apple-card {
+  background: rgba(28, 30, 33, 0.72);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ─── Gradient text (shared utility) ─────────────────────────────────────── */
+.landing-gradient-text {
+  background: linear-gradient(135deg, #34C759 0%, #30B350 50%, #248A3D 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 .landing-card-grid,
 .landing-grid-3,
 .landing-grid-4 {
@@ -1742,4 +1768,235 @@ body:has(.landing-app) {
 [data-theme='dark'] .landing-credential-pill {
   background: rgba(28, 30, 33, 0.72);
   border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ─── HomePainPoints section ──────────────────────────────────────────────── */
+
+.landing-pain-section {
+  position: relative;
+  padding: 80px 0;
+  overflow: hidden;
+  margin: 0 -20px;
+}
+@media (min-width: 1024px) {
+  .landing-pain-section { padding: 112px 0; }
+}
+
+.landing-pain-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.landing-pain-bg-base {
+  position: absolute;
+  inset: 0;
+  background: var(--landing-bg-primary);
+}
+.landing-pain-bg-glow {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 300px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(52, 199, 89, 0.2) 0%, transparent 70%);
+  filter: blur(64px);
+  opacity: 0.2;
+}
+
+.landing-pain-inner {
+  position: relative;
+  z-index: 10;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+@media (min-width: 640px) {
+  .landing-pain-inner { padding: 0 24px; }
+}
+@media (min-width: 1024px) {
+  .landing-pain-inner { padding: 0 32px; }
+}
+
+/* Header */
+.landing-pain-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+.landing-pain-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  margin-bottom: 24px;
+  border-radius: 9999px;
+  background: rgba(52, 199, 89, 0.1);
+  border: 1px solid rgba(52, 199, 89, 0.2);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--landing-brand-green);
+}
+.landing-pain-title {
+  margin: 0 0 16px;
+  font-family: 'Montserrat', 'Inter', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--landing-text-primary);
+  line-height: 1.2;
+}
+@media (min-width: 1024px) {
+  .landing-pain-title { font-size: 48px; }
+}
+
+/* Stat grid */
+.landing-pain-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 64px;
+}
+@media (min-width: 1024px) {
+  .landing-pain-stats {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+  }
+}
+
+.landing-pain-stat {
+  padding: 24px;
+  text-align: center;
+}
+.landing-pain-stat-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 16px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  background: rgba(52, 199, 89, 0.1);
+  color: var(--landing-brand-green);
+}
+.landing-pain-stat-icon svg {
+  width: 24px;
+  height: 24px;
+  stroke-width: 2;
+}
+.landing-pain-stat-value {
+  font-family: 'Montserrat', 'Inter', sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--landing-text-primary);
+  margin-bottom: 4px;
+}
+@media (min-width: 1024px) {
+  .landing-pain-stat-value { font-size: 36px; }
+}
+.landing-pain-stat-heading {
+  font-weight: 600;
+  color: var(--landing-text-primary);
+  margin-bottom: 4px;
+}
+.landing-pain-stat-desc {
+  font-size: 14px;
+  color: var(--landing-text-muted);
+}
+
+/* Pain-point cards */
+.landing-pain-points-heading {
+  text-align: center;
+  margin: 0 0 32px;
+  font-family: 'Montserrat', 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--landing-text-primary);
+}
+@media (min-width: 1024px) {
+  .landing-pain-points-heading { font-size: 24px; }
+}
+.landing-pain-danger-emphasis {
+  color: #EF4444;
+}
+.landing-pain-points-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+@media (min-width: 768px) {
+  .landing-pain-points-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+.landing-pain-point {
+  padding: 24px;
+  border-left: 4px solid #EF4444;
+}
+.landing-pain-point-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  background: rgba(239, 68, 68, 0.1);
+  color: #EF4444;
+}
+.landing-pain-point-icon svg {
+  width: 24px;
+  height: 24px;
+  stroke-width: 2;
+}
+.landing-pain-point-title {
+  margin: 0 0 12px;
+  font-family: 'Montserrat', 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--landing-text-primary);
+}
+.landing-pain-point-body {
+  margin: 0;
+  font-size: 14px;
+  color: var(--landing-text-secondary);
+  line-height: 1.6;
+}
+
+/* Policy banner */
+.landing-pain-policy {
+  margin-top: 48px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+@media (min-width: 1024px) {
+  .landing-pain-policy {
+    padding: 32px;
+    flex-direction: row;
+  }
+}
+.landing-pain-policy-copy {
+  text-align: center;
+}
+@media (min-width: 1024px) {
+  .landing-pain-policy-copy { text-align: left; }
+}
+.landing-pain-policy-title {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--landing-text-primary);
+}
+.landing-pain-policy-desc {
+  margin: 0;
+  font-size: 14px;
+  color: var(--landing-text-secondary);
+  line-height: 1.7;
+}
+.landing-pain-policy-badge {
+  flex-shrink: 0;
+  padding: 12px 24px;
+  border-radius: 12px;
+  background: rgba(52, 199, 89, 0.1);
+  font-weight: 600;
+  color: var(--landing-brand-green);
 }
