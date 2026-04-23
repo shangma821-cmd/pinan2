@@ -37,7 +37,7 @@ Requirements for pixel-perfect visual compliance. Each maps to roadmap phases.
 - [ ] **CSSVAR-01**: 用户看到的 landing 默认主题为暗色（dark-first），`:root` 包含完整暗色 token 值
 - [ ] **CSSVAR-02**: 用户切换到浅色主题时，`[data-theme=light]` 覆盖层提供完整的 15 个语义 token
 - [ ] **CSSVAR-03**: 品牌绿色在暗色主题为 `#7a9e7a`、浅色主题为 `#34C759`，与 baseline 一致
-- [ ] **CSSVAR-04**: landing CSS 变量与 academy `index.css` 无命名冲突，scope 隔离已验证
+- [x] **CSSVAR-04**: landing CSS 变量与 academy `index.css` 无命名冲突，scope 隔离已验证
 - [ ] **CSSVAR-05**: 首次加载无白色闪烁（synchronous theme script in `index.html`）
 
 ### Typography
@@ -94,7 +94,7 @@ Requirements for pixel-perfect visual compliance. Each maps to roadmap phases.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| CSSVAR-04 | Phase 6 | Pending |
+| CSSVAR-04 | Phase 6 | Complete |
 | TYPO-01 | Phase 7 | Pending |
 | TYPO-02 | Phase 7 | Pending |
 | TYPO-03 | Phase 7 | Pending |

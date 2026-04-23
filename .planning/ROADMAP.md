@@ -17,7 +17,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 3: Core Page Reconstruction** - Rebuild Home, About, Products, and Franchise in React against the approved baseline pack.
 - [x] **Phase 4: News & Interaction Equivalence** - Rebuild news and cross-page interactions in React with baseline-equivalent behavior.
 - [x] **Phase 5: React Runtime Cutover & Parity QA** - Switch public landing runtime ownership from transitional assets to React output and prove parity under shell and direct loads.
-- [ ] **Phase 6: CSS Variable Audit & Scope Isolation** - Neutralize academy/landing CSS variable collision risk and verify scope isolation before authoring new token values.
+- [x] **Phase 6: CSS Variable Audit & Scope Isolation** - Neutralize academy/landing CSS variable collision risk and verify scope isolation before authoring new token values. (completed 2026-04-23)
 - [ ] **Phase 7: Font System Replacement** - Replace Noto Sans SC with self-hosted Inter + Montserrat fonts and stabilize layout reflow before per-pixel measurement begins.
 - [ ] **Phase 8: Color Token System (Dark-First)** - Invert the token polarity to dark-first `:root` with complete 15-token set and corrected brand green, gating all subsequent effect work.
 - [ ] **Phase 9: Utility Classes & Keyframe Animations** - Implement glass-effect, text-gradient, shadow-glow utility classes and all baseline keyframe animations including accessibility degradation.
@@ -94,7 +94,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Developers can verify scope isolation by reviewing a single authoritative diff showing how landing variables are isolated from the academy scope.
 **Plans**: 1 plan
 Plans:
-- [ ] 06-01-PLAN.md — CSS variable collision inventory and body leak isolation verification
+- [x] 06-01-PLAN.md — CSS variable collision inventory and body leak isolation verification
 **UI hint**: yes
 
 ### Phase 7: Font System Replacement
@@ -169,7 +169,7 @@ Note: Phase 10 depends only on Phase 6 (independent of animation work) and can b
 | 3. Core Page Reconstruction | 6/6 | Complete | 2026-04-17 |
 | 4. News & Interaction Equivalence | 4/4 | Complete | 2026-04-20 |
 | 5. React Runtime Cutover & Parity QA | 2/2 | Complete | 2026-04-20 |
-| 6. CSS Variable Audit & Scope Isolation | 0/1 | Not started | - |
+| 6. CSS Variable Audit & Scope Isolation | 1/1 | Complete   | 2026-04-23 |
 | 7. Font System Replacement | 0/? | Not started | - |
 | 8. Color Token System (Dark-First) | 0/? | Not started | - |
 | 9. Utility Classes & Keyframe Animations | 0/? | Not started | - |
