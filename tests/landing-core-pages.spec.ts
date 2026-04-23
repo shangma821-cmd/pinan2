@@ -76,8 +76,8 @@ test('home interaction parity', async ({ page }) => {
 
 test('brand identity matches legacy', async ({ page }) => {
   await page.goto('/entry-station');
+  await expect(page.getByTestId('landing-nav')).toContainText('频安科技');
   await expect(page.getByTestId('landing-nav')).toContainText('频安健康');
-  await expect(page.getByTestId('landing-nav')).toContainText('AI细胞修复体验站');
   await expect(page.getByTestId('landing-footer')).toContainText('频安健康事业部');
 });
 

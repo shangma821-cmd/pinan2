@@ -12,8 +12,8 @@ async function expectLandingShell(page: Page) {
   await expect(page.getByTestId('landing-shell')).toBeVisible();
   await expect(page.getByTestId('landing-nav')).toBeVisible();
   await expect(page.getByTestId('landing-footer')).toBeVisible();
-  await expect(page.getByTestId('landing-nav').getByText('频安健康', { exact: true })).toBeVisible();
-  await expect(page.getByTestId('landing-nav').getByRole('link', { name: '了解加盟政策' })).toBeVisible();
+  await expect(page.getByTestId('landing-nav').getByText('频安科技', { exact: true })).toBeVisible();
+  await expect(page.getByTestId('landing-nav').getByRole('button', { name: '联系我们' })).toBeVisible();
   await expect(page.getByTestId('landing-theme-toggle')).toBeVisible();
   await expect(page.getByTestId('landing-back-to-top')).toBeVisible();
 }
