@@ -57,3 +57,19 @@ test('franchise page reconstruction', async ({ page }) => {
   await expect(page.getByText('立即申请加盟')).toBeVisible();
   await expect(page.getByTestId('landing-page-franchise').getByText('18948301116')).toBeVisible();
 });
+
+test('home interaction parity', async ({ page }) => {
+  await page.goto('/entry-station');
+
+  const advantage = page.getByRole('button', { name: /模式壁垒：公平返利，用户自动裂变/ });
+  await advantage.click();
+  await expect(page.getByTestId('home-advantages-item-2')).toHaveAttribute('data-active', 'true');
+
+  const processStep = page.getByTestId('home-process-step-2');
+  await processStep.click();
+  await expect(processStep).toHaveAttribute('data-active', 'true');
+
+  await page.getByTestId('home-results').scrollIntoViewIfNeeded();
+  await expect(page.getByTestId('home-results-stat-users')).toHaveText('5000+');
+  await expect(page.getByTestId('home-results-stat-satisfaction')).toHaveText('92%');
+});

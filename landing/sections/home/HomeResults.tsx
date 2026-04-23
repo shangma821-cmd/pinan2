@@ -1,10 +1,12 @@
+import { useEffect, useRef, useState } from 'react';
+
 import { landingAssetPaths } from '../../assets';
 
 const proofStats = [
-  { value: '5000+', label: '体验用户沉淀' },
-  { value: '92%', label: '服务满意度' },
-  { value: '45%', label: '转介绍转化率提升' },
-  { value: '60%+', label: '单店年增长空间' },
+  { finalValue: 5000, suffix: '+', label: '体验用户沉淀', testId: 'home-results-stat-users' },
+  { finalValue: 92, suffix: '%', label: '服务满意度', testId: 'home-results-stat-satisfaction' },
+  { finalValue: 45, suffix: '%', label: '转介绍转化率提升', testId: 'home-results-stat-referral' },
+  { finalValue: 60, suffix: '%+', label: '单店年增长空间', testId: 'home-results-stat-growth' },
 ];
 
 const cases = [
@@ -21,16 +23,65 @@ const cases = [
 ];
 
 export default function HomeResults() {
+  const [values, setValues] = useState(() => proofStats.map(() => 0));
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const sectionRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const node = sectionRef.current;
+    if (!node || hasAnimated) return undefined;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting) return;
+        setHasAnimated(true);
+        observer.disconnect();
+      },
+      {
+        threshold: 0.2,
+        rootMargin: '0px 0px -10% 0px',
+      },
+    );
+
+    observer.observe(node);
+
+    return () => observer.disconnect();
+  }, [hasAnimated]);
+
+  useEffect(() => {
+    if (!hasAnimated) return undefined;
+
+    let frame = 0;
+    const totalFrames = 36;
+    const timer = window.setInterval(() => {
+      frame += 1;
+      setValues(
+        proofStats.map((item) => {
+          if (frame >= totalFrames) return item.finalValue;
+          return Math.round((item.finalValue * frame) / totalFrames);
+        }),
+      );
+
+      if (frame >= totalFrames) {
+        window.clearInterval(timer);
+      }
+    }, 55);
+
+    return () => window.clearInterval(timer);
+  }, [hasAnimated]);
+
   return (
-    <section data-testid="home-results" className="landing-section">
+    <section ref={sectionRef} data-testid="home-results" className="landing-section">
       <p className="landing-kicker">案例与证据</p>
       <h2 className="landing-section-title">成果与声誉</h2>
       <div className="landing-results-split">
         <div className="landing-results-grid">
           <div className="landing-stat-grid">
-            {proofStats.map((item) => (
-              <article key={item.value} className="landing-stat-card">
-                <span className="landing-stat-value">{item.value}</span>
+            {proofStats.map((item, index) => (
+              <article key={item.label} className="landing-stat-card">
+                <span data-testid={item.testId} className="landing-stat-value">
+                  {`${values[index]}${item.suffix}`}
+                </span>
                 <span className="landing-stat-label">{item.label}</span>
               </article>
             ))}

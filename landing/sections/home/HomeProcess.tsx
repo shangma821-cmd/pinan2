@@ -45,6 +45,8 @@ export default function HomeProcess() {
               <button
                 key={step.title}
                 type="button"
+                data-testid={`home-process-step-${index}`}
+                data-active={isActive ? 'true' : 'false'}
                 className={isActive ? 'landing-process-step is-active' : 'landing-process-step'}
                 onClick={() => setActiveIndex(index)}
               >

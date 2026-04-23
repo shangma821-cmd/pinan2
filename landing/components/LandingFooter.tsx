@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 export default function LandingFooter() {
   return (
-    <div className="landing-footer landing-surface">
+    <div data-testid="landing-footer" className="landing-footer landing-surface">
       <div className="landing-footer-grid">
         <div>
           <h2 className="landing-footer-title">频安AI智能商学院</h2>
@@ -40,6 +40,15 @@ export default function LandingFooter() {
         <span className="landing-footer-meta">18948301116</span>
         <span className="landing-footer-meta">franchise@puyuan-health.com</span>
         <span className="landing-footer-meta">江苏省苏州市常熟市东南街道久隆路88号</span>
+        <button
+          type="button"
+          data-testid="landing-back-to-top"
+          aria-label="返回顶部"
+          className="landing-back-to-top"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        >
+          返回顶部
+        </button>
       </div>
     </div>
   );

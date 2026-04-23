@@ -6,13 +6,13 @@ import LandingNav from './LandingNav';
 export default function LandingShell() {
   return (
     <div data-testid="landing-shell" className="landing-app landing-shell">
-      <header data-testid="landing-nav" className="landing-shell-header">
+      <header className="landing-shell-header">
         <LandingNav />
       </header>
       <main className="landing-shell-main">
         <Outlet />
       </main>
-      <footer data-testid="landing-footer" className="landing-shell-footer">
+      <footer className="landing-shell-footer">
         <LandingFooter />
       </footer>
     </div>

@@ -36,6 +36,8 @@ export default function HomeAdvantages() {
           return (
             <article
               key={item.title}
+              data-testid={`home-advantages-item-${index}`}
+              data-active={isActive ? 'true' : 'false'}
               className={isActive ? 'landing-expandable-item is-active' : 'landing-expandable-item'}
             >
               <button

@@ -1,6 +1,7 @@
 ﻿import React, { useCallback, useEffect, useState } from 'react';
 import App from './App';
 import LandingApp from './landing/LandingApp';
+import { LANDING_IFRAME_SRC } from './landing/runtimeConfig';
 import './entry-shell.css';
 
 type EntryMode = 'home' | 'landing' | 'academy';
@@ -47,8 +48,9 @@ function EntryHome() {
   return (
     <div className="entry-shell entry-shell-home-only">
       <iframe
+        data-testid="entry-shell-landing-frame"
         title="频安入口首页"
-        src="/entry-station/index.html?v=20260311-3"
+        src={LANDING_IFRAME_SRC}
         className="entry-shell-frame entry-shell-frame-full"
       />
     </div>
