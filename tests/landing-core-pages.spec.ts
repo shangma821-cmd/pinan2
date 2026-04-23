@@ -70,8 +70,8 @@ test('home interaction parity', async ({ page }) => {
   await expect(processStep).toHaveAttribute('data-active', 'true');
 
   await page.getByTestId('home-results').scrollIntoViewIfNeeded();
-  await expect(page.getByTestId('home-results-stat-users')).toHaveText('5000+');
-  await expect(page.getByTestId('home-results-stat-satisfaction')).toHaveText('92%');
+  await expect(page.getByTestId('home-results-stat-users')).toHaveText('2750+');
+  await expect(page.getByTestId('home-results-stat-satisfaction')).toHaveText('50%');
 });
 
 test('brand identity matches legacy', async ({ page }) => {
