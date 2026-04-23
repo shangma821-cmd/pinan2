@@ -1636,3 +1636,110 @@ body:has(.landing-app) {
 [data-theme='dark'] .landing-button-secondary:hover {
   background: rgba(28, 30, 33, 0.92);
 }
+
+/* ─── Credential marquee ───────────────────────────────────────────────────── */
+
+.landing-credential-section {
+  position: relative;
+  padding: 64px 0;
+  overflow: hidden;
+  margin: 0 -20px;
+  background-color: rgba(52, 199, 89, 0.03);
+  border-top: 1px solid rgba(52, 199, 89, 0.1);
+  border-bottom: 1px solid rgba(52, 199, 89, 0.1);
+}
+
+.landing-credential-header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 0 16px;
+}
+.landing-credential-eyebrow {
+  margin: 0;
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--landing-text-muted);
+}
+
+.landing-credential-marquee {
+  position: relative;
+}
+.landing-credential-fade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 128px;
+  z-index: 10;
+  pointer-events: none;
+}
+.landing-credential-fade--left {
+  left: 0;
+  background: linear-gradient(90deg, var(--landing-bg-primary) 0%, transparent 100%);
+}
+.landing-credential-fade--right {
+  right: 0;
+  background: linear-gradient(270deg, var(--landing-bg-primary) 0%, transparent 100%);
+}
+
+.landing-credential-track {
+  display: flex;
+  width: max-content;
+  animation: landing-marquee 30s linear infinite;
+}
+.landing-credential-track:hover {
+  animation-play-state: paused;
+}
+
+.landing-credential-pill {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  margin: 0 12px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  transition: transform .3s ease, box-shadow .3s ease;
+  white-space: nowrap;
+}
+.landing-credential-pill svg {
+  width: 20px;
+  height: 20px;
+  stroke-width: 2;
+  color: var(--landing-brand-green);
+  flex-shrink: 0;
+}
+.landing-credential-pill span {
+  font-size: 14px;
+  color: var(--landing-text-secondary);
+  white-space: nowrap;
+}
+
+@keyframes landing-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-credential-track { animation: none; }
+}
+
+/* Dark mode */
+[data-theme='dark'] .landing-credential-section {
+  background-color: rgba(50, 215, 75, 0.04);
+  border-color: rgba(50, 215, 75, 0.12);
+}
+[data-theme='dark'] .landing-credential-fade--left {
+  background: linear-gradient(90deg, var(--landing-bg-primary) 0%, transparent 100%);
+}
+[data-theme='dark'] .landing-credential-fade--right {
+  background: linear-gradient(270deg, var(--landing-bg-primary) 0%, transparent 100%);
+}
+[data-theme='dark'] .landing-credential-pill {
+  background: rgba(28, 30, 33, 0.72);
+  border-color: rgba(255, 255, 255, 0.08);
+}
