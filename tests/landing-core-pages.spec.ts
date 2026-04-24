@@ -10,7 +10,7 @@ test('home page reconstruction', async ({ page }) => {
   await expect(page.getByText('4大核心壁垒，同行难复制')).toBeVisible();
   await expect(page.getByText('服务闭环，无断点体验')).toBeVisible();
   await expect(page.getByText('成果与声誉')).toBeVisible();
-  await expect(page.getByTestId('home-news-preview').getByRole('heading', { name: '资讯动态' })).toBeVisible();
+  await expect(page.getByTestId('home-news-preview').getByRole('heading', { name: /洞察与.*动态/ })).toBeVisible();
 });
 
 test('home CTA routes', async ({ page }) => {
