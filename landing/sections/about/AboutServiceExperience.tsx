@@ -1,25 +1,53 @@
 import { landingAssetPaths } from '../../assets';
 
-const checklist = ['免费检测', '靶向修复', '数据追踪', '返利留存'];
+function IconCircleCheck() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+      <circle cx="12" cy="12" r="10" />
+      <path d="m9 12 2 2 4-4" />
+    </svg>
+  );
+}
+
+const features = [
+  '无创检测，安全舒适',
+  '15-20分钟快速完成',
+  '专业医师一对一解读',
+  '个性化健康方案定制',
+];
 
 export default function AboutServiceExperience() {
   return (
-    <section className="landing-section landing-two-column">
-      <div className="landing-surface">
-        <p className="landing-kicker">服务体验</p>
-        <h2 className="landing-section-title">贴心服务体验</h2>
-        <p className="landing-section-copy">
-          用户从入店体验到家庭追踪都有统一服务路径，减少理解成本，也让门店更容易复制交付标准。
-        </p>
-        <ul className="landing-list">
-          {checklist.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
+    <section
+      data-testid="about-service-experience"
+      className="landing-about-service-section"
+    >
+      <div className="landing-about-service-bg" />
+      <div className="landing-about-service-inner">
+        <div className="landing-about-service-grid">
+          <div className="landing-about-service-media">
+            <img src={landingAssetPaths.serviceScene} alt="健康检测服务" />
+          </div>
+          <div className="landing-about-service-copy">
+            <h2 className="landing-about-service-title">
+              贴心<span className="landing-about-service-title-accent">服务</span>体验
+            </h2>
+            <p className="landing-about-service-lead">
+              我们提供舒适、专业的健康检测环境，让每一位客户都能在放松的状态下完成全面检测。
+            </p>
+            <ul className="landing-about-service-list">
+              {features.map((item) => (
+                <li key={item} className="landing-about-service-item">
+                  <span className="landing-about-service-item-icon">
+                    <IconCircleCheck />
+                  </span>
+                  <span className="landing-about-service-item-text">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
-      <article className="landing-photo-card">
-        <img src={landingAssetPaths.serviceScene} alt="贴心服务体验服务场景" />
-      </article>
     </section>
   );
 }
