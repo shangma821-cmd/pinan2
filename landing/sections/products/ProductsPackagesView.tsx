@@ -1,42 +1,66 @@
-const packages = [
+interface PackageSpec {
+  title: string;
+  price: string;
+  unit: string;
+  audience: string;
+  perks: string[];
+  featured?: boolean;
+}
+
+const packages: PackageSpec[] = [
   {
     title: '周卡',
     price: '199',
-    copy: '适合首次体验用户，快速完成基础服务闭环。',
+    unit: '元/周',
+    audience: '首次体验用户',
+    perks: ['1次AI细胞检测', '3次靶向修复', '基础健康报告'],
   },
   {
     title: '月卡',
     price: '599',
-    copy: '适合需要持续追踪和轻度干预的门店客群。',
+    unit: '元/月',
+    audience: '需持续追踪客群',
+    perks: ['4次AI细胞检测', '20次靶向修复', '专属健康顾问'],
   },
   {
     title: '年卡',
     price: '3650',
-    copy: '适合门店重点经营的核心客群，形成稳定留存和复购。',
+    unit: '元/年',
+    audience: '门店核心客群',
+    perks: ['12次AI细胞检测', '不限次靶向修复', '智能手环免费用'],
     featured: true,
   },
   {
     title: '家庭卡',
     price: '5980',
-    copy: '覆盖多成员健康管理场景，提升家庭级客单和服务深度。',
+    unit: '元/年',
+    audience: '多成员健康管理',
+    perks: ['全家3人共用', '不限次AI细胞检测', '富氢水机会员折扣'],
   },
 ];
 
 export default function ProductsPackagesView() {
   return (
-    <section className="landing-package-grid">
-      {packages.map((item) => (
+    <div data-testid="products-packages" className="landing-products-packages-grid">
+      {packages.map((p) => (
         <article
-          key={item.title}
-          className={item.featured ? 'landing-package-card is-featured' : 'landing-package-card'}
+          key={p.title}
+          className={`landing-products-package-card${p.featured ? ' is-featured' : ''}`}
         >
-          {item.featured ? <span className="landing-badge">推荐</span> : null}
-          <h3 className="landing-card-title">{item.title}</h3>
-          <div className="landing-price">{item.price}</div>
-          <div className="landing-price-subtle">会员套餐</div>
-          <p className="landing-card-copy">{item.copy}</p>
+          {p.featured ? <span className="landing-products-package-badge">推荐</span> : null}
+          <h3 className="landing-products-package-title">{p.title}</h3>
+          <div className="landing-products-package-price">
+            <span className="landing-products-package-price-value">{p.price}</span>
+            <span className="landing-products-package-price-unit">{p.unit}</span>
+          </div>
+          <p className="landing-products-package-audience">{p.audience}</p>
+          <ul className="landing-products-package-perks">
+            {p.perks.map((perk) => (
+              <li key={perk}>{perk}</li>
+            ))}
+          </ul>
         </article>
       ))}
-    </section>
+    </div>
   );
 }

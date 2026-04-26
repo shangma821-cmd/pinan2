@@ -5,10 +5,10 @@ type ProductsViewToggleProps = {
 
 export default function ProductsViewToggle({ activeView, onChange }: ProductsViewToggleProps) {
   return (
-    <div className="landing-toggle" aria-label="产品视图切换">
+    <div className="landing-products-toggle" aria-label="产品视图切换">
       <button
         type="button"
-        className={activeView === 'products' ? 'landing-toggle-button is-active' : 'landing-toggle-button'}
+        className={`landing-products-toggle-btn${activeView === 'products' ? ' is-active' : ''}`}
         aria-pressed={activeView === 'products'}
         onClick={() => onChange('products')}
       >
@@ -16,7 +16,7 @@ export default function ProductsViewToggle({ activeView, onChange }: ProductsVie
       </button>
       <button
         type="button"
-        className={activeView === 'packages' ? 'landing-toggle-button is-active' : 'landing-toggle-button'}
+        className={`landing-products-toggle-btn${activeView === 'packages' ? ' is-active' : ''}`}
         aria-pressed={activeView === 'packages'}
         onClick={() => onChange('packages')}
       >

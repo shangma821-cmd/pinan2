@@ -12,8 +12,13 @@ export default function LandingProductsPage() {
   return (
     <div data-testid="landing-page-products" className="landing-page-container">
       <ProductsHero />
-      <ProductsViewToggle activeView={activeView} onChange={setActiveView} />
-      {activeView === 'products' ? <ProductsCatalogView /> : <ProductsPackagesView />}
+      <section className="landing-products-list-section">
+        <div className="landing-products-list-bg" />
+        <div className="landing-products-list-inner">
+          <ProductsViewToggle activeView={activeView} onChange={setActiveView} />
+          {activeView === 'products' ? <ProductsCatalogView /> : <ProductsPackagesView />}
+        </div>
+      </section>
       <ProductsCases />
     </div>
   );
