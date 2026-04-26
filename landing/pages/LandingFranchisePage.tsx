@@ -9,11 +9,18 @@ export default function LandingFranchisePage() {
   return (
     <div data-testid="landing-page-franchise" className="landing-page-container">
       <FranchiseHero />
-      <FranchiseModels />
-      <FranchiseRevenueTable />
-      <FranchiseSupport />
-      <FranchiseGuarantees />
-      <FranchiseApplication />
+      <section className="landing-franchise-body-section">
+        <div className="landing-franchise-body-bg" />
+        <div className="landing-franchise-body-inner">
+          <FranchiseModels />
+          <FranchiseRevenueTable />
+          <div className="landing-franchise-two-col">
+            <FranchiseSupport />
+            <FranchiseGuarantees />
+          </div>
+          <FranchiseApplication />
+        </div>
+      </section>
     </div>
   );
 }
