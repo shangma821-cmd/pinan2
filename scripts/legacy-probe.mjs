@@ -44,7 +44,9 @@ function args() {
     const key = argv[i];
     if (key.startsWith('--')) {
       const name = key.slice(2);
-      const value = argv[i + 1] && !argv[i + 1].startsWith('--') ? argv[++i] : 'true';
+      const next = argv[i + 1];
+      const hasValue = next !== undefined && !next.startsWith('--');
+      const value = hasValue ? argv[++i] : 'true';
       out[name] = value;
     }
   }
