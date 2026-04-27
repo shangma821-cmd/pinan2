@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom';
 
+import LandingContactModal from './LandingContactModal';
 import LandingFooter from './LandingFooter';
 import LandingNav from './LandingNav';
 
@@ -15,6 +16,7 @@ export default function LandingShell() {
       <footer className="landing-shell-footer">
         <LandingFooter />
       </footer>
+      <LandingContactModal />
     </div>
   );
 }

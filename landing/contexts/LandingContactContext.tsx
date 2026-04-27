@@ -11,15 +11,8 @@ const LandingContactContext = createContext<LandingContactContextValue | null>(n
 export function LandingContactProvider({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const open = useCallback(() => {
-    // TODO: wire contact modal UI in follow-up task
-    console.info('[LandingContact] contact modal opened (placeholder)');
-    setIsOpen(true);
-  }, []);
-
-  const close = useCallback(() => {
-    setIsOpen(false);
-  }, []);
+  const open = useCallback(() => setIsOpen(true), []);
+  const close = useCallback(() => setIsOpen(false), []);
 
   return (
     <LandingContactContext.Provider value={{ isOpen, open, close }}>
