@@ -135,8 +135,6 @@ body:has(.landing-app) {
 .landing-shell-main {
   display: flex;
   flex-direction: column;
-  gap: 32px;
-  padding: 18px 20px 56px;
 }
 
 /* ─── Nav ─────────────────────────────────────────────────────────────────── */
@@ -446,11 +444,8 @@ body:has(.landing-app) {
 }
 
 .landing-page-container {
-  width: min(1240px, 100%);
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 24px;
 }
 
 .landing-page-header {
@@ -1274,8 +1269,7 @@ body:has(.landing-app) {
 }
 
 @media (max-width: 800px) {
-  .landing-shell-header,
-  .landing-shell-main {
+  .landing-shell-header {
     padding-left: 14px;
     padding-right: 14px;
   }
@@ -1344,8 +1338,6 @@ body:has(.landing-app) {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  /* cancel the parent section-gap and horizontal padding since we need full bleed */
-  margin: -18px -20px 0;
 }
 
 /* Bg stack */
@@ -1672,6 +1664,10 @@ body:has(.landing-app) {
   stroke-width: 2;
   color: var(--landing-brand-green);
   flex-shrink: 0;
+  transition: transform .3s ease;
+}
+.landing-credential-pill:hover svg {
+  transform: scale(1.1);
 }
 .landing-credential-pill span {
   font-size: 14px;
@@ -4592,3 +4588,38 @@ body:has(.landing-app) {
   color: #e2e8f0;
 }
 [data-theme='dark'] .landing-contact-modal-link { color: #4ade80; }
+
+/* ─── Scroll-reveal system ────────────────────────────────────────────────── */
+.landing-reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.landing-reveal--up-lg { transform: translateY(48px); }
+.landing-reveal--up-sm { transform: translateY(16px); }
+.landing-reveal--left  { transform: translateX(-48px); }
+.landing-reveal--right { transform: translateX(48px); }
+.landing-reveal[data-duration="1000"] {
+  transition-duration: 1000ms;
+}
+.landing-reveal[data-delay="100"] { transition-delay: 100ms; }
+.landing-reveal[data-delay="200"] { transition-delay: 200ms; }
+.landing-reveal[data-delay="300"] { transition-delay: 300ms; }
+.landing-reveal[data-delay="400"] { transition-delay: 400ms; }
+.landing-reveal[data-delay="500"] { transition-delay: 500ms; }
+.landing-reveal[data-delay="600"] { transition-delay: 600ms; }
+.landing-reveal[data-delay="700"] { transition-delay: 700ms; }
+.landing-reveal[data-revealed="true"] {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .landing-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

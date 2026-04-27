@@ -1,3 +1,5 @@
+import { useReveal } from '../../hooks/useReveal';
+
 type IconName =
   | 'users'
   | 'trending-up'
@@ -107,6 +109,11 @@ const painPoints = [
 ];
 
 export default function HomePainPoints() {
+  const header = useReveal<HTMLDivElement>();
+  const statsGrid = useReveal<HTMLDivElement>();
+  const painCards = useReveal<HTMLDivElement>();
+  const policy = useReveal<HTMLDivElement>();
+
   return (
     <section data-testid="home-pain-points" className="landing-pain-section">
       <div className="landing-pain-bg">
@@ -115,7 +122,11 @@ export default function HomePainPoints() {
       </div>
       <div className="landing-pain-inner">
         {/* Header */}
-        <div className="landing-pain-header">
+        <div
+          ref={header.ref}
+          data-revealed={header.revealed || undefined}
+          className="landing-pain-header landing-reveal"
+        >
           <div className="landing-pain-eyebrow">
             <span>市场分析</span>
           </div>
@@ -125,7 +136,11 @@ export default function HomePainPoints() {
         </div>
 
         {/* 4-stat grid */}
-        <div className="landing-pain-stats">
+        <div
+          ref={statsGrid.ref}
+          data-revealed={statsGrid.revealed || undefined}
+          className="landing-pain-stats landing-reveal"
+        >
           {stats.map((stat) => (
             <article key={stat.heading} className="landing-pain-stat landing-apple-card">
               <div className="landing-pain-stat-icon">
@@ -139,7 +154,12 @@ export default function HomePainPoints() {
         </div>
 
         {/* Pain-point cards */}
-        <div className="landing-pain-points">
+        <div
+          ref={painCards.ref}
+          data-revealed={painCards.revealed || undefined}
+          data-delay="300"
+          className="landing-pain-points landing-reveal"
+        >
           <h3 className="landing-pain-points-heading">
             传统模式<span className="landing-pain-danger-emphasis">3大痛点</span>，合伙人难盈利
           </h3>
@@ -157,7 +177,12 @@ export default function HomePainPoints() {
         </div>
 
         {/* 政策红利 banner */}
-        <div className="landing-pain-policy landing-apple-card">
+        <div
+          ref={policy.ref}
+          data-revealed={policy.revealed || undefined}
+          data-delay="500"
+          className="landing-pain-policy landing-apple-card landing-reveal"
+        >
           <div className="landing-pain-policy-copy">
             <h4 className="landing-pain-policy-title">政策红利</h4>
             <p className="landing-pain-policy-desc">

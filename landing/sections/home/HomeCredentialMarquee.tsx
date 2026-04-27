@@ -1,3 +1,5 @@
+import { useReveal } from '../../hooks/useReveal';
+
 type CredentialItem = { label: string; icon: 'award' | 'heart-pulse' | 'shield' | 'sparkles' | 'zap' | 'leaf' };
 
 const items: CredentialItem[] = [
@@ -73,9 +75,15 @@ function Icon({ name }: { name: CredentialItem['icon'] }) {
 }
 
 export default function HomeCredentialMarquee() {
+  const header = useReveal<HTMLDivElement>();
+
   return (
     <section data-testid="home-credentials" className="landing-credential-section">
-      <div className="landing-credential-header">
+      <div
+        ref={header.ref}
+        data-revealed={header.revealed || undefined}
+        className="landing-credential-header landing-reveal landing-reveal--up-sm"
+      >
         <p className="landing-credential-eyebrow">国家认证 · 技术领先 · 值得信赖</p>
       </div>
       <div className="landing-credential-marquee">

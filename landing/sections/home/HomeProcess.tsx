@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+import { useReveal } from '../../hooks/useReveal';
+
 type StepIconName = 'scan' | 'heart-pulse' | 'chart-column' | 'gift';
 
 function StepIcon({ name }: { name: StepIconName }) {
@@ -109,6 +111,8 @@ const steps: Step[] = [
 
 export default function HomeProcess() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const header = useReveal<HTMLDivElement>();
+  const stepsWrap = useReveal<HTMLDivElement>();
 
   useEffect(() => {
     const t = setInterval(() => setActiveIndex((i) => (i + 1) % 4), 5000);
@@ -123,7 +127,11 @@ export default function HomeProcess() {
 
       <div className="landing-process-inner">
         {/* Header */}
-        <div className="landing-process-header">
+        <div
+          ref={header.ref}
+          data-revealed={header.revealed || undefined}
+          className="landing-process-header landing-reveal"
+        >
           <div className="landing-process-eyebrow">
             <span>服务流程</span>
           </div>
@@ -134,7 +142,12 @@ export default function HomeProcess() {
         </div>
 
         {/* Steps */}
-        <div className="landing-process-steps-wrap">
+        <div
+          ref={stepsWrap.ref}
+          data-revealed={stepsWrap.revealed || undefined}
+          data-delay="500"
+          className="landing-process-steps-wrap landing-reveal landing-reveal--up-lg"
+        >
           {/* Progress rail (desktop only) */}
           <div className="landing-process-timeline" aria-hidden="true">
             <div className="landing-process-timeline-rail">

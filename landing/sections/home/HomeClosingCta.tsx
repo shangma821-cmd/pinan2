@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 
+import { useReveal } from '../../hooks/useReveal';
+
 function IconArrowRight() {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
@@ -18,6 +20,8 @@ function IconPhone() {
 }
 
 export default function HomeClosingCta() {
+  const content = useReveal<HTMLDivElement>();
+
   return (
     <section data-testid="home-closing-cta" className="landing-closing-section">
       <div className="landing-closing-bg-base" />
@@ -25,7 +29,11 @@ export default function HomeClosingCta() {
         <div className="landing-closing-bg-glow" />
       </div>
       <div className="landing-closing-inner">
-        <div className="landing-closing-content">
+        <div
+          ref={content.ref}
+          data-revealed={content.revealed || undefined}
+          className="landing-closing-content landing-reveal"
+        >
           <div className="landing-closing-eyebrow">
             <span>加盟合作</span>
           </div>

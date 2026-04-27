@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { landingAssetPaths } from '../../assets';
+import { useReveal } from '../../hooks/useReveal';
 
 const tiers = [
   {
@@ -90,6 +91,8 @@ function TierIcon({ name }: { name: string }) {
 
 export default function HomeAdvantages() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const leftCol = useReveal<HTMLDivElement>();
+  const rightCol = useReveal<HTMLDivElement>();
 
   return (
     <section data-testid="home-advantages" className="landing-advantages-section">
@@ -98,7 +101,12 @@ export default function HomeAdvantages() {
       <div className="landing-advantages-inner">
         <div className="landing-advantages-grid">
           {/* Left column */}
-          <div className="landing-advantages-copy">
+          <div
+            ref={leftCol.ref}
+            data-revealed={leftCol.revealed || undefined}
+            data-duration="1000"
+            className="landing-advantages-copy landing-reveal landing-reveal--left"
+          >
             <div className="landing-advantages-eyebrow"><span>核心优势</span></div>
             <h2 className="landing-advantages-title">
               4大核心壁垒，<span className="landing-gradient-text">同行难复制</span>
@@ -140,7 +148,13 @@ export default function HomeAdvantages() {
           </div>
 
           {/* Right column */}
-          <div className="landing-advantages-visual">
+          <div
+            ref={rightCol.ref}
+            data-revealed={rightCol.revealed || undefined}
+            data-duration="1000"
+            data-delay="200"
+            className="landing-advantages-visual landing-reveal landing-reveal--right"
+          >
             <div className="landing-advantages-visual-frame">
               <img src={landingAssetPaths.whyChoose} alt="频安健康核心竞争力" />
             </div>

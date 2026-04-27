@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import { landingNewsArticles } from '../../content/newsContent';
+import { useReveal } from '../../hooks/useReveal';
 
 function IconArrowRight() {
   return (
@@ -24,12 +25,18 @@ function IconCalendar() {
 
 export default function HomeNewsPreview() {
   const articles = landingNewsArticles.slice(0, 3);
+  const header = useReveal<HTMLDivElement>();
+  const grid = useReveal<HTMLDivElement>();
 
   return (
     <section data-testid="home-news-preview" className="landing-news-preview-section">
       <div className="landing-news-preview-overlay" />
       <div className="landing-news-preview-inner">
-        <div className="landing-news-preview-header">
+        <div
+          ref={header.ref}
+          data-revealed={header.revealed || undefined}
+          className="landing-news-preview-header landing-reveal"
+        >
           <div className="landing-news-preview-header-copy">
             <div className="landing-news-preview-eyebrow"><span>资讯动态</span></div>
             <h2 className="landing-news-preview-title">
@@ -43,7 +50,12 @@ export default function HomeNewsPreview() {
           </Link>
         </div>
 
-        <div className="landing-news-preview-grid">
+        <div
+          ref={grid.ref}
+          data-revealed={grid.revealed || undefined}
+          data-delay="500"
+          className="landing-news-preview-grid landing-reveal landing-reveal--up-lg"
+        >
           {articles.map((article) => (
             <Link key={article.id} to={`/news?id=${article.id}`} className="landing-news-preview-card">
               <div className="landing-news-preview-card-media">
