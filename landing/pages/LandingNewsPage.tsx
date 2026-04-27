@@ -73,7 +73,7 @@ export default function LandingNewsPage() {
   if (activeArticle) {
     return (
       <div data-testid="landing-page-news" className="landing-page-container">
-        <section className="landing-news-detail-section">
+        <section data-testid="news-detail-view" className="landing-news-detail-section">
           <div className="landing-news-detail-bg" />
           <div className="landing-news-detail-inner">
             <button

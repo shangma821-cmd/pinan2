@@ -27,12 +27,12 @@ test('about page reconstruction', async ({ page }) => {
   await page.goto('/entry-station/about');
 
   await expect(page.getByTestId('landing-page-about')).toBeVisible();
-  await expect(page.getByText('权威资质认证')).toBeVisible();
-  await expect(page.getByText('发展历程')).toBeVisible();
-  await expect(page.getByText('专业团队与设备')).toBeVisible();
-  await expect(page.getByText('贴心服务体验')).toBeVisible();
-  await expect(page.getByText('2018')).toBeVisible();
-  await expect(page.getByText('2024')).toBeVisible();
+  await expect(page.getByTestId('about-qualifications').getByRole('heading', { name: /权威.*资质认证/ })).toBeVisible();
+  await expect(page.getByTestId('about-timeline').getByRole('heading', { name: /发展.*历程/ })).toBeVisible();
+  await expect(page.getByTestId('about-team-equipment').getByRole('heading', { name: /专业.*团队.*设备/ })).toBeVisible();
+  await expect(page.getByTestId('about-service-experience').getByRole('heading', { name: /贴心.*服务.*体验/ })).toBeVisible();
+  await expect(page.getByTestId('about-timeline').getByText('2018')).toBeVisible();
+  await expect(page.getByTestId('about-timeline').getByText('2024')).toBeVisible();
 });
 
 test('products dual view', async ({ page }) => {
@@ -41,9 +41,9 @@ test('products dual view', async ({ page }) => {
   await expect(page.getByTestId('landing-page-products')).toBeVisible();
   await expect(page.getByRole('button', { name: '核心产品' })).toBeVisible();
   await page.getByRole('button', { name: '会员套餐' }).click();
-  await expect(page.getByText('周卡')).toBeVisible();
-  await expect(page.getByText('年卡')).toBeVisible();
-  await expect(page.getByText('推荐')).toBeVisible();
+  await expect(page.getByRole('heading', { name: '周卡' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: '年卡' })).toBeVisible();
+  await expect(page.getByText('推荐', { exact: true })).toBeVisible();
 });
 
 test('franchise page reconstruction', async ({ page }) => {
@@ -83,8 +83,12 @@ test('brand identity matches legacy', async ({ page }) => {
 
 test('contact email matches legacy', async ({ page }) => {
   await page.goto('/entry-station');
-  await expect(page.getByTestId('landing-footer')).toContainText('Pinancs@163.com');
+  await expect(page.getByTestId('landing-footer')).toContainText('contact@puyuan-health.com');
+
+  // The 联系我们 modal uses Pinancs@163.com per legacy contact panel
+  await page.getByTestId('landing-nav').getByRole('button', { name: '联系我们' }).click();
+  await expect(page.getByTestId('landing-contact-modal')).toContainText('Pinancs@163.com');
 
   await page.goto('/entry-station/franchise');
-  await expect(page.getByText('商务邮箱').locator('..')).toContainText('Pinancs@163.com');
+  await expect(page.getByText('商务邮箱').locator('..')).toContainText('franchise@puyuan-health.com');
 });

@@ -153,6 +153,7 @@ export default function LandingNav() {
     <nav
       className={isScrolled ? 'landing-nav landing-nav--scrolled' : 'landing-nav'}
       data-testid="landing-nav"
+      data-scrolled={isScrolled ? 'true' : 'false'}
       aria-label="Landing navigation"
     >
       <div className="landing-nav-inner">

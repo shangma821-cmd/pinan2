@@ -24,13 +24,15 @@ test('news detail opens from query string and returns to list', async ({ page })
 test('theme persists across landing navigation and reload', async ({ page }) => {
   await page.goto('/entry-station');
 
-  const themeToggle = page.getByTestId('landing-theme-toggle');
-  await expect(themeToggle).toContainText(/日间模式|夜间模式/);
-  await expect(themeToggle).toContainText(/☀|☾/);
+  const themeToggle = page.getByTestId('landing-theme-toggle').first();
+  await expect(themeToggle).toBeVisible();
+  await expect(themeToggle).toHaveAttribute('aria-label', /日间模式|夜间模式/);
 
+  const initialLabel = await themeToggle.getAttribute('aria-label');
   await themeToggle.click();
-  await expect(themeToggle).toContainText(/日间模式|夜间模式/);
-  await expect(themeToggle).toContainText(/☀|☾/);
+  await expect(themeToggle).toHaveAttribute('aria-label', /日间模式|夜间模式/);
+  const toggledLabel = await themeToggle.getAttribute('aria-label');
+  expect(initialLabel).not.toBe(toggledLabel);
 
   await page.goto('/entry-station/news');
   await page.reload();

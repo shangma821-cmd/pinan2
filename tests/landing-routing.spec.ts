@@ -14,7 +14,7 @@ async function expectLandingShell(page: Page) {
   await expect(page.getByTestId('landing-footer')).toBeVisible();
   await expect(page.getByTestId('landing-nav').getByText('频安科技', { exact: true })).toBeVisible();
   await expect(page.getByTestId('landing-nav').getByRole('button', { name: '联系我们' })).toBeVisible();
-  await expect(page.getByTestId('landing-theme-toggle')).toBeVisible();
+  await expect(page.getByTestId('landing-theme-toggle').first()).toBeVisible();
   await expect(page.getByTestId('landing-back-to-top')).toBeVisible();
 }
 
@@ -28,7 +28,9 @@ test('entry-station shell ownership', async ({ page }) => {
   await expectLandingShell(page);
   await expect(page.getByTestId('landing-page-about')).toBeVisible();
   await expect(page).toHaveURL(/\/entry-station\/about$/);
-  await expect(page.getByRole('link', { name: '关于我们' })).toHaveClass(/is-active/);
+  await expect(
+    page.getByTestId('landing-nav').getByRole('link', { name: '关于我们' })
+  ).toHaveClass(/is-active/);
 });
 
 test('five landing routes', async ({ page }) => {
