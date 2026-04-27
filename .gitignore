@@ -26,3 +26,7 @@ dist-ssr
 *.sw?
 preset-source-pdfs
 node_modules
+
+# Local agent / scratch dirs
+.claude/
+tmp/
