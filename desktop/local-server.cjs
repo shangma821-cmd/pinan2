@@ -78,7 +78,7 @@ const buildVolcConfig = () => {
       "VITE_VOLC_ACCESS_TOKEN"
     ),
     resourceId: pickEnv("VOLC_DIALOG_RESOURCE_ID", "VITE_VOLC_DIALOG_RESOURCE_ID", "volc.speech.dialog"),
-    appKey: pickEnv("VOLC_DIALOG_APP_KEY", "VITE_VOLC_DIALOG_APP_KEY", "PlgvMymc7f3tQnJ6"),
+    appKey: pickEnv("VOLC_DIALOG_APP_KEY", "VITE_VOLC_DIALOG_APP_KEY"),
   };
 
   return { tts, asr, dialog };

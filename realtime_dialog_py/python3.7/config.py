@@ -1,5 +1,6 @@
 import uuid
 import pyaudio
+import os
 
 # 配置信息
 ws_connect_config = {
@@ -8,7 +9,7 @@ ws_connect_config = {
         "X-Api-App-ID": "",
         "X-Api-Access-Key": "",
         "X-Api-Resource-Id": "volc.speech.dialog",  # 固定值
-        "X-Api-App-Key": "PlgvMymc7f3tQnJ6",  # 固定值
+        "X-Api-App-Key": os.getenv("VOLC_DIALOG_APP_KEY", ""),
         "X-Api-Connect-Id": str(uuid.uuid4()),
     }
 }

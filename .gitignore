@@ -10,6 +10,9 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+test-results
+playwright-report
+.worktrees
 *.local
 .env.deploy
 
@@ -18,6 +21,8 @@ dist-ssr
 !.vscode/extensions.json
 .idea
 .DS_Store
+__MACOSX/
+._*
 *.suo
 *.ntvs*
 *.njsproj
@@ -25,3 +30,7 @@ dist-ssr
 *.sw?
 preset-source-pdfs
 node_modules
+
+# Local agent / scratch dirs
+.claude/
+tmp/

@@ -291,13 +291,14 @@ func main() {
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
 
-	conn, resp, err := websocket.DefaultDialer.DialContext(ctx, wsURL.String(), http.Header{
-		"X-Api-Resource-Id": []string{"volc.speech.dialog"},
-		"X-Api-Access-Key":  []string{accessToken},
-		"X-Api-App-Key":     []string{"PlgvMymc7f3tQnJ6"},
-		"X-Api-App-ID":      []string{appid},
-		"X-Api-Connect-Id":  []string{uuid.New().String()},
-	})
+		appKey := os.Getenv("VOLC_DIALOG_APP_KEY")
+		conn, resp, err := websocket.DefaultDialer.DialContext(ctx, wsURL.String(), http.Header{
+			"X-Api-Resource-Id": []string{"volc.speech.dialog"},
+			"X-Api-Access-Key":  []string{accessToken},
+			"X-Api-App-Key":     []string{appKey},
+			"X-Api-App-ID":      []string{appid},
+			"X-Api-Connect-Id":  []string{uuid.New().String()},
+		})
 	if err != nil {
 		glog.Errorf("Websocket dial error: %v", err)
 		return

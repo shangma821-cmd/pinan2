@@ -26,7 +26,7 @@ View your app in AI Studio: https://ai.studio/apps/drive/1JqsWM7FPfTTFWBnJNs4ibJ
    - `VITE_VOLC_DIALOG_APP_ID`
    - `VITE_VOLC_DIALOG_ACCESS_TOKEN`
    - `VITE_VOLC_DIALOG_RESOURCE_ID`
-   - (Optional) `VITE_VOLC_DIALOG_APP_KEY` (default: `PlgvMymc7f3tQnJ6`)
+   - `VITE_VOLC_DIALOG_APP_KEY`
    - (Optional) `VITE_VOLC_DIALOG_ENDPOINT=/api/volc-dialog`
 6. If realtime websocket startup fails and you see `requested resource not granted`, the configured
    `VITE_VOLC_DIALOG_RESOURCE_ID` is not granted to your AppID/AccessToken pair. Use the resource ID

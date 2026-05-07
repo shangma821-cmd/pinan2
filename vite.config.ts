@@ -13,7 +13,7 @@ export default defineConfig(({ mode }) => {
     const volcDialogAppId = env.VITE_VOLC_DIALOG_APP_ID || env.VITE_VOLC_TTS_APP_ID || env.VITE_VOLC_APP_ID || '';
     const volcDialogAccessToken = env.VITE_VOLC_DIALOG_ACCESS_TOKEN || env.VITE_VOLC_TTS_ACCESS_TOKEN || env.VITE_VOLC_ACCESS_TOKEN || '';
     const volcDialogResourceId = env.VITE_VOLC_DIALOG_RESOURCE_ID || 'volc.speech.dialog';
-    const volcDialogAppKey = env.VITE_VOLC_DIALOG_APP_KEY || 'PlgvMymc7f3tQnJ6';
+    const volcDialogAppKey = env.VITE_VOLC_DIALOG_APP_KEY || '';
     const toSingleHeaderValue = (value: unknown): string => {
       if (Array.isArray(value)) return String(value[0] || '').trim();
       return String(value || '').trim();
@@ -63,7 +63,6 @@ export default defineConfig(({ mode }) => {
     });
 
     const createConnectId = (): string => `${Date.now()}-${Math.random().toString(16).slice(2)}`;
-
     return {
       server: {
         port: 3000,

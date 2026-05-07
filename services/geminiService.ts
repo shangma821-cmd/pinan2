@@ -27,7 +27,6 @@ const DEFAULT_VOLC_ASR_SUBMIT_ENDPOINT = "/api/volc-asr-submit";
 const DEFAULT_VOLC_ASR_QUERY_ENDPOINT = "/api/volc-asr-query";
 const DEFAULT_VOLC_DIALOG_RESOURCE_ID = "volc.speech.dialog";
 const DEFAULT_VOLC_DIALOG_ENDPOINT = "/api/volc-dialog";
-const DEFAULT_VOLC_DIALOG_APP_KEY = "PlgvMymc7f3tQnJ6";
 const DEFAULT_VOLC_DIALOG_TIMEOUT_MS = 60000;
 const DEFAULT_VOLC_DIALOG_CONNECT_TIMEOUT_MS = 12000;
 const DEFAULT_VOLC_DIALOG_SESSION_READY_TIMEOUT_MS = 18000;
@@ -292,7 +291,7 @@ const readVolcRealtimeDialogConfig = () => {
   const appKey = String(
     processEnv.VITE_VOLC_DIALOG_APP_KEY ||
       metaEnv.VITE_VOLC_DIALOG_APP_KEY ||
-      DEFAULT_VOLC_DIALOG_APP_KEY
+      ""
   ).trim();
   const endpoint = String(
     processEnv.VITE_VOLC_DIALOG_ENDPOINT ||
