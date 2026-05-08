@@ -36,10 +36,10 @@
 
 ## Verification Record
 
-- Build command: PENDING
-- Build artifact: PENDING
-- Preview URL: PENDING
-- Preview PID: PENDING
+- Build command: PASS (npm run build)
+- Build artifact: PASS (dist/entry-station/index.html)
+- Preview URL: http://127.0.0.1:4273
+- Preview PID: 78378
 - Manual pass: /: PENDING
 - Manual pass: landing -> academy: PENDING
 - Manual pass: academy -> /: PENDING
