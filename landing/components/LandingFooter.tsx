@@ -108,9 +108,35 @@ export default function LandingFooter() {
         </div>
 
         <div className="landing-footer-bottom">
-          <span className="landing-footer-copy">
-            © 2025 常熟频安科技有限公司 · 频安科技. 保留所有权利.
-          </span>
+          <div className="landing-footer-legal">
+            <span className="landing-footer-copy">
+              © 2026 常熟频安科技有限公司 · 频安科技. 保留所有权利.
+            </span>
+            <a
+              href="https://beian.miit.gov.cn/"
+              target="_blank"
+              rel="noreferrer"
+              className="landing-footer-beian-link"
+            >
+              苏ICP备2026026637号-2
+            </a>
+            <a
+              href="https://beian.mps.gov.cn/#/query/webSearch?code=32058102002980"
+              target="_blank"
+              rel="noreferrer"
+              className="landing-footer-beian-link landing-footer-beian-link-with-icon"
+            >
+              <img
+                src="/police-badge.png"
+                alt=""
+                aria-hidden="true"
+                width="14"
+                height="14"
+                className="landing-footer-beian-icon"
+              />
+              苏公网安备32058102002980号
+            </a>
+          </div>
           <div className="landing-footer-bottom-right">
             <span className="landing-footer-meta">专注智慧健康管理服务</span>
             <button

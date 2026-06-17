@@ -4709,6 +4709,27 @@ body:has(.landing-app) {
   font-size: 13px;
   color: var(--landing-text-tertiary, var(--landing-text-secondary));
 }
+.landing-footer-legal {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px;
+  font-size: 13px;
+  color: var(--landing-text-tertiary, var(--landing-text-secondary));
+}
+.landing-footer-beian-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px;
+  color: var(--landing-text-tertiary, var(--landing-text-secondary));
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.landing-footer-beian-link:hover {
+  color: var(--landing-brand-green);
+}
+.landing-footer-beian-icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 14px; height: 14px;
+  object-fit: contain;
+}
 .landing-footer-bottom-right {
   display: flex; align-items: center; gap: 16px;
 }
