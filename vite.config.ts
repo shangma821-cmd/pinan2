@@ -1,6 +1,50 @@
+import fs from 'fs';
 import path from 'path';
-import { defineConfig, loadEnv } from 'vite';
+import { defineConfig, loadEnv, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
+
+// Elastic product manuals: scan public/entry-station/manuals/*.pdf at build (and
+// dev-server) time and expose the result as the `virtual:manuals-manifest`
+// module. The PDF filename (sans extension) is the permanent slug/NFC id, so the
+// page adapts to however many PDFs exist — drop a PDF, rebuild, it appears.
+function manualsManifestPlugin(): Plugin {
+  const VIRTUAL_ID = 'virtual:manuals-manifest';
+  const RESOLVED_ID = '\0' + VIRTUAL_ID;
+  const manualsDir = path.resolve(__dirname, 'public/entry-station/manuals');
+
+  const scan = (): Array<{ id: string; file: string }> => {
+    let files: string[] = [];
+    try {
+      files = fs.readdirSync(manualsDir).filter((name) => /\.pdf$/i.test(name));
+    } catch {
+      files = [];
+    }
+    files.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
+    return files.map((file) => ({ id: file.replace(/\.pdf$/i, ''), file }));
+  };
+
+  return {
+    name: 'pinan-manuals-manifest',
+    resolveId(id) {
+      return id === VIRTUAL_ID ? RESOLVED_ID : undefined;
+    },
+    load(id) {
+      if (id !== RESOLVED_ID) return undefined;
+      return `export const manualsManifest = ${JSON.stringify(scan())};`;
+    },
+    configureServer(server) {
+      server.watcher.add(manualsDir);
+      const onChange = (changed: string) => {
+        if (!changed.startsWith(manualsDir) || !/\.pdf$/i.test(changed)) return;
+        const mod = server.moduleGraph.getModuleById(RESOLVED_ID);
+        if (mod) server.moduleGraph.invalidateModule(mod);
+        server.ws.send({ type: 'full-reload' });
+      };
+      server.watcher.on('add', onChange);
+      server.watcher.on('unlink', onChange);
+    },
+  };
+}
 
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
@@ -112,7 +156,7 @@ export default defineConfig(({ mode }) => {
           },
         },
       },
-      plugins: [react()],
+      plugins: [react(), manualsManifestPlugin()],
       define: {
         'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
         'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),

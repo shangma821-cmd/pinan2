@@ -46,3 +46,33 @@ test('five landing routes', async ({ page }) => {
     await expect(page).toHaveURL(route.urlPattern);
   }
 });
+
+test('manuals hub route (elastic, cold load)', async ({ page }) => {
+  // The manual list is built from the PDFs in public/entry-station/manuals/.
+  // The hub route resolves regardless of count: it shows cards when PDFs exist,
+  // otherwise an empty state. Both keep the page shell + URL intact.
+  await page.goto('/entry-station/manuals');
+  await expectLandingShell(page);
+  await expect(page.getByTestId('landing-page-manuals')).toBeVisible();
+  await expect(page).toHaveURL(/\/entry-station\/manuals$/);
+
+  const grid = page.getByTestId('manuals-grid');
+  const empty = page.getByTestId('manuals-empty');
+  await expect(grid.or(empty)).toBeVisible();
+});
+
+test('manual detail route: unknown slug redirects to hub', async ({ page }) => {
+  // A mistyped or stale NFC slug bounces to the hub rather than dead-ending.
+  await page.goto('/entry-station/manuals/does-not-exist');
+  await expect(page.getByTestId('landing-page-manuals')).toBeVisible();
+  await expect(page).toHaveURL(/\/entry-station\/manuals$/);
+});
+
+test('footer exposes product manual link', async ({ page }) => {
+  await page.goto('/entry-station');
+  const footerLink = page.getByTestId('landing-footer').getByRole('link', { name: '产品使用说明' });
+  await expect(footerLink).toBeVisible();
+  await footerLink.click();
+  await expect(page.getByTestId('landing-page-manuals')).toBeVisible();
+  await expect(page).toHaveURL(/\/entry-station\/manuals$/);
+});

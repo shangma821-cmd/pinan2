@@ -87,6 +87,7 @@ export default function LandingFooter() {
           <div className="landing-footer-col">
             <h3 className="landing-footer-col-heading">支持</h3>
             <ul className="landing-footer-col-list">
+              <li><Link to="/manuals">产品使用说明</Link></li>
               <li><a href="#">技术支持</a></li>
               <li><a href="#">常见问题</a></li>
               <li>

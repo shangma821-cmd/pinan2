@@ -5,6 +5,8 @@ import { landingRouteMetadata, type LandingPageKey, type LandingRouteRecord } fr
 import LandingAboutPage from './pages/LandingAboutPage';
 import LandingFranchisePage from './pages/LandingFranchisePage';
 import LandingHomePage from './pages/LandingHomePage';
+import LandingManualDetailPage from './pages/LandingManualDetailPage';
+import LandingManualsPage from './pages/LandingManualsPage';
 import LandingNewsPage from './pages/LandingNewsPage';
 import LandingProductsPage from './pages/LandingProductsPage';
 
@@ -34,6 +36,10 @@ export function LandingRoutes() {
 
             return <Route key={route.key} path={toRoutePath(route.path)} element={pageElement} />;
           })}
+          {/* Product manuals — intentionally NOT in landingRouteMetadata so they
+              stay out of the main nav; reached via the footer link and NFC tags. */}
+          <Route path="manuals" element={<LandingManualsPage />} />
+          <Route path="manuals/:manualId" element={<LandingManualDetailPage />} />
         </Route>
       </Routes>
     </div>

@@ -5979,3 +5979,303 @@ body:has(.landing-app) {
     transition: none !important;
   }
 }
+
+/* ─── Product Manuals (说明书) ─────────────────────────────────────────────── */
+
+.landing-manuals-hero-section {
+  position: relative;
+  padding: 96px 20px 40px;
+  overflow: hidden;
+}
+
+.landing-manuals-hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(60% 80% at 50% 0%, var(--landing-glow), transparent 70%),
+    var(--landing-bg-primary);
+  z-index: 0;
+}
+
+.landing-manuals-hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 880px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.landing-manuals-hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 16px;
+  border: 1px solid var(--landing-line);
+  border-radius: var(--landing-radius-pill);
+  background: var(--landing-surface);
+  color: var(--landing-brand-accent);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.landing-manuals-hero-title {
+  margin: 18px 0 10px;
+  font-size: clamp(28px, 6vw, 44px);
+  font-weight: 800;
+  color: var(--landing-text-primary);
+}
+
+.landing-manuals-hero-title-accent {
+  color: var(--landing-brand-green);
+}
+
+.landing-manuals-hero-lead {
+  margin: 0 auto;
+  max-width: 560px;
+  color: var(--landing-text-secondary);
+  font-size: clamp(14px, 3.4vw, 17px);
+  line-height: 1.7;
+}
+
+.landing-manuals-list-section {
+  position: relative;
+  padding: 24px 20px 80px;
+}
+
+.landing-manuals-list-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.landing-manuals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.landing-manuals-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--landing-line);
+  border-radius: var(--landing-radius-lg);
+  background: var(--landing-bg-secondary);
+  box-shadow: var(--landing-shadow);
+  overflow: hidden;
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.landing-manuals-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--landing-shadow-hover);
+}
+
+.landing-manuals-card-media {
+  background: var(--landing-bg-primary);
+  border-bottom: 1px solid var(--landing-line);
+}
+
+.landing-manuals-card-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 20px;
+}
+
+.landing-manuals-card-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--landing-text-primary);
+}
+
+.landing-manuals-card-more {
+  flex-shrink: 0;
+  color: var(--landing-brand-accent);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.landing-manuals-empty {
+  padding: 64px 24px;
+  border: 1px dashed var(--landing-line);
+  border-radius: var(--landing-radius-lg);
+  background: var(--landing-surface);
+  color: var(--landing-text-secondary);
+  text-align: center;
+}
+
+.landing-manuals-empty-title {
+  margin: 0 0 8px;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--landing-text-primary);
+}
+
+/* Thumbnail (auto-rendered PDF first page) */
+.landing-manual-thumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  padding: 16px;
+}
+
+.landing-manual-thumb-canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--landing-radius-md);
+  box-shadow: var(--landing-shadow);
+}
+
+.landing-manual-thumb-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: var(--landing-text-muted);
+  font-size: 13px;
+}
+
+.landing-manual-thumb-placeholder svg {
+  width: 40px;
+  height: 40px;
+  stroke-width: 1.5;
+}
+
+/* Detail page */
+.landing-manual-detail-section {
+  position: relative;
+  padding: 88px 16px 72px;
+  background: var(--landing-bg-primary);
+}
+
+.landing-manual-detail-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.landing-manual-detail-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--landing-text-secondary);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.landing-manual-detail-back svg {
+  width: 18px;
+  height: 18px;
+}
+
+.landing-manual-detail-back:hover {
+  color: var(--landing-brand-accent);
+}
+
+.landing-manual-detail-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: 16px 0 24px;
+}
+
+.landing-manual-detail-title {
+  margin: 0;
+  font-size: clamp(22px, 5vw, 32px);
+  font-weight: 800;
+  color: var(--landing-text-primary);
+}
+
+.landing-manual-detail-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: var(--landing-radius-pill);
+  background: var(--landing-brand-green);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: var(--landing-shadow-glow);
+  transition: filter 0.2s ease;
+}
+
+.landing-manual-detail-action svg {
+  width: 16px;
+  height: 16px;
+}
+
+.landing-manual-detail-action:hover {
+  filter: brightness(1.05);
+}
+
+/* Inline PDF viewer */
+.landing-manual-viewer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.landing-manual-viewer-page {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--landing-radius-md);
+  box-shadow: var(--landing-shadow);
+  background: #fff;
+}
+
+.landing-manual-viewer-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 64px 24px;
+  border: 1px dashed var(--landing-line);
+  border-radius: var(--landing-radius-lg);
+  background: var(--landing-surface);
+  color: var(--landing-text-secondary);
+  text-align: center;
+}
+
+.landing-manual-viewer-state-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--landing-text-primary);
+}
+
+.landing-manual-spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid var(--landing-line);
+  border-top-color: var(--landing-brand-green);
+  border-radius: 50%;
+  animation: landing-manual-spin 0.8s linear infinite;
+}
+
+@keyframes landing-manual-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-manual-spinner {
+    animation: none;
+  }
+}
