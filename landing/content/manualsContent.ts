@@ -22,7 +22,7 @@ export interface LandingManual {
 
 /** Optional display-name overrides, keyed by slug (PDF filename without .pdf). */
 const displayNames: Record<string, string> = {
-  // p1: '产品一',
+  p1: '人工智能全息生理数据采集分析系统',
   // p2: '产品二',
 };
 
